@@ -5,7 +5,7 @@
 This project uses the following technologies:
 
 - **Language**: [JavaScript]
-- **Frameworks/Libraries**: [React, Redux, React Flow, React Router, React Icons, clsx, ]
+- **Frameworks/Libraries**: [React, Redux, React Flow, React Router, React Icons, clsx, React Testing Library, TailwindCSS]
 - **Build Tool**: Vite
 - **Tools**: [Git, Cloudflare Pages]
 
