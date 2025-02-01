@@ -1,8 +1,34 @@
-# React + Vite
+# Junction Flow, Software Engineering (CS261) Group Project, University of Warwick
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Tech
 
-Currently, two official plugins are available:
+This project uses the following technologies:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Language**: [JavaScript]
+- **Frameworks/Libraries**: [React, Redux, React Flow, React Router, React Icons, clsx, ]
+- **Build Tool**: Vite
+- **Tools**: [Git, Cloudflare Pages]
+
+## Prerequisites
+
+Ensure you have the following installed:
+- [Node.js](https://nodejs.org/en/) (version 20 or higher)
+
+## Installing Locally
+
+To get started with the React course locally, follow these steps:
+
+1. **Clone the repository**:
+   
+   ```bash
+   git clone https://github.com/Astral-Lab/CS261.get
+
+2. **Install dependencies**:
+   
+   ```bash
+   npm install
+
+3. **Run the program**:
+   
+   ```bash
+   npm run dev
