@@ -1,8 +1,15 @@
 /**
  * 
  */
-export function computeAvergaeQueueTime() {
+export function computeAverageQueueTime() {
     
+}
+
+/**
+ * 
+ */
+export function computeMaxQueueTime(arrivalRate, departureRate, redLightDuration) {
+    return redLightDuration + (arrivalRate * redLightDuration) / (departureRate - arrivalRate);
 }
 
 /**
