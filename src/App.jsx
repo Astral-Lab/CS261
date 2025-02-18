@@ -6,9 +6,11 @@ import {
   addEdge,
   Background,
   Controls,
-  MiniMap
+  MiniMap,
+  Panel
 } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
+import Toolbar from "./components/Toolbar";
 
 const initialNodes = [
   { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
@@ -35,8 +37,10 @@ export default function App() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
       >
+        <Panel position="top-left">toolbar</Panel>
+        <Panel position="top-right">logo</Panel>
         <Controls/>
-        {/* <MiniMap/> */}
+        <MiniMap/>
         <Background variant="dots" gap={12} size={1}/>
       </ReactFlow>
     </div>
