@@ -1,5 +1,3 @@
-import { IoMdPlay } from "react-icons/io";
-
 export default function ToolbarButton({
     icon,
     onClick,
@@ -11,6 +9,6 @@ export default function ToolbarButton({
             // title={title}
             // onClick={null}
             // disabled={false}
-        ><IoMdPlay size={"20px"}/></button>
+        >{icon}</button>
     )
 }

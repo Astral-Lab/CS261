@@ -12,3 +12,5 @@ export const MAX_SIDE_LANES = 5;
 export const CANVAS_STYLES = {
     background: "#F0F0F0"
 }
+
+export const DEFAULT_ICON_SIZE = 20;
