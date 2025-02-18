@@ -8,3 +8,7 @@ export const TRAFFIC_LIGHT_COUNT = 4;
 export const VEHICLE_CROSSING_SPEED = 0;
 export const MIN_SIDE_LANES = 1;
 export const MAX_SIDE_LANES = 5;
+
+export const CANVAS_STYLES = {
+    background: "#F0F0F0"
+}

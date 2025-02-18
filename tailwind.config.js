@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        "atkinson": ["Atkinson Hyperlegible Next", "serif"],
+      }
+    },
   },
   plugins: [],
 }

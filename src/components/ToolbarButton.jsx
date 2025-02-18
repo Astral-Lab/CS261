@@ -6,13 +6,11 @@ export default function ToolbarButton({
     disabled
 }) {
     return (
-        <button 
-            className="w-12 h-12 rounded-lg bg-blue-500"
-            title={title}
-            onClick={onClick}
-            disabled={disabled}
-        >
-            <IoMdPlay size={"32px"}/>
-        </button>
+        <button
+            className="w-12 h-12 flex justify-center items-center bg-white border-[1px] border-gray-300 drop-shadow-sm rounded-lg transition-colors duration-300 hover:bg-gray-300"
+            // title={title}
+            // onClick={null}
+            // disabled={false}
+        ><IoMdPlay size={"20px"}/></button>
     )
 }
