@@ -2,7 +2,6 @@ import {
     configureStore, 
     combineReducers 
 } from "@reduxjs/toolkit";
-
 import {
     persistReducer,
     FLUSH,
@@ -13,17 +12,17 @@ import {
     REGISTER
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import junctionReducer from "./junctionSlice";
 
 const reducers = combineReducers({
-    // insert reducers here
+    junctions: junctionReducer
 });
 
 const persistConfig = {
     key: "root",
     version: 1,
     storage,
-    // blacklist: [apiSlice.reducerPath],
-};
+}
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
