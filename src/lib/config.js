@@ -14,10 +14,6 @@ export const MIN_TRAFFIC_LIGHT_DURATION = 0;
 // vehicle constants
 export const CAR_LENGTH = 0;
 export const CAR_GAP = 0;
-export const BUS_LENGTH = 0;
-export const BUS_GAP = 0;
-export const BIKE_LENGTH = 0;
-export const BIKE_GAP = 0;
 export const VEHICLE_DEPATURE_SPEED = 0;
 
 export const CANVAS_STYLES = {
@@ -25,3 +21,28 @@ export const CANVAS_STYLES = {
 }
 
 export const DEFAULT_ICON_SIZE = 20;
+
+// layout 
+export const JUNCTION_LAYOUTS = {
+
+}
+
+export const LANE_SIDE_OPTIONS = {
+    "1": {
+        label: "nortbound",
+        handleLocation: "Bottom",
+    },
+    "2": {
+        label: "eastbound",
+        handleLocation: "Left"
+    },
+    "3": {
+        label: "southbound",
+        handleLocation: "Top"
+    },
+    "4": {
+        label: "westbound",
+        handleLocation: "Right"
+    }
+}
+

@@ -19,7 +19,7 @@ export default function JunctionLaneNode(props) {
         <>
             <Handle 
                 type="source" 
-                position={Position[props.data.handlePosition]}
+                position={Position[props.data.handleLocation]}
                 style={handleStyle}
             />
             <div className={`w-[500px] bg-white rounded-2xl shadow-xs overflow-hidden pb-4 border-[1px] ${props.selected ? "border-blue-400" : "border-white"}`}>
