@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        "atkinson": ["Atkinson Hyperlegible Next", "serif"],
+        "fira-code": ["Fira Code", "serif"],
       }
     },
   },
