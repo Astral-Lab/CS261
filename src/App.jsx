@@ -26,22 +26,122 @@ import ContextMenu from "./components/ContextMenu";
 
 const initialNodes = [
   {
+    id: 'n-1',
+    type: 'junctionLane',
+    position: { x: 0, y: 0 },
+    data: {
+      handlePosition: "Bottom",
+      label: "northbound 1"
+    }
+  },
+  {
+    id: 'n-2',
+    type: 'junctionLane',
+    position: { x: 0, y: 0 },
+    data: {
+      handlePosition: "Bottom",
+      label: "northbound 2"
+    }
+  },
+  {
+    id: 'n-3',
+    type: 'junctionLane',
+    position: { x: 0, y: 0 },
+    data: {
+      handlePosition: "Bottom",
+      label: "northbound 3"
+    }
+  },
+  {
     id: 'e-1',
     type: 'junctionLane',
     position: { x: 0, y: 0 },
     data: {
-      handlePosition: "Right"
+      handlePosition: "Left",
+      label: "eastbound 1"
     }
   },
   {
-    id: "i-1",
-    type: "junctionIntersection",
-    position: { x: 0, y: 0 }
-  }
+    id: 'e-2',
+    type: 'junctionLane',
+    position: { x: 0, y: 0 },
+    data: {
+      handlePosition: "Left",
+      label: "eastbound 2"
+    }
+  },
+  {
+    id: 'e-3',
+    type: 'junctionLane',
+    position: { x: 0, y: 0 },
+    data: {
+      handlePosition: "Left",
+      label: "eastbound 3"
+    }
+  },
+  {
+    id: 's-1',
+    type: 'junctionLane',
+    position: { x: 0, y: 0 },
+    data: {
+      handlePosition: "Top",
+      label: "southbound 1"
+    }
+  },
+  {
+    id: 's-2',
+    type: 'junctionLane',
+    position: { x: 0, y: 0 },
+    data: {
+      handlePosition: "Top",
+      label: "southbound 2"
+    }
+  },
+  {
+    id: 's-3',
+    type: 'junctionLane',
+    position: { x: 0, y: 0 },
+    data: {
+      handlePosition: "Top",
+      label: "southbound 3"
+    }
+  },
+  {
+    id: 'w-1',
+    type: 'junctionLane',
+    position: { x: 0, y: 0 },
+    data: {
+      handlePosition: "Right",
+      label: "westbound 1"
+    }
+  },
+  {
+    id: 'w-2',
+    type: 'junctionLane',
+    position: { x: 0, y: 0 },
+    data: {
+      handlePosition: "Right",
+      label: "westbound 2"
+    }
+  },
+  {
+    id: 'w-3',
+    type: 'junctionLane',
+    position: { x: 0, y: 0 },
+    data: {
+      handlePosition: "Right",
+      label: "westbound 3"
+    }
+  },
+  {
+    id: 'i-1',
+    type: 'junctionIntersection',
+    position: { x: 0, y: 0 },
+  },
 ];
 
 export default function App() {
-  const [nodes, setNodes, onNodesChange] = useNodesState();
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState();
   const [menu, setMenu] = useState(null);
   const ref = useRef(null);
