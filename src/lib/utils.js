@@ -25,3 +25,7 @@ export function computeMaxQueueLength() {
 export function computeJunctionScore() {
 
 }
+
+export function generateJunctionNodesAndEdges() {
+
+}
