@@ -1,40 +1,40 @@
-import { LuPlay } from "react-icons/lu";
-import { LuSave } from "react-icons/lu";
-import { RiDeleteBinLine } from "react-icons/ri";
-import { BsExclamationCircle } from "react-icons/bs";
-import { GoLink } from "react-icons/go";
 import ToolbarButton from "./ToolbarButton";
 import { DEFAULT_ICON_SIZE } from "../lib/config";
+import { IoMdPlay } from "react-icons/io";
+import { IoSaveSharp } from "react-icons/io5";
+import { RiDeleteBin2Fill } from "react-icons/ri";
+import { FaStaylinked } from "react-icons/fa";
+import { FaExclamationCircle } from "react-icons/fa";
 
 export default function Toolbar() {
     return (
         <ul className="flex gap-2">
             <ToolbarButton
-                icon={<LuPlay size={DEFAULT_ICON_SIZE}/>}
+                icon={<IoMdPlay size={DEFAULT_ICON_SIZE}/>}
                 title={"play"}
                 onClick={null}
                 disabled={false}
             />
             <ToolbarButton
-                icon={<LuSave size={DEFAULT_ICON_SIZE}/>}
+                icon={<IoSaveSharp size={DEFAULT_ICON_SIZE}/>}
                 title={"save or load junction"}
                 onClick={null}
                 disabled={false}
             />
             <ToolbarButton
-                icon={<RiDeleteBinLine size={DEFAULT_ICON_SIZE}/>}
+                icon={<RiDeleteBin2Fill size={DEFAULT_ICON_SIZE}/>}
                 title={"delete junction"}
                 onClick={null}
                 disabled={false}
             />
             <ToolbarButton
-                icon={<GoLink size={DEFAULT_ICON_SIZE}/>}
+                icon={<FaStaylinked size={DEFAULT_ICON_SIZE}/>}
                 title={"about Junction Flow"}
                 onClick={null}
                 disabled={false}
             />
             <ToolbarButton
-                icon={<BsExclamationCircle size={DEFAULT_ICON_SIZE}/>}
+                icon={<FaExclamationCircle size={DEFAULT_ICON_SIZE}/>}
                 title={"show guide"}
                 onClick={null}
                 disabled={false}
