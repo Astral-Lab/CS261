@@ -76,27 +76,38 @@ export default function JunctionIntersectionNode(props) {
     return (
         <>
         
-            <div className="w-[500px] aspect-square bg-white rounded-2xl shadow-xs overflow-hidden">
+            <div className="w-[500px] aspect-square bg-white rounded-2xl shadow-xs overflow-hidden relative">
                 <div className="w-full flex justify-between items-center px-6 py-4 bg-[#F9F9F9] border-b-[1px] border-[#F0F0F0]">
                     <p className="font-bold">Junction</p>
                 </div>
                 <div className="flex flex-col gap-8 px-6 p-4">
-                    <p className="">This node controls the traffic flow.</p>
+                    <p className="">This node consumes traffic flow and controls the traffic light cycle.</p>
                     <div className="flex flex-col gap-2">
-                        <label className="font-bold">vph <span className="text-[#E0E0E0]">(234)</span></label>
-                        <p className="">the vehicles per hour arriving at the junction</p>
+                        <label className="font-bold">duration <span className="text-[#E0E0E0]">(120s)</span></label>
+                        <p className="">the number of seconds in a traffic cycle</p>
                         {/** temp */}
-                        <div className="w-full h-2 rounded-full bg-[#E0E0E0] mt-1">
-
+                        <div className="w-full flex gap-2">
+                            <div className="w-1/3 h-12 rounded-lg bg-[#E0E0E0] mt-1"></div>
+                            <div className="w-1/3 h-12 rounded-lg bg-[#E0E0E0] mt-1"></div>
+                            <div className="w-1/3 h-12 rounded-lg bg-[#E0E0E0] mt-1"></div>
                         </div>
                     </div>
-                   
+                    <div className="flex flex-col gap-2">
+                        <label className="font-bold">priority</label>
+                        <p className="">the ratio each side has of a light cycle</p>
+                        {/** temp */}
+                        <div className="w-full grid grid-cols-2 gap-2">
+                            <div className="w-full h-12 rounded-lg bg-[#E0E0E0] mt-1"></div>
+                            <div className="w-full h-12 rounded-lg bg-[#E0E0E0] mt-1"></div>
+                            <div className="w-full h-12 rounded-lg bg-[#E0E0E0] mt-1"></div>
+                            <div className="w-full h-12 rounded-lg bg-[#E0E0E0] mt-1"></div>
+                        </div>
+                    </div>
                     {/** configure lane type i.e. bus/cycle/left turn etc... */}
                 </div>
-                {/* <div className="bg-blue-500 flex justify-center gap-2 top-0 left-1/2">
-                    {renderedTopHandles}
-                    
-                </div> */}
+                <div className="w-full bg-blue-500 flex justify-center gap-2 top-0 left-1/2">
+                    {/* {renderedTopHandles} */}
+                </div>
                 {/* <div className="h-full flex flex-col items-center gap-2 absolute top-0 right-0">
                     {renderedRightHandles}
                 </div> */}
