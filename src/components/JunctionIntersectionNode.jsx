@@ -23,12 +23,7 @@ export default function JunctionIntersectionNode(props) {
             key={i}
             type="target" 
             position={Position.Top} 
-            style={{
-                ...handleStyle,
-                position: "relative",
-                left: 0,
-      
-            }}
+            style={handleStyle}
         />
     ));
 
@@ -37,12 +32,7 @@ export default function JunctionIntersectionNode(props) {
             key={i}
             type="target" 
             position={Position.Right} 
-            style={{
-                ...handleStyle,
-                position: "relative",
-               left: 0
-             
-            }}
+            style={handleStyle}
         />
     ));
 
@@ -51,12 +41,7 @@ export default function JunctionIntersectionNode(props) {
             key={i}
             type="target" 
             position={Position.Bottom} 
-            style={{
-                ...handleStyle,
-                position: "relative",
-                left: 0,
-                
-            }}
+            style={handleStyle}
         />
     ));
 
@@ -65,12 +50,7 @@ export default function JunctionIntersectionNode(props) {
             key={i}
             type="target" 
             position={Position.Left} 
-            style={{
-                ...handleStyle,
-                position: "relative",
-                left: 0,
-                
-            }}
+            style={handleStyle}
         />
     ));
 
@@ -109,13 +89,13 @@ export default function JunctionIntersectionNode(props) {
                 <div className="w-full flex justify-center gap-2 absolute -top-[10px]">
                     {renderedTopHandles}
                 </div>
-                <div className="h-full flex flex-col items-center gap-2 absolute top-0 -left-[10px]">
+                <div className="w-full flex justify-center gap-2 absolute top-0 left-[10px] rotate-90 origin-top-left">
                     {renderedRightHandles}
                 </div>
                 <div className="w-full flex justify-center gap-2 absolute -bottom-[10px]">
                     {renderedBottomHandles}
                 </div>
-                <div className="h-full flex flex-col items-center gap-2 absolute top-0 -right-[10px]">
+                <div className="w-full flex justify-center gap-2 absolute top-0 right-[10px] rotate-[270deg] origin-top-right">
                     {renderedLeftHandles}
                 </div>
             </div>
