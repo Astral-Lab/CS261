@@ -85,10 +85,7 @@ export default function App() {
         <Panel position="top-right">
           <h1 className="h-12 bg-blue-400 leading-[48px] text-xl font-bold italic px-6 rounded-full text-white drop-shadow-md">Junction Flow</h1>
         </Panel>
-        <Controls
-          position={isMobile ? "bottom-center" : "bottom-left"}
-          orientation={isMobile ? "horizontal" : "vertical"}
-        />
+        {!isMobile && <Controls/>}
         {!isMobile && <MiniMap/>}
         <Background variant="dots" gap={12} size={0.5}/>
       </ReactFlow>
