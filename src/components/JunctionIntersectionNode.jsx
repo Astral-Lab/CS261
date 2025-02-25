@@ -1,4 +1,3 @@
-import { useCallback } from "react"
 import { 
     Handle,
     Position
@@ -10,7 +9,9 @@ const handleStyle = {
     height: 20,
     border: "2px solid white",
     background: "#60A5FA",
-
+    transform: "none",
+    position: "relative",
+    left: 0,
 }
 
 
@@ -76,8 +77,8 @@ export default function JunctionIntersectionNode(props) {
     return (
         <>
         
-            <div className="w-[500px] aspect-square bg-white rounded-2xl shadow-xs overflow-hidden relative">
-                <div className="w-full flex justify-between items-center px-6 py-4 bg-[#F9F9F9] border-b-[1px] border-[#F0F0F0]">
+            <div className="w-[500px] aspect-square bg-white rounded-2xl shadow-xs relative">
+                <div className="w-full flex justify-between items-center px-6 py-4 bg-[#F9F9F9] rounded-t-2xl border-b-[1px] border-[#F0F0F0]">
                     <p className="font-bold">Junction</p>
                 </div>
                 <div className="flex flex-col gap-8 px-6 p-4">
@@ -105,18 +106,18 @@ export default function JunctionIntersectionNode(props) {
                     </div>
                     {/** configure lane type i.e. bus/cycle/left turn etc... */}
                 </div>
-                <div className="w-full bg-blue-500 flex justify-center gap-2 top-0 left-1/2">
-                    {/* {renderedTopHandles} */}
+                <div className="w-full flex justify-center gap-2 absolute -top-[10px]">
+                    {renderedTopHandles}
                 </div>
-                {/* <div className="h-full flex flex-col items-center gap-2 absolute top-0 right-0">
+                <div className="h-full flex flex-col items-center gap-2 absolute top-0 -left-[10px]">
                     {renderedRightHandles}
-                </div> */}
-                {/* <div className="w-full flex justify-center gap-2 absolute bottom-0 left-0">
+                </div>
+                <div className="w-full flex justify-center gap-2 absolute -bottom-[10px]">
                     {renderedBottomHandles}
-                </div> */}
-                {/* <div className="h-full flex flex-col items-center gap-2 absolute top-0 left-0">
+                </div>
+                <div className="h-full flex flex-col items-center gap-2 absolute top-0 -right-[10px]">
                     {renderedLeftHandles}
-                </div> */}
+                </div>
             </div>
         </>
     )
