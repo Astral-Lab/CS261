@@ -27,22 +27,39 @@ export const JUNCTION_LAYOUTS = {
 
 }
 
-export const LANE_SIDE_OPTIONS = {
-    "1": {
-        label: "nortbound",
-        handleLocation: "Bottom",
-    },
-    "2": {
-        label: "eastbound",
-        handleLocation: "Left"
-    },
-    "3": {
-        label: "southbound",
-        handleLocation: "Top"
-    },
-    "4": {
-        label: "westbound",
-        handleLocation: "Right"
-    }
-}
+export const ONE_LANE_COORDS = [
+    [{ x: 0, y: -650 }],
+    [{ x: 750, y: 0 }],
+    [{ x: 0, y: 650 }],
+    [{ x: -750, y: 0 }]
+];
 
+export const TWO_LANE_COORDS = [
+    [{ x: -275, y: -700 }, { x: 275, y: -700 }],
+    [{ x: 800, y: -200 }, { x: 800, y: 200 }],
+    [{ x: -275, y: 700 }, { x: 275, y: 700 }],
+    [{ x: -800, y: -200 }, { x: -800, y: 200 }]
+];
+
+export const THREE_LANE_COORDS = [
+    [{ x: -550, y: -900 }, { x: 0, y: -900 }, { x: 550, y: -900 }],
+    [{ x: 1200, y: -400 }, { x: 1200, y: 0 }, { x: 1200, y: 400 }],
+    [{ x: -550, y: 900 }, { x: 0, y: 900 }, { x: 550, y: 900 }],
+    [{ x: -1200, y: -400 }, { x: -1200, y: 0 }, { x: -1200, y: 400 }]
+];
+
+// TODO
+export const FOUR_LANE_COORDS = [
+    [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }],
+    [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }],
+    [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }],
+    [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }]
+];
+
+// TODO
+export const FIVE_LANE_COORDS = [
+    [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }],
+    [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }],
+    [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }],
+    [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }]
+];

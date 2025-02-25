@@ -16,8 +16,8 @@ const handleStyle = {
 
 // comment code...
 // align issue on handles...
-export default function JunctionIntersectionNode() {
-    const renderedTopHandles = Array(3).fill(true).map(i => (
+export default function JunctionIntersectionNode(props) {
+    const renderedTopHandles = Array(props.data.laneCount).fill(true).map(i => (
         <Handle 
             key={i}
             type="target" 
@@ -31,7 +31,7 @@ export default function JunctionIntersectionNode() {
         />
     ));
 
-    const renderedRightHandles = Array(3).fill(true).map(i => (
+    const renderedRightHandles = Array(props.data.laneCount).fill(true).map(i => (
         <Handle 
             key={i}
             type="target" 
@@ -45,7 +45,7 @@ export default function JunctionIntersectionNode() {
         />
     ));
 
-    const renderedBottomHandles = Array(3).fill(true).map(i => (
+    const renderedBottomHandles = Array(props.data.laneCount).fill(true).map(i => (
         <Handle 
             key={i}
             type="target" 
@@ -59,7 +59,7 @@ export default function JunctionIntersectionNode() {
         />
     ));
 
-    const renderedLeftHandles = Array(3).fill(true).map(i => (
+    const renderedLeftHandles = Array(props.data.laneCount).fill(true).map(i => (
         <Handle 
             key={i}
             type="target" 
@@ -76,7 +76,23 @@ export default function JunctionIntersectionNode() {
     return (
         <>
         
-            <div className="w-[500px] aspect-square bg-white rounded-2xl shadow-xs">
+            <div className="w-[500px] aspect-square bg-white rounded-2xl shadow-xs overflow-hidden">
+                <div className="w-full flex justify-between items-center px-6 py-4 bg-[#F9F9F9] border-b-[1px] border-[#F0F0F0]">
+                    <p className="font-bold">Junction</p>
+                </div>
+                <div className="flex flex-col gap-8 px-6 p-4">
+                    <p className="">This node controls the traffic flow.</p>
+                    <div className="flex flex-col gap-2">
+                        <label className="font-bold">vph <span className="text-[#E0E0E0]">(234)</span></label>
+                        <p className="">the vehicles per hour arriving at the junction</p>
+                        {/** temp */}
+                        <div className="w-full h-2 rounded-full bg-[#E0E0E0] mt-1">
+
+                        </div>
+                    </div>
+                   
+                    {/** configure lane type i.e. bus/cycle/left turn etc... */}
+                </div>
                 {/* <div className="bg-blue-500 flex justify-center gap-2 top-0 left-1/2">
                     {renderedTopHandles}
                     
