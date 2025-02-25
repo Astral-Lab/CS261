@@ -67,6 +67,11 @@ export default function App() {
       onContextMenu={onPaneClick} 
     >
       {menu && <ContextMenu onClick={onPaneClick} {...menu} />}
+      {isMobile && (
+        <div className="w-full h-8 bg-blue-400 flex justify-center items-center">
+          <h1 className="text-white font-fira-code font-[500]">JUNCTION FLOW</h1>
+        </div>
+      )}
       <ReactFlow 
         ref={ref}
         nodes={nodes}
@@ -82,9 +87,9 @@ export default function App() {
         <Panel position="top-left">
           <Toolbar/>
         </Panel>
-        <Panel position="top-right">
+        {/* <Panel position="top-right">
           <h1 className="h-12 bg-blue-400 leading-[48px] text-xl font-bold italic px-6 rounded-full text-white drop-shadow-md">Junction Flow</h1>
-        </Panel>
+        </Panel> */}
         {!isMobile && <Controls/>}
         {!isMobile && <MiniMap/>}
         <Background variant="dots" gap={12} size={0.5}/>
