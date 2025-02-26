@@ -1,4 +1,3 @@
-import { useCallback } from "react"
 import { 
     Handle,
     Position
@@ -12,7 +11,7 @@ const handleStyle = {
     right: 0,
     border: "2px solid white",
     background: "#60A5FA"
-};
+}
 
 export default function JunctionLaneNode(props) {
     return (

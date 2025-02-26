@@ -35,7 +35,7 @@ export function computeJunctionScore() {
 
 }
 
-export function generateJunctionNodesAndEdges(laneCount) {
+export function generateJunctionNodes(laneCount) {
     const nodes = [{
         id: 'i-1',
         type: 'junctionIntersection',
@@ -68,6 +68,18 @@ export function generateJunctionNodesAndEdges(laneCount) {
 
 export function generateJunctionEdges(laneCount) {
     const edges = [];
+
+    // each side of the junction
+    for(let i = 0; i < 4; i++) {
+        for(let j = 0; j < laneCount; j++) {
+            edges.push({
+                id: `edge-${i + 1}:${j + 1}`,
+                source: `node-${i + 1}:${j + 1}`,
+                target: "i-1",
+                targetHandle: `handle-${i + 1}:${j + 1}`
+            });
+        }
+    }
 
     return edges;
 }

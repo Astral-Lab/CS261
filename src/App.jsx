@@ -20,13 +20,13 @@ import { CANVAS_STYLES } from "./lib/config";
 import JunctionLaneNode from "./components/JunctionLaneNode";
 import JunctionIntersectionNode from "./components/JunctionIntersectionNode";
 import ContextMenu from "./components/ContextMenu";
-import { generateJunctionNodesAndEdges } from "./lib/utils";
+import { generateJunctionEdges, generateJunctionNodes } from "./lib/utils";
 import useMobileLayout from "./lib/hooks";
 
 // Must disable node inputs whilst simulation running???
 export default function App() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(generateJunctionNodesAndEdges(2));
-  const [edges, setEdges, onEdgesChange] = useEdgesState();
+  const [nodes, setNodes, onNodesChange] = useNodesState(generateJunctionNodes(2));
+  const [edges, setEdges, onEdgesChange] = useEdgesState(generateJunctionEdges(2));
   const [menu, setMenu] = useState(null);
   const isMobile = useMobileLayout();
   const ref = useRef(null);
