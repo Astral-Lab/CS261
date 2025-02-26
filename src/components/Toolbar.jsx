@@ -21,7 +21,7 @@ export default function Toolbar() {
                 onClick={null}
                 disabled={false}
             />
-            <ToolbarButton
+            {/* <ToolbarButton
                 icon={<RiDeleteBin2Fill size={DEFAULT_ICON_SIZE}/>}
                 title={"delete junction"}
                 onClick={null}
@@ -32,13 +32,13 @@ export default function Toolbar() {
                 title={"about Junction Flow"}
                 onClick={null}
                 disabled={false}
-            />
-            <ToolbarButton
+            /> */}
+            {/* <ToolbarButton
                 icon={<FaExclamationCircle size={DEFAULT_ICON_SIZE}/>}
                 title={"show guide"}
                 onClick={null}
                 disabled={false}
-            />
+            /> */}
         </ul>
     )
 }

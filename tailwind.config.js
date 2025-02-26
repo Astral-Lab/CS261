@@ -8,6 +8,7 @@ export default {
     extend: {
       fontFamily: {
         "fira-code": ["Fira Code", "serif"],
+        "poetsen-one": ["Poetsen One", "serif"]
       }
     },
   },
