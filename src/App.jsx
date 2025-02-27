@@ -9,10 +9,8 @@ import {
   ReactFlow,
   useNodesState,
   useEdgesState,
-  addEdge,
   Background,
   Controls,
-  MiniMap,
   Panel
 } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
@@ -29,7 +27,7 @@ import CreateAndLoadJunction from "./components/CreateAndLoadMenu";
 
 // Must disable node inputs whilst simulation running???
 export default function App() {
-  const [laneCount, setLaneCount] = useState(1)
+  const [laneCount, setLaneCount] = useState(2)
   const [nodes, setNodes, onNodesChange] = useNodesState(generateJunctionNodes(laneCount));
   const [edges, setEdges, onEdgesChange] = useEdgesState(generateJunctionEdges(laneCount));
   const isMobile = useMobileLayout();
@@ -48,11 +46,6 @@ export default function App() {
 
   return (
     <div className="w-full flex h-screen font-fira-code select-none relative py-8 pr-8">
-      {isMobile && (
-        <div className="w-full h-8 bg-blue-400 flex justify-center items-center">
-          <h1 className="w-full text-white font-fira-code font-[500]">JUNCTION FLOW</h1>
-        </div>
-      )}
       {/* <CreateAndLoadJunction/> */}
       <div className="w-1/4 h-full flex flex-col justify-between px-8">
         <h1 className="text-center text-4xl text-blue-400 font-fira-code mt-8">Junction Flow</h1>
@@ -62,32 +55,6 @@ export default function App() {
           <li className="text-sm">3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, omnis. Illo velit.</li>
         </ol>
         <p className="text-[10px] text-center">This project is completed as part of the <span className="font-bold">Software Engineering</span> module (Group 34) at the University of Warwick.</p>
-        {/* <ul className="w-full grid grid-cols-2 gap-2">
-          <li>
-              <button 
-                  className="w-full h-16 bg-[#E0E0E0] rounded-xl shadow-xs lg:opacity-80 lg:hover:opacity-100 transition-opacity duration-300"
-                  onClick={() => setLaneCount(1)}
-              >1 lane</button>
-          </li>
-          <li>
-              <button 
-                  className="w-full h-16 bg-[#E0E0E0] rounded-xl shadow-xs lg:opacity-80 lg:hover:opacity-100 transition-opacity duration-300"
-                  onClick={() => setLaneCount(2)}
-              >2 lane</button>
-          </li>
-          <li>
-              <button 
-                  className="w-full h-16 bg-[#E0E0E0] rounded-xl shadow-xs lg:opacity-80 lg:hover:opacity-100 transition-opacity duration-300"
-                  onClick={() => setLaneCount(3)}
-              >3 lane</button>
-          </li>
-          <li>
-              <button 
-                  className="w-full h-16 bg-[#E0E0E0] rounded-xl shadow-xs lg:opacity-80 lg:hover:opacity-100 transition-opacity duration-300"
-                  onClick={() => setLaneCount(4)}
-              >4 lane</button>
-          </li>
-        </ul> */}
       </div>
       <ReactFlow 
         ref={ref}

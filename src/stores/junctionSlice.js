@@ -1,5 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// example junction obj
+const j = {
+    name: "the react junction",
+    score: null,
+    lightDuration: null,
+    lightPriority: [],
+    
+}
+
 const initialState = {
 
 }
