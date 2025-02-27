@@ -24,6 +24,7 @@ import {
 } from "./lib/utils";
 import useMobileLayout from "./lib/hooks";
 import CreateAndLoadJunction from "./components/CreateAndLoadMenu";
+import JunctionFlowHints from "./components/JunctionFlowHints";
 
 // Must disable node inputs whilst simulation running???
 export default function App() {
@@ -49,11 +50,12 @@ export default function App() {
       {/* <CreateAndLoadJunction/> */}
       <div className="w-1/4 h-full flex flex-col justify-between px-8">
         <h1 className="text-center text-4xl text-blue-400 font-fira-code mt-8">Junction Flow</h1>
-        <ol className="w-full flex flex-col gap-6 border-y-[1px] border-black py-8">
+        {/* <ol className="w-full flex flex-col gap-6 border-y-[1px] border-black py-8">
           <li className="text-sm">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, omnis. Illo velit.</li>
           <li className="text-sm">2. sint dicta voluptate consectetur unde consequuntur, aperiam dolores explicabo tenetur tempora minus impedit vel illum dignissimos quaerat provident?</li>
           <li className="text-sm">3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, omnis. Illo velit.</li>
-        </ol>
+        </ol> */}
+        <JunctionFlowHints/>
         <p className="text-[10px] text-center">This project is completed as part of the <span className="font-bold">Software Engineering</span> module (Group 34) at the University of Warwick.</p>
       </div>
       <ReactFlow 
