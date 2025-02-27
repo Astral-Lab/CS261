@@ -50,13 +50,19 @@ export default function App() {
     <div className="w-full flex h-screen font-fira-code select-none relative py-8 pr-8">
       {isMobile && (
         <div className="w-full h-8 bg-blue-400 flex justify-center items-center">
-          <h1 className="text-white font-fira-code font-[500]">JUNCTION FLOW</h1>
+          <h1 className="w-full text-white font-fira-code font-[500]">JUNCTION FLOW</h1>
         </div>
       )}
       {/* <CreateAndLoadJunction/> */}
-      <div className="w-1/4 h-full flex flex-col gap-8 px-8">
-        <h1 className="text-center text-4xl text-blue-400 font-poetsen-one mt-8">Junction Flow</h1>
-        <ul className="w-full grid grid-cols-2 gap-2">
+      <div className="w-1/4 h-full flex flex-col justify-between px-8">
+        <h1 className="text-center text-4xl text-blue-400 font-fira-code mt-8">Junction Flow</h1>
+        <ol className="w-full flex flex-col gap-6 border-y-[1px] border-black py-8">
+          <li className="text-sm">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, omnis. Illo velit.</li>
+          <li className="text-sm">2. sint dicta voluptate consectetur unde consequuntur, aperiam dolores explicabo tenetur tempora minus impedit vel illum dignissimos quaerat provident?</li>
+          <li className="text-sm">3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, omnis. Illo velit.</li>
+        </ol>
+        <p className="text-[10px] text-center">This project is completed as part of the <span className="font-bold">Software Engineering</span> module (Group 34) at the University of Warwick.</p>
+        {/* <ul className="w-full grid grid-cols-2 gap-2">
           <li>
               <button 
                   className="w-full h-16 bg-[#E0E0E0] rounded-xl shadow-xs lg:opacity-80 lg:hover:opacity-100 transition-opacity duration-300"
@@ -81,13 +87,7 @@ export default function App() {
                   onClick={() => setLaneCount(4)}
               >4 lane</button>
           </li>
-          <li>
-              <button 
-                  className="w-full h-16 bg-[#E0E0E0] rounded-xl shadow-xs lg:opacity-80 lg:hover:opacity-100 transition-opacity duration-300"
-                  onClick={() => setLaneCount(5)}
-              >5 lane</button>
-          </li>
-        </ul>
+        </ul> */}
       </div>
       <ReactFlow 
         ref={ref}

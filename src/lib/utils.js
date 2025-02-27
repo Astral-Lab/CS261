@@ -1,5 +1,4 @@
 import { 
-    FIVE_LANE_COORDS, 
     FOUR_LANE_COORDS, 
     ONE_LANE_COORDS, 
     THREE_LANE_COORDS, 
@@ -108,10 +107,8 @@ export function getJunctionCoords(laneCount) {
     } else if(laneCount === 3) {
         return THREE_LANE_COORDS;
 
-    } else if(laneCount === 4) {
+    } else {
         return FOUR_LANE_COORDS;
 
-    } else {
-        return FIVE_LANE_COORDS;
     }
 }
