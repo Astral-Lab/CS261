@@ -7,6 +7,7 @@ export default forwardRef(function ToolbarButton(props, ref) {
             title={props.title}
         >
             <input
+                id={props.id}
                 className="w-full h-full absolute inset-0 z-10 opacity-0 hover:cursor-pointer"
                 type="checkbox"
                 ref={ref}

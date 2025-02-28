@@ -1,4 +1,3 @@
-import { forwardRef } from "react";
 import {
     Table,
     TableBody,
@@ -11,8 +10,6 @@ import { FaStar } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { IoUnlinkSharp } from "react-icons/io5";
 import { TbHttpDelete } from "react-icons/tb";
-import { RxCross2 } from "react-icons/rx";
-import { DEFAULT_ICON_SIZE } from "@/lib/config";
 
 const junctions = [
     {
@@ -20,61 +17,32 @@ const junctions = [
         score: 4343,
     },
     {
-        name: "junction 1",
+        name: "junction 2",
         score: 4343,
     },
     {
-        name: "junction 1",
+        name: "junction 3",
         score: 4343,
     },
     {
-        name: "junction 1",
+        name: "junction 4",
         score: 4343,
     },
     {
-        name: "junction 1",
+        name: "junction 5",
         score: 4343,
     },
-    {
-        name: "junction 1",
-        score: 4343,
-    },
-    {
-        name: "junction 1",
-        score: 4343,
-    },
-    {
-        name: "junction 1",
-        score: 4343,
-    },
-    {
-        name: "junction 1",
-        score: 4343,
-    },
-    {
-        name: "junction 1",
-        score: 4343,
-    },
-    
+
 ]
 
 // select junction designs from redux...
 // add score to each junction...
 // create custom colors in config file...
 
-export default forwardRef(function CreateAndLoadJunction(props, ref) {
-    const handleClick = () => {
-        ref.current.checked = false;
-    }
+export default function CreateAndLoadJunction() {
 
     return (
-        <div className="w-[500px] h-full bg-[#FAfAFA] z-10 p-10 pt-16 flex flex-col justify-between relative">
-            <button 
-                className="absolute top-0 right-0 p-6" 
-                onClick={handleClick}
-            >
-                <RxCross2 size={DEFAULT_ICON_SIZE}/>
-            </button>
+        <div>
             <div className="">
             <h2 className="text-xl text-center cap mb-10">load junction</h2>
                 <Table>
@@ -118,4 +86,4 @@ export default forwardRef(function CreateAndLoadJunction(props, ref) {
             <p className="text-xs italic border-t-[1px] border-[#73737340] pt-8">Clearing your browser cache will permanently delete any saved junction designs.</p>
         </div>
     )
-});
+}

@@ -30,6 +30,9 @@ import { IoMdPlay } from "react-icons/io";
 import { IoSaveSharp } from "react-icons/io5";
 import { IoStatsChart } from "react-icons/io5";
 import { RiAddLine } from "react-icons/ri";
+import SlideableContainer from "./components/SlideableContainer";
+import ScoreAndStatsMenu from "./components/ScoreAndStatsMenu";
+import SaveAndShareMenu from "./components/SaveAndShareMenu";
 
 // Must disable node inputs whilst simulation running???
 export default function App() {
@@ -39,8 +42,8 @@ export default function App() {
   const isMobile = useMobileLayout();
   const ref = useRef(null);
   const createRef = useRef(null);
-  const saveRef = useRef();
-  const statsRef = useRef();
+  const saveRef = useRef(null);
+  const statsRef = useRef(null);
 
   const nodeTypes = useMemo(() => ({ 
     junctionLane: JunctionLaneNode,
@@ -56,9 +59,9 @@ export default function App() {
 
   return (
     <div className="w-full flex h-screen font-fira-code select-none relative py-8 pr-8 group/parent overflow-hidden">
-      <div className="w-fit h-full z-10 absolute top-0 -right-[500px] transition-all duration-500 group-[:has(:checked)]/parent:right-0">
-        <CreateAndLoadJunction ref={createRef}/>
-      </div>
+      <SlideableContainer ref={createRef} content={<CreateAndLoadJunction/>} id="create"/>
+      <SlideableContainer ref={statsRef} content={<ScoreAndStatsMenu/>} id="score"/>
+      <SlideableContainer ref={saveRef} content={<SaveAndShareMenu/>} id="save"/>
       <div className="w-1/4 h-full flex flex-col justify-between px-8">
         <h1 className="text-center text-4xl text-blue-400 font-fira-code mt-8">Junction Flow</h1>
         <JunctionFlowHints/>
@@ -83,21 +86,25 @@ export default function App() {
                 icon={<RiAddLine size={DEFAULT_ICON_SIZE}/>}
                 title={"create or load junction"}
                 ref={createRef}
+                id="create"
             />
             <ToolbarButton
                 icon={<IoMdPlay size={DEFAULT_ICON_SIZE}/>}
                 title={"play"}
                 onClick={null}
+                id="play"
             />
             <ToolbarButton
                 icon={<IoStatsChart size={DEFAULT_ICON_SIZE}/>}
                 title={"stats"}
                 ref={statsRef}
+                id="score"
             />
             <ToolbarButton
                 icon={<IoSaveSharp size={DEFAULT_ICON_SIZE}/>}
                 title={"save junction"}
                 ref={saveRef}
+                id="save"
             />
           </ul>
         </Panel>

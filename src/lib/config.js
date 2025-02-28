@@ -16,8 +16,15 @@ export const CAR_LENGTH = 0;
 export const CAR_GAP = 0;
 export const VEHICLE_DEPATURE_SPEED = 0;
 
+// styles
 export const CANVAS_STYLES = {
     background: "#F0F0F0"
+}
+
+export const MENU_CLASSES = {
+    "create": "group-[:has(#create:checked)]/parent:right-0",
+    "score": "group-[:has(#score:checked)]/parent:right-0",
+    "save": "group-[:has(#save:checked)]/parent:right-0"
 }
 
 export const DEFAULT_ICON_SIZE = 20;
