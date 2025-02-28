@@ -44,7 +44,7 @@ export default function CreateAndLoadJunction() {
     return (
         <div>
             <div className="">
-            <h2 className="text-xl text-center cap mb-10">load junction</h2>
+            <h2 className="text-xl text-center cap mb-10">Create & Load</h2>
                 <Table>
                     <TableHeader>
                         <TableRow>

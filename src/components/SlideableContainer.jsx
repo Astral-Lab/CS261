@@ -13,7 +13,7 @@ export default forwardRef(function SlideableContainer(props, ref) {
 
     return (
         <div className={clsx(
-            "w-[500px] h-full bg-[#FAFAFA] z-10 p-10 pt-16 flex flex-col justify-between absolute top-0 -right-[500px] transition-all duration-500",
+            "w-[500px] h-full bg-[#FAFAFA] drop-shadow-sm z-10 p-10 pt-16 flex flex-col justify-between absolute top-0 -right-[500px] transition-all duration-500",
             [MENU_CLASSES[props.id]]
         )}>
             <button 
@@ -22,7 +22,9 @@ export default forwardRef(function SlideableContainer(props, ref) {
             >
                 <RxCross2 size={DEFAULT_ICON_SIZE}/>
             </button>
-            {props.content}
+            <div className="grow">
+                {props.content}
+            </div>
         </div>
     )
 });
