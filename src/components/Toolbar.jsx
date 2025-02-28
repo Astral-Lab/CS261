@@ -9,6 +9,12 @@ export default function Toolbar() {
     return (
         <ul className="flex gap-2">
             <ToolbarButton
+                icon={<RiAddLine size={DEFAULT_ICON_SIZE}/>}
+                title={"create or load junction"}
+                onClick={null}
+                disabled={false}
+            />
+            <ToolbarButton
                 icon={<IoMdPlay size={DEFAULT_ICON_SIZE}/>}
                 title={"play"}
                 onClick={null}
@@ -23,12 +29,6 @@ export default function Toolbar() {
             <ToolbarButton
                 icon={<IoSaveSharp size={DEFAULT_ICON_SIZE}/>}
                 title={"save junction"}
-                onClick={null}
-                disabled={false}
-            />
-            <ToolbarButton
-                icon={<RiAddLine size={DEFAULT_ICON_SIZE}/>}
-                title={"create or load junction"}
                 onClick={null}
                 disabled={false}
             />
