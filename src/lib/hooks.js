@@ -8,6 +8,7 @@ export default function useMobileLayout() {
 
     useEffect(() => {
         const handleResize = () => {
+            // window width is mobile dimensions
             setIsMobile(window.innerWidth < 600);
         }
 

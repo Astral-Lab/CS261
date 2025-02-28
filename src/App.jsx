@@ -35,6 +35,7 @@ import ScoreAndStatsMenu from "./components/ScoreAndStatsMenu";
 import SaveAndShareMenu from "./components/SaveAndShareMenu";
 
 // Must disable node inputs whilst simulation running???
+// dim left half of screen when menu open...
 export default function App() {
   const [laneCount, setLaneCount] = useState(2)
   const [nodes, setNodes, onNodesChange] = useNodesState(generateJunctionNodes(laneCount));
@@ -59,13 +60,14 @@ export default function App() {
 
   return (
     <div className="w-full flex h-screen font-fira-code select-none relative py-8 pr-8 group/parent overflow-hidden">
+      {/* <div className="w-full h-full bg-white absolute inset-0 group-[:has(:checked)]/parent:opacity-10"></div> */}
       <SlideableContainer ref={createRef} content={<CreateAndLoadJunction/>} id="create"/>
       <SlideableContainer ref={statsRef} content={<ScoreAndStatsMenu/>} id="score"/>
       <SlideableContainer ref={saveRef} content={<SaveAndShareMenu/>} id="save"/>
       <div className="w-1/4 h-full flex flex-col justify-between px-8">
         <h1 className="text-center text-4xl text-blue-400 font-fira-code mt-8">Junction Flow</h1>
         <JunctionFlowHints/>
-        <p className="text-[10px] text-center">This project is completed as part of the <span className="font-bold">Software Engineering</span> module (Group 34) at the University of Warwick.</p>
+        <p className="text-[10px] text-center italic">This project is completed as part of the Software Engineering module <span className="font-bold">(Group 34)</span> at the University of Warwick.</p>
       </div>
       <ReactFlow 
         ref={ref}

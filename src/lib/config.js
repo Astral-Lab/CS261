@@ -6,9 +6,9 @@ export const MIN_ARRIVAL_RATE = 0;
 export const MAX_ARRIVAL_RATE = 0;
 
 // vehicle constants
-export const CAR_LENGTH = 0;
-export const CAR_GAP = 0;
-export const VEHICLE_DEPATURE_SPEED = 0;
+export const CAR_LENGTH = 4;
+export const CAR_GAP = 1;
+export const VEHICLE_DEPATURE_SPEED = 2; // seconds
 
 // styles
 export const CANVAS_STYLES = {
