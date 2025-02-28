@@ -2,6 +2,7 @@ import {
     Handle,
     Position
 } from "@xyflow/react";
+import { MdTraffic } from "react-icons/md";
 
 // on select give blue border of 1px...
 const handleStyle = {
@@ -38,7 +39,8 @@ export default function JunctionIntersectionNode(props) {
     return (
         <>
             <div className="w-[500px] aspect-square bg-white rounded-2xl shadow-xs relative">
-                <div className="w-full flex justify-between items-center px-6 py-4 bg-[#F9F9F9] rounded-t-2xl border-b-[1px] border-[#F0F0F0]">
+                <div className="w-full flex items-center gap-2 px-6 py-4 bg-[#F9F9F9] rounded-t-2xl border-b-[1px] border-[#F0F0F0]">
+                    <MdTraffic size={"20px"}/>
                     <p className="font-bold">Junction</p>
                 </div>
                 <div className="flex flex-col gap-8 px-6 p-4">
