@@ -14,7 +14,6 @@ import {
   Panel
 } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
-import Toolbar from "./components/Toolbar";
 import { CANVAS_STYLES } from "./lib/config";
 import JunctionLaneNode from "./components/JunctionLaneNode";
 import JunctionIntersectionNode from "./components/JunctionIntersectionNode";
@@ -25,6 +24,12 @@ import {
 import useMobileLayout from "./lib/hooks";
 import CreateAndLoadJunction from "./components/CreateAndLoadMenu";
 import JunctionFlowHints from "./components/JunctionFlowHints";
+import ToolbarButton from "./components/ToolbarButton";
+import { DEFAULT_ICON_SIZE } from "./lib/config";
+import { IoMdPlay } from "react-icons/io";
+import { IoSaveSharp } from "react-icons/io5";
+import { IoStatsChart } from "react-icons/io5";
+import { RiAddLine } from "react-icons/ri";
 
 // Must disable node inputs whilst simulation running???
 export default function App() {
@@ -33,12 +38,16 @@ export default function App() {
   const [edges, setEdges, onEdgesChange] = useEdgesState(generateJunctionEdges(laneCount));
   const isMobile = useMobileLayout();
   const ref = useRef(null);
+  const createRef = useRef(null);
+  const saveRef = useRef();
+  const statsRef = useRef();
 
   const nodeTypes = useMemo(() => ({ 
     junctionLane: JunctionLaneNode,
     junctionIntersection: JunctionIntersectionNode
   }), []);
 
+  // on junction change repaint node diagram
   useEffect(() => {
     setNodes(generateJunctionNodes(laneCount));
     setEdges(generateJunctionEdges(laneCount));
@@ -46,15 +55,12 @@ export default function App() {
   }, [laneCount]);
 
   return (
-    <div className="w-full flex h-screen font-fira-code select-none relative py-8 pr-8">
-      {/* <CreateAndLoadJunction/> */}
+    <div className="w-full flex h-screen font-fira-code select-none relative py-8 pr-8 group/parent overflow-hidden">
+      <div className="w-fit h-full z-10 absolute top-0 -right-[500px] transition-all duration-500 group-[:has(:checked)]/parent:right-0">
+        <CreateAndLoadJunction ref={createRef}/>
+      </div>
       <div className="w-1/4 h-full flex flex-col justify-between px-8">
         <h1 className="text-center text-4xl text-blue-400 font-fira-code mt-8">Junction Flow</h1>
-        {/* <ol className="w-full flex flex-col gap-6 border-y-[1px] border-black py-8">
-          <li className="text-sm">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, omnis. Illo velit.</li>
-          <li className="text-sm">2. sint dicta voluptate consectetur unde consequuntur, aperiam dolores explicabo tenetur tempora minus impedit vel illum dignissimos quaerat provident?</li>
-          <li className="text-sm">3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, omnis. Illo velit.</li>
-        </ol> */}
         <JunctionFlowHints/>
         <p className="text-[10px] text-center">This project is completed as part of the <span className="font-bold">Software Engineering</span> module (Group 34) at the University of Warwick.</p>
       </div>
@@ -72,13 +78,30 @@ export default function App() {
         minZoom={0.01}
       >
         <Panel position="top-right">
-          <Toolbar/>
+          <ul className="flex gap-2">
+            <ToolbarButton
+                icon={<RiAddLine size={DEFAULT_ICON_SIZE}/>}
+                title={"create or load junction"}
+                ref={createRef}
+            />
+            <ToolbarButton
+                icon={<IoMdPlay size={DEFAULT_ICON_SIZE}/>}
+                title={"play"}
+                onClick={null}
+            />
+            <ToolbarButton
+                icon={<IoStatsChart size={DEFAULT_ICON_SIZE}/>}
+                title={"stats"}
+                ref={statsRef}
+            />
+            <ToolbarButton
+                icon={<IoSaveSharp size={DEFAULT_ICON_SIZE}/>}
+                title={"save junction"}
+                ref={saveRef}
+            />
+          </ul>
         </Panel>
-        {/* <Panel position="top-right">
-          <h1 className="h-12 bg-blue-400 leading-[48px] text-xl font-bold italic px-6 rounded-full text-white drop-shadow-md">Junction Flow</h1>
-        </Panel> */}
         {!isMobile && <Controls/>}
-        {/* {!isMobile && <MiniMap/>} */}
         <Background variant="dots" gap={12} size={0.5}/>
       </ReactFlow>
     </div>
