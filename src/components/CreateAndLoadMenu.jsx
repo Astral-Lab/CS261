@@ -10,6 +10,10 @@ import { MdEdit } from "react-icons/md";
 import { RiDeleteBin7Fill } from "react-icons/ri";
 import { FiLink } from "react-icons/fi";
 import { 
+    MdKeyboardArrowRight, 
+    MdKeyboardArrowLeft 
+} from "react-icons/md";
+import { 
     useDispatch, 
     useSelector 
 } from "react-redux";
@@ -43,6 +47,17 @@ export default function CreateAndLoadJunction() {
         <div className="w-full h-full flex flex-col justify-between">
             <div>
                 <h2 className="text-xl text-center cap mb-10">Create & Load</h2>
+                <div className="w-full h-20  flex justify-between items-center px-8">
+                    <button
+                        className=""
+                        onClick={null}
+                    ><MdKeyboardArrowLeft size={"32px"}/></button>
+                    <p className="text-xl">1 lane</p>
+                    <button
+                        className=""
+                        onClick={null}
+                    ><MdKeyboardArrowRight size={"32px"}/></button>
+                </div>
                 <Table>
                     <TableHeader>
                         <TableRow>

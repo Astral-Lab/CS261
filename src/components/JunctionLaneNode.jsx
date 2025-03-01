@@ -1,8 +1,14 @@
+import { useState } from "react";
 import { 
     Handle,
     Position
 } from "@xyflow/react";
 import { FaCarAlt } from "react-icons/fa";
+import { Slider } from "./ui/slider";
+import { 
+    MAX_ARRIVAL_RATE, 
+    MIN_ARRIVAL_RATE 
+} from "@/lib/config";
 
 // on select give blue border of 1px...
 // put into config file...
@@ -15,6 +21,12 @@ const handleStyle = {
 }
 
 export default function JunctionLaneNode(props) {
+    const [vph, setVph] = useState([50]);
+
+    const handleChange = () => {
+
+    }
+
     return (
         <>
             <Handle 
@@ -39,9 +51,18 @@ export default function JunctionLaneNode(props) {
                         <label className="font-bold">vph <span className="text-[#E0E0E0]">(234)</span></label>
                         <p className="">the vehicles per hour arriving at the junction</p>
                         {/** temp */}
-                        <div className="w-full h-2 rounded-full bg-[#E0E0E0] mt-1">
+                        {/* <Slider
+                            defaultValue={[50]}
+                            min={MIN_ARRIVAL_RATE}
+                            max={MAX_ARRIVAL_RATE}
+                            step={1}
+                            className=""
+                            // onValueChange={handleChange}
+                        /> */}
+                        {/* <div className="w-full h-2 rounded-full bg-[#E0E0E0] mt-1">
 
-                        </div>
+                        </div> */}
+                        <input type="range" className="w-full"/>
                     </div>
                     <div className="flex flex-col gap-2">
                         <label className="font-bold">queue <span className="text-[#E0E0E0]">(12)</span></label>

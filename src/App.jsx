@@ -15,7 +15,7 @@ import {
   Panel
 } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
-import { CANVAS_STYLES } from "./lib/config";
+import { CANVAS_STYLES, DEFAULT_JUNCTION } from "./lib/config";
 import JunctionLaneNode from "./components/JunctionLaneNode";
 import JunctionIntersectionNode from "./components/JunctionIntersectionNode";
 import { 
@@ -35,10 +35,47 @@ import SlideableContainer from "./components/SlideableContainer";
 import ScoreAndStatsMenu from "./components/ScoreAndStatsMenu";
 import SaveAndShareMenu from "./components/SaveAndShareMenu";
 
+function reducer(state, action) {
+  switch(action.type) {
+    case "CHANGE_LANE_COUNT": {
+      return {
+          ...state
+      }
+    }
+    case "CHANGE_JUNCTION_NAME": {
+      return {
+        ...state
+      }
+    }
+    case "CHANGE_LIGHT_DURATION": {
+      return {
+        ...state
+      }
+    }
+    case "CHANGE_LIGHT_PRIORITY": {
+      return {
+        ...state
+      }
+    }
+    case "CHANGE_LANE_VPH": {
+      return {
+        ...state
+      }
+    }
+    case "CHANGE_LANE_LEFT_TURN": {
+      return {
+        ...state
+      }
+    }
+  }
+  throw Error("Unknown action: " + action.type);
+}
+
 // Must disable node inputs whilst simulation running???
 // dim left half of screen when menu open...
 export default function App() {
-  const [laneCount, setLaneCount] = useState(2)
+  const [laneCount, setLaneCount] = useState(2);
+  const [state, dispatch] = useState(reducer, DEFAULT_JUNCTION);
   const [nodes, setNodes, onNodesChange] = useNodesState(generateJunctionNodes(laneCount));
   const [edges, setEdges, onEdgesChange] = useEdgesState(generateJunctionEdges(laneCount));
   const isMobile = useMobileLayout();

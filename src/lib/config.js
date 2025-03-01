@@ -1,3 +1,54 @@
+// default junction
+export const DEFAULT_JUNCTION = {
+    name: "junction 1",
+    score: 0,
+    laneCount: 2,
+    lightDuration: 60,
+    lightPriority: [0, 0, 0, 0],
+    lanes: [
+        {
+            vph: null,
+            label: null,
+            leftTurn: false
+        },
+        {
+            vph: null,
+            label: null,
+            leftTurn: false
+        },
+        {
+            vph: null,
+            label: null,
+            leftTurn: false
+        },
+        {
+            vph: null,
+            label: null,
+            leftTurn: false
+        },
+        {
+            vph: null,
+            label: null,
+            leftTurn: false
+        },
+        {
+            vph: null,
+            label: null,
+            leftTurn: false
+        },
+        {
+            vph: null,
+            label: null,
+            leftTurn: false
+        },
+        {
+            vph: null,
+            label: null,
+            leftTurn: false
+        }
+    ]
+}
+
 // junction constants
 export const LANE_WIDTH = 0;
 export const MIN_ARRIVAL_RATE = 0;
