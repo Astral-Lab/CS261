@@ -6,39 +6,35 @@ import {
     TableHeader,
     TableRow
 } from "@/components/ui/table";
-import { FaStar } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
-import { IoUnlinkSharp } from "react-icons/io5";
-import { TbHttpDelete } from "react-icons/tb";
-import { useSelector } from "react-redux";
-import { selectJunctions } from "@/stores/junctionSlice";
+import { RiDeleteBin7Fill } from "react-icons/ri";
+import { FiLink } from "react-icons/fi";
+import { 
+    useDispatch, 
+    useSelector 
+} from "react-redux";
+import { 
+    deleteJunction, 
+    selectJunctions 
+} from "@/stores/junctionSlice";
+import { copyJunctionURL } from "@/lib/utils";
 
 export default function CreateAndLoadJunction() {
     const junctions = useSelector(selectJunctions);
-
-    console.log(junctions)
+    const dispatch = useDispatch();
 
     const renderedSavedJunctions = junctions.map(junction => (
         <TableRow key={junction.name}>
             <TableCell className="font-medium">{junction.name}</TableCell>
             <TableCell className="flex items-center gap-2">{junction.score}</TableCell>
-            <TableCell className="text-right">
-                <button
-                    className=""
-                    onClick={null}
-                >load</button>
+            <TableCell className="text-center">
+                <button onClick={() => null}><MdEdit/></button>
             </TableCell>
-            <TableCell className="text-right">
-                <button
-                    className=""
-                    onClick={null}
-                >share</button>
+            <TableCell className="text-center">
+                <button onClick={() => copyJunctionURL(junction)}><FiLink/></button>
             </TableCell>
-            <TableCell className="text-right">
-                <button
-                    className=""
-                    onClick={null}
-                >delete</button>
+            <TableCell className="text-center">
+                <button onClick={() => dispatch(deleteJunction(junction.name))}><RiDeleteBin7Fill/></button>
             </TableCell>
         </TableRow>
     ));

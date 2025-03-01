@@ -111,3 +111,11 @@ export function getJunctionCoords(laneCount) {
 
   }
 }
+
+export function copyJunctionURL(junction) {
+  const url = "test";
+
+  // base 64 encode...
+
+  navigator.clipboard.writeText(url);
+}

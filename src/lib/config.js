@@ -1,14 +1,12 @@
 // junction constants
-export const MIN_SIDE_LANES = 1;
-export const MAX_SIDE_LANES = 5;
 export const LANE_WIDTH = 0;
 export const MIN_ARRIVAL_RATE = 0;
 export const MAX_ARRIVAL_RATE = 0;
 
 // vehicle constants
-export const CAR_LENGTH = 4;
-export const CAR_GAP = 1;
-export const VEHICLE_DEPATURE_SPEED = 2; // seconds
+export const CAR_LENGTH = 4;                // meters
+export const CAR_GAP = 1;                   // meters
+export const VEHICLE_DEPATURE_SPEED = 2;    // seconds
 
 // styles
 export const CANVAS_STYLES = {
@@ -45,7 +43,6 @@ export const THREE_LANE_COORDS = [
     [{ x: -1200, y: -400 }, { x: -1200, y: 0 }, { x: -1200, y: 400 }]
 ];
 
-// TODO
 export const FOUR_LANE_COORDS = [
     [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }],
     [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }],
