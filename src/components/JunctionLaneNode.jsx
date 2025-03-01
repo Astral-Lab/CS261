@@ -34,7 +34,7 @@ export default function JunctionLaneNode(props) {
                 position={Position[props.data.handleLocation]}
                 style={handleStyle}
             />
-            <div className={`w-[500px] bg-white rounded-2xl shadow-xs overflow-hidden pb-4 border-[1px] ${props.selected ? "border-blue-400" : "border-white"}`}>
+            <div className={`w-[500px] bg-white rounded-2xl shadow-xs overflow-hidden pb-4 border-[1px] border-white`}>
                 <div className="w-full flex justify-between items-center px-6 py-4 bg-[#F9F9F9] border-b-[1px] border-[#F0F0F0]">
                     <div className="flex items-center gap-2">
                         <FaCarAlt size={"18px"}/>

@@ -23,9 +23,9 @@ import {
 } from "@/stores/junctionSlice";
 import { copyJunctionURL } from "@/lib/utils";
 
-export default function CreateAndLoadJunction() {
+export default function CreateAndLoadJunction({ state, dispatch }) {
     const junctions = useSelector(selectJunctions);
-    const dispatch = useDispatch();
+    const dispatchStore = useDispatch();
 
     const renderedSavedJunctions = junctions.map(junction => (
         <TableRow key={junction.name}>
@@ -38,7 +38,7 @@ export default function CreateAndLoadJunction() {
                 <button onClick={() => copyJunctionURL(junction)}><FiLink/></button>
             </TableCell>
             <TableCell className="text-center">
-                <button onClick={() => dispatch(deleteJunction(junction.name))}><RiDeleteBin7Fill/></button>
+                <button onClick={() => dispatchStore(deleteJunction(junction.name))}><RiDeleteBin7Fill/></button>
             </TableCell>
         </TableRow>
     ));
@@ -47,15 +47,15 @@ export default function CreateAndLoadJunction() {
         <div className="w-full h-full flex flex-col justify-between">
             <div>
                 <h2 className="text-xl text-center cap mb-10">Create & Load</h2>
-                <div className="w-full h-20  flex justify-between items-center px-8">
+                <div className="w-full h-20 bg-[#73737320] flex justify-between items-center px-8 rounded-xl mb-8">
                     <button
-                        className=""
-                        onClick={null}
+                        className="h-full"
+                        onClick={() => dispatch({ type: "DECREMENT_LANE_COUNT" })}
                     ><MdKeyboardArrowLeft size={"32px"}/></button>
-                    <p className="text-xl">1 lane</p>
+                    <p className="text-xl">{state.laneCount} lane</p>
                     <button
-                        className=""
-                        onClick={null}
+                        className="h-full"
+                        onClick={() => dispatch({ type: "INCREMENT_LANE_COUNT" })}
                     ><MdKeyboardArrowRight size={"32px"}/></button>
                 </div>
                 <Table>

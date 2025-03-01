@@ -1,7 +1,5 @@
 import { 
-  useCallback, 
   useMemo, 
-  useState, 
   useRef, 
   useEffect,
   useReducer
@@ -15,7 +13,10 @@ import {
   Panel
 } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
-import { CANVAS_STYLES, DEFAULT_JUNCTION } from "./lib/config";
+import { 
+  CANVAS_STYLES, 
+  DEFAULT_JUNCTION 
+} from "./lib/config";
 import JunctionLaneNode from "./components/JunctionLaneNode";
 import JunctionIntersectionNode from "./components/JunctionIntersectionNode";
 import { 
@@ -37,9 +38,16 @@ import SaveAndShareMenu from "./components/SaveAndShareMenu";
 
 function reducer(state, action) {
   switch(action.type) {
-    case "CHANGE_LANE_COUNT": {
+    case "INCREMENT_LANE_COUNT": {
       return {
-          ...state
+          ...state,
+          laneCount: (state.laneCount % 4) + 1
+      }
+    }
+    case "DECREMENT_LANE_COUNT": {
+      return {
+          ...state,
+          laneCount: (state.laneCount - 1) || 4
       }
     }
     case "CHANGE_JUNCTION_NAME": {
@@ -74,10 +82,9 @@ function reducer(state, action) {
 // Must disable node inputs whilst simulation running???
 // dim left half of screen when menu open...
 export default function App() {
-  const [laneCount, setLaneCount] = useState(2);
-  const [state, dispatch] = useState(reducer, DEFAULT_JUNCTION);
-  const [nodes, setNodes, onNodesChange] = useNodesState(generateJunctionNodes(laneCount));
-  const [edges, setEdges, onEdgesChange] = useEdgesState(generateJunctionEdges(laneCount));
+  const [state, dispatch] = useReducer(reducer, DEFAULT_JUNCTION);
+  const [nodes, setNodes, onNodesChange] = useNodesState(generateJunctionNodes(state.laneCount));
+  const [edges, setEdges, onEdgesChange] = useEdgesState(generateJunctionEdges(state.laneCount));
   const isMobile = useMobileLayout();
   const ref = useRef(null);
   const createRef = useRef(null);
@@ -91,17 +98,29 @@ export default function App() {
 
   // on junction change repaint node diagram
   useEffect(() => {
-    setNodes(generateJunctionNodes(laneCount));
-    setEdges(generateJunctionEdges(laneCount));
+    setNodes(generateJunctionNodes(state.laneCount));
+    setEdges(generateJunctionEdges(state.laneCount));
 
-  }, [laneCount]);
+  }, [state.laneCount]);
 
   return (
     <div className="w-full flex h-screen font-fira-code select-none relative py-8 pr-8 group/parent overflow-hidden">
       {/* <div className="w-full h-full bg-white absolute inset-0 group-[:has(:checked)]/parent:opacity-10"></div> */}
-      <SlideableContainer ref={createRef} content={<CreateAndLoadJunction/>} id="create"/>
-      <SlideableContainer ref={statsRef} content={<ScoreAndStatsMenu/>} id="score"/>
-      <SlideableContainer ref={saveRef} content={<SaveAndShareMenu/>} id="save"/>
+      <SlideableContainer 
+        ref={createRef} 
+        content={<CreateAndLoadJunction state={state} dispatch={dispatch}/>} 
+        id="create"
+      />
+      <SlideableContainer 
+        ref={statsRef} 
+        content={<ScoreAndStatsMenu/>} 
+        id="score"
+      />
+      <SlideableContainer 
+        ref={saveRef} 
+        content={<SaveAndShareMenu/>} 
+        id="save"
+      />
       <div className="w-1/4 h-full flex flex-col justify-between px-8">
         <h1 className="text-center text-4xl text-blue-400 font-fira-code mt-8">Junction Flow</h1>
         <JunctionFlowHints/>
@@ -149,7 +168,11 @@ export default function App() {
           </ul>
         </Panel>
         {!isMobile && <Controls/>}
-        <Background variant="dots" gap={12} size={0.5}/>
+        <Background 
+          variant="dots" 
+          gap={12} 
+          size={0.5}
+        />
       </ReactFlow>
     </div>
   )
