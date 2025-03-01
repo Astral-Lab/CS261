@@ -33,7 +33,7 @@ export default configureStore({
             serializableCheck: {
                 ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
             },
-        }).concat(apiSlice.middleware),
+        }),
 
     devTools: process.env.NODE_ENV === "development"
 });

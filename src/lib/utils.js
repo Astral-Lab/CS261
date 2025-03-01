@@ -88,12 +88,6 @@ export function generateJunctionEdges(laneCount) {
               source: `node-${i + 1}:${j + 1}`,
               target: "i-1",
               targetHandle: `handle-${i + 1}:${j + 1}`,
-              // markerEnd: {
-              //     type: MarkerType.ArrowClosed,
-              //     width: 20,
-              //     height: 20,
-              //     color: '#FF0072',
-              // },
               label: "active"
           });
       }
