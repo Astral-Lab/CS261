@@ -63,7 +63,7 @@ export default function ScoreAndStatsMenu() {
                     <TableHeader>
                         <TableRow>
                             <TableHead className="text-xs">lane</TableHead>
-                            <TableHead className="text-xs">vph</TableHead>
+                            <TableHead className="text-xs w-[70px]">vph</TableHead>
                             <TableHead className="text-xs text-right">avg wait</TableHead>
                             <TableHead className="text-xs text-right">max wait</TableHead>
                             <TableHead className="text-xs text-right">avg queue</TableHead>

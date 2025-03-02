@@ -36,7 +36,7 @@ export default function SaveAndShareMenu() {
                     }
                 )}
                 type="button"
-                onClick={() => dispatchStore(saveJunction(junction))}
+                onClick={() => dispatch(saveJunction(junction))}
                 disabled={disabled}
             >save</button>
         </form>
