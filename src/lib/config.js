@@ -1,5 +1,4 @@
 // junction constants
-export const LANE_WIDTH = 0;
 export const MIN_ARRIVAL_RATE = 0;
 export const MAX_ARRIVAL_RATE = 0;
 export const DEFAULT_VPH = 500;
