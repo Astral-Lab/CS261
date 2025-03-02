@@ -45,7 +45,7 @@ export default function CreateAndLoadJunction({ state, dispatch }) {
 
     return (
         <div className="w-full h-full flex flex-col justify-between">
-            <div>
+            <div className="grow flex flex-col">
                 <h2 className="text-xl text-center cap mb-10">Create & Load</h2>
                 <div className="w-full h-20 bg-[#73737320] flex justify-between items-center px-8 rounded-xl mb-8">
                     <button
@@ -58,18 +58,22 @@ export default function CreateAndLoadJunction({ state, dispatch }) {
                         onClick={() => dispatch({ type: "INCREMENT_LANE_COUNT" })}
                     ><MdKeyboardArrowRight size={"32px"}/></button>
                 </div>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                        <TableHead className="text-xs">name</TableHead>
-                        <TableHead className="text-xs text-center">score</TableHead>
-                        <TableHead className="text-xs text-center">edit</TableHead>
-                        <TableHead className="text-xs text-center">share</TableHead>
-                        <TableHead className="text-xs text-center">delete</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>{renderedSavedJunctions}</TableBody>
-                </Table>
+                {junctions.length ? (
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                            <TableHead className="text-xs">name</TableHead>
+                            <TableHead className="text-xs text-center">score</TableHead>
+                            <TableHead className="text-xs text-center">edit</TableHead>
+                            <TableHead className="text-xs text-center">share</TableHead>
+                            <TableHead className="text-xs text-center">delete</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>{renderedSavedJunctions}</TableBody>
+                    </Table>
+                ) : (
+                    <p className="grow flex justify-center items-center">No saved junctions</p>
+                )}
             </div>
             <p className="text-xs italic border-t-[1px] border-[#73737340] pt-8">Clearing your browser cache will permanently delete any saved junction designs.</p>
         </div>
