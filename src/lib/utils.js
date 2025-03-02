@@ -124,3 +124,7 @@ export function createDefaultLanes(laneCount) {
     leftTurn: false
   }));
 }
+
+export function decodeSharedURL(data) {
+  return JSON.parse(atob(data));
+}

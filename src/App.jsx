@@ -21,6 +21,7 @@ import JunctionLaneNode from "./components/JunctionLaneNode";
 import JunctionIntersectionNode from "./components/JunctionIntersectionNode";
 import { 
   createDefaultLanes,
+  decodeSharedURL,
   generateJunctionEdges, 
   generateJunctionNodes 
 } from "./lib/utils";
@@ -36,6 +37,7 @@ import { RiAddLine } from "react-icons/ri";
 import SlideableContainer from "./components/SlideableContainer";
 import ScoreAndStatsMenu from "./components/ScoreAndStatsMenu";
 import SaveAndShareMenu from "./components/SaveAndShareMenu";
+import { useSearchParams } from "react-router";
 
 function reducer(state, action) {
   switch(action.type) {
@@ -100,11 +102,12 @@ export default function App() {
   const [state, dispatch] = useReducer(reducer, DEFAULT_JUNCTION);
   const [nodes, setNodes, onNodesChange] = useNodesState(generateJunctionNodes(state.laneCount));
   const [edges, setEdges, onEdgesChange] = useEdgesState(generateJunctionEdges(state.laneCount));
+  const [searchParams] = useSearchParams();
   const isMobile = useMobileLayout();
-  const ref = useRef(null);
   const createRef = useRef(null);
   const saveRef = useRef(null);
   const statsRef = useRef(null);
+  const ref = useRef(null);
 
   const nodeTypes = useMemo(() => ({ 
     junctionLane: JunctionLaneNode,
@@ -121,8 +124,12 @@ export default function App() {
 
   }, [state.laneCount]);
 
+  // on page load checks if URL is a shareable link and loads that junction to the interface
   useEffect(() => {
-    // init custom shared junction via url...
+    if(searchParams.get("data")) {
+      dispatch({ type: "LOAD_JUNCTION", payload: decodeSharedURL(searchParams.get("data")) });
+    }
+
   }, []);
 
   return (
@@ -139,7 +146,7 @@ export default function App() {
       />
       <SlideableContainer 
         ref={saveRef} 
-        content={<SaveAndShareMenu/>} 
+        content={<SaveAndShareMenu state={state} dispatch={dispatch}/>} 
         id="save"
       />
       <div className="w-1/4 h-full flex flex-col justify-between px-8">

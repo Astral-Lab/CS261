@@ -30,7 +30,7 @@ export default function CreateAndLoadJunction({ state, dispatch }) {
     const renderedSavedJunctions = junctions.map(junction => (
         <TableRow key={junction.name}>
             <TableCell className="text-xs font-medium">{junction.name}</TableCell>
-            <TableCell className="text-xs flex items-center gap-2">{junction.score}</TableCell>
+            <TableCell className="text-xs text-center">{junction.score}</TableCell>
             <TableCell className="text-xs text-center">
                 <button onClick={() => dispatch({ type: "LOAD_JUNCTION", payload: junction })}><MdEdit/></button>
             </TableCell>
@@ -62,7 +62,7 @@ export default function CreateAndLoadJunction({ state, dispatch }) {
                     <TableHeader>
                         <TableRow>
                         <TableHead className="text-xs">name</TableHead>
-                        <TableHead className="text-xs">score</TableHead>
+                        <TableHead className="text-xs text-center">score</TableHead>
                         <TableHead className="text-xs text-center">edit</TableHead>
                         <TableHead className="text-xs text-center">share</TableHead>
                         <TableHead className="text-xs text-center">delete</TableHead>

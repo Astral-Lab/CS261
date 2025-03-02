@@ -52,7 +52,7 @@ export const FOUR_LANE_COORDS = [
 
 // default junction
 export const DEFAULT_JUNCTION = {
-    name: "junction 1",
+    name: "Junction 1",
     score: 0,
     laneCount: 2,
     lightDuration: 60,

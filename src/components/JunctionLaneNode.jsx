@@ -10,8 +10,6 @@ import {
     MIN_ARRIVAL_RATE 
 } from "@/lib/config";
 
-// on select give blue border of 1px...
-// put into config file...
 const handleStyle = {
     width: 20,
     height: 20,
