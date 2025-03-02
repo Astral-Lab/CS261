@@ -5,8 +5,15 @@ import {
 import { HANDLE_STYLES } from "@/lib/config";
 import { MdTraffic } from "react-icons/md";
 import clsx from "clsx";
+import { 
+    useDispatch, 
+    useSelector 
+} from "react-redux";
+import { changeLightDuration, selectJunction } from "@/stores/junctionSlice";
 
 export default function JunctionIntersectionNode(props) {
+    const junction = useSelector(selectJunction);
+    const dispatch = useDispatch();
     const laneCount = props.data.laneCount;
     const handleLocation = ["Top", "Right", "Bottom", "Left"];
     const renderedHandles = [];
@@ -40,38 +47,38 @@ export default function JunctionIntersectionNode(props) {
                 <div className="flex flex-col gap-8 px-6 p-4">
                     <p className="">This node consumes traffic flow and controls the traffic light cycle.</p>
                     <div className="flex flex-col gap-2">
-                        <label className="font-bold">duration <span className="text-[#E0E0E0]">(120s)</span></label>
+                        <label className="font-bold">duration <span className="text-[#E0E0E0]">({junction.lightDuration}s)</span></label>
                         <p className="">the number of seconds in a traffic cycle</p>
-                        <div className="w-full flex gap-2">
+                        <div className="w-full flex gap-2 nodrag nopan">
                             <button 
                                 className={clsx(
                                     "w-1/3 h-12 rounded-lg mt-1",
                                     {
-                                        "bg-blue-400": props?.data?.state?.lightDuration === 60,
-                                        "bg-[#E0E0E0]": props?.data?.state?.lightDuration !== 60
+                                        "bg-blue-400": junction.lightDuration === 60,
+                                        "bg-[#E0E0E0]": junction.lightDuration !== 60
                                     }
                                 )}
-                                onClick={() => props?.data?.dispatch({ type: "CHANGE_LIGHT_DURATION", payload: 60 })}
+                                onClick={() => dispatch(changeLightDuration(60))}
                             >60</button>
                             <button 
                                 className={clsx(
                                     "w-1/3 h-12 rounded-lg mt-1",
                                     {
-                                        "bg-blue-400": props?.data?.state?.lightDuration === 90,
-                                        "bg-[#E0E0E0]": props?.data?.state?.lightDuration !== 90
+                                        "bg-blue-400": junction.lightDuration === 90,
+                                        "bg-[#E0E0E0]": junction.lightDuration !== 90
                                     }
                                 )}
-                                onClick={() => props?.data?.dispatch({ type: "CHANGE_LIGHT_DURATION", payload: 90 })}
+                                onClick={() => dispatch(changeLightDuration(90))}
                             >90</button>
                             <button 
                                 className={clsx(
                                     "w-1/3 h-12 rounded-lg mt-1",
                                     {
-                                        "bg-blue-400": props?.data?.state?.lightDuration === 120,
-                                        "bg-[#E0E0E0]": props?.data?.state?.lightDuration !== 120
+                                        "bg-blue-400": junction.lightDuration === 120,
+                                        "bg-[#E0E0E0]": junction.lightDuration !== 120
                                     }
                                 )}
-                                onClick={() => props?.data?.dispatch({ type: "CHANGE_LIGHT_DURATION", payload: 120 })}
+                                onClick={() => dispatch(changeLightDuration(120))}
                             >120</button>
                         </div>
                     </div>

@@ -45,7 +45,7 @@ const junctionSlice = createSlice({
             state.current.name = action.payload;
         },
         changeLightDuration: (state, action) => {
-           
+           state.current.lightDuration = action.payload;
         },
         changeLightPriority: (state, action) => {
 
