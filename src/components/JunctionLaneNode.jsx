@@ -1,14 +1,14 @@
-import { useState } from "react";
 import { 
     Handle,
     Position
 } from "@xyflow/react";
 import { FaCarAlt } from "react-icons/fa";
-import { Slider } from "./ui/slider";
 import { 
     MAX_ARRIVAL_RATE, 
     MIN_ARRIVAL_RATE 
 } from "@/lib/config";
+import { useDispatch, useSelector } from "react-redux";
+import { selectValue, updateValue } from "@/stores/junctionSlice";
 
 const handleStyle = {
     width: 20,
@@ -19,10 +19,11 @@ const handleStyle = {
 }
 
 export default function JunctionLaneNode(props) {
-    const [vph, setVph] = useState([50]);
+    const value = useSelector(selectValue);
+    const dispatch = useDispatch();
 
-    const handleChange = () => {
-
+    const handleValueChange = (e) => {
+        dispatch(updateValue(e.target.value));
     }
 
     return (
@@ -46,31 +47,23 @@ export default function JunctionLaneNode(props) {
                 <div className="flex flex-col gap-8 px-6 p-4">
                     <p className="">This node will forward cars to the junction.</p>
                     <div className="flex flex-col gap-2">
-                        <label className="font-bold">vph <span className="text-[#E0E0E0]">(234)</span></label>
+                        <label className="font-bold">vph <span className="text-[#E0E0E0]">({value})</span></label>
                         <p className="">the vehicles per hour arriving at the junction</p>
-                        {/** temp */}
-                        {/* <Slider
-                            defaultValue={[50]}
+                        <input 
+                            className="nodrag nopan"
+                            type="range"
                             min={MIN_ARRIVAL_RATE}
                             max={MAX_ARRIVAL_RATE}
                             step={1}
-                            className=""
-                            // onValueChange={handleChange}
-                        /> */}
-                        {/* <div className="w-full h-2 rounded-full bg-[#E0E0E0] mt-1">
-
-                        </div> */}
-                        <input type="range" className="w-full"/>
+                            value={value}
+                            onChange={handleValueChange}
+                        />
                     </div>
                     <div className="flex flex-col gap-2">
                         <label className="font-bold">queue <span className="text-[#E0E0E0]">(12)</span></label>
                         <p className="">the number of vehicles in the lane queue</p>
-                        {/** temp */}
-                        <div className="w-full h-2 rounded-full bg-[#E0E0E0] mt-1">
-
-                        </div>
+                        <div className="w-full h-2 rounded-full bg-[#E0E0E0] mt-1"></div>
                     </div>
-                    {/** configure lane type i.e. bus/cycle/left turn etc... */}
                 </div>
             </div>
         </>

@@ -112,7 +112,7 @@ export function getJunctionCoords(laneCount) {
 
 export function copyJunctionURL(junction) {
   const data = btoa(JSON.stringify(junction));
-  const url = `http://localhost:5173/?data=${data}`;
+  const url = `http://localhost:5173/?data=${data}`; // update...
 
   navigator.clipboard.writeText(url);
 }

@@ -3,6 +3,7 @@ import {
     Position
 } from "@xyflow/react";
 import { MdTraffic } from "react-icons/md";
+import clsx from "clsx";
 
 const handleStyle = {
     width: 20,
@@ -18,7 +19,7 @@ export default function JunctionIntersectionNode(props) {
     const laneCount = props.data.laneCount;
     const handleLocation = ["Top", "Right", "Bottom", "Left"];
     const renderedHandles = [];
-
+    
     for(let i = 0; i < 4; i++) {
         for(let j = 0; j < props.data.laneCount; j++) {
             renderedHandles.push(
@@ -47,16 +48,34 @@ export default function JunctionIntersectionNode(props) {
                         <p className="">the number of seconds in a traffic cycle</p>
                         <div className="w-full flex gap-2">
                             <button 
-                                className="w-1/3 h-12 rounded-lg bg-[#E0E0E0] mt-1"
-                                onClick={null}
+                                className={clsx(
+                                    "w-1/3 h-12 rounded-lg mt-1",
+                                    {
+                                        "bg-blue-400": props?.data?.state?.lightDuration === 60,
+                                        "bg-[#E0E0E0]": props?.data?.state?.lightDuration !== 60
+                                    }
+                                )}
+                                onClick={() => props?.data?.dispatch({ type: "CHANGE_LIGHT_DURATION", payload: 60 })}
                             >60</button>
                             <button 
-                                className="w-1/3 h-12 rounded-lg bg-[#E0E0E0] mt-1"
-                                onClick={null}
+                                className={clsx(
+                                    "w-1/3 h-12 rounded-lg mt-1",
+                                    {
+                                        "bg-blue-400": props?.data?.state?.lightDuration === 90,
+                                        "bg-[#E0E0E0]": props?.data?.state?.lightDuration !== 90
+                                    }
+                                )}
+                                onClick={() => props?.data?.dispatch({ type: "CHANGE_LIGHT_DURATION", payload: 90 })}
                             >90</button>
                             <button 
-                                className="w-1/3 h-12 rounded-lg bg-[#E0E0E0] mt-1"
-                                onClick={null}
+                                className={clsx(
+                                    "w-1/3 h-12 rounded-lg mt-1",
+                                    {
+                                        "bg-blue-400": props?.data?.state?.lightDuration === 120,
+                                        "bg-[#E0E0E0]": props?.data?.state?.lightDuration !== 120
+                                    }
+                                )}
+                                onClick={() => props?.data?.dispatch({ type: "CHANGE_LIGHT_DURATION", payload: 120 })}
                             >120</button>
                         </div>
                     </div>

@@ -1,8 +1,11 @@
 import { DEFAULT_JUNCTION } from "@/lib/config";
 import { createSlice } from "@reduxjs/toolkit";
+import { createDefaultLanes } from "@/lib/utils";
 
 const initialState = {
-    junctions: [DEFAULT_JUNCTION]
+    junctions: [DEFAULT_JUNCTION],
+    value: 0,
+    current: DEFAULT_JUNCTION
 }
 
 const junctionSlice = createSlice({
@@ -21,13 +24,64 @@ const junctionSlice = createSlice({
         },
         deleteJunction: (state, action) => {
             state.junctions = state.junctions.filter(junction => junction.name !== action.payload);
+        },
+        updateValue: (state, action) => {
+            state.value = action.payload
+        },
+        incrementLaneCount: (state) => {
+            state.current.laneCount = (state.current.laneCount % 4) + 1;
+            state.current.score = 0;
+            state.current.lightDuration = 60;
+            state.current.lightPriority = [0, 0, 0, 0];
+            state.current.lanes = createDefaultLanes((state.current.laneCount % 4) + 1);
+        },
+        decrementLaneCount: (state) => {
+            state.current.laneCount = (state.laneCount - 1) || 4;
+            state.current.score = 0;
+            state.current.lightDuration = 60;
+            state.current.lightPriority = [0, 0, 0, 0];
+            state.current.lanes = createDefaultLanes((state.current.laneCount - 1) || 4);
+        },
+        changeJunctionName: (state, action) => {
+            state.current.name = action.payload;
+        },
+        changeLightDuration: (state, action) => {
+           
+        },
+        changeLightPriority: (state, action) => {
+
+        },
+        changeLaneVph: (state, action) => {
+
+        },
+        changeLaneLeftTurn: (state, action) => {
+
+        },
+        loadJunction: (state, action) => {
+            state.current = action.payload;
         }
     }
 });
 
-export const { saveJunction, deleteJunction } = junctionSlice.actions;
+export const { 
+    saveJunction, 
+    deleteJunction, 
+    updateValue,
+    incrementLaneCount,
+    decrementLaneCount,
+    changeJunctionName,
+    changeLightDuration,
+    changeLightPriority,
+    changeLaneVph,
+    changeLaneLeftTurn,
+    loadJunction
+} = junctionSlice.actions;
 
 export default junctionSlice.reducer;
 
-// might need to memoise this selector?
 export const selectJunctions = state => state.junctions.junctions;
+
+// remove
+export const selectValue = state => state.junctions.value;
+
+export const selectJunction = state => state.junctions.current;

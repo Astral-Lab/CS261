@@ -1,8 +1,7 @@
 import { 
   useMemo, 
   useRef, 
-  useEffect,
-  useReducer
+  useEffect
 } from "react";
 import {
   ReactFlow,
@@ -13,14 +12,10 @@ import {
   Panel
 } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
-import { 
-  CANVAS_STYLES, 
-  DEFAULT_JUNCTION 
-} from "./lib/config";
+import { CANVAS_STYLES } from "./lib/config";
 import JunctionLaneNode from "./components/JunctionLaneNode";
 import JunctionIntersectionNode from "./components/JunctionIntersectionNode";
 import { 
-  createDefaultLanes,
   decodeSharedURL,
   generateJunctionEdges, 
   generateJunctionNodes 
@@ -38,70 +33,13 @@ import SlideableContainer from "./components/SlideableContainer";
 import ScoreAndStatsMenu from "./components/ScoreAndStatsMenu";
 import SaveAndShareMenu from "./components/SaveAndShareMenu";
 import { useSearchParams } from "react-router";
-
-function reducer(state, action) {
-  switch(action.type) {
-    case "INCREMENT_LANE_COUNT": {
-      return {
-          ...state,
-          laneCount: (state.laneCount % 4) + 1,
-          score: 0,
-          lightDuration: 60,
-          lightPriority: [0, 0, 0, 0],
-          lanes: createDefaultLanes((state.laneCount % 4) + 1)
-      }
-    }
-    case "DECREMENT_LANE_COUNT": {
-      return {
-          ...state,
-          laneCount: (state.laneCount - 1) || 4,
-          score: 0,
-          lightDuration: 60,
-          lightPriority: [0, 0, 0, 0],
-          lanes: createDefaultLanes((state.laneCount - 1) || 4)
-      }
-    }
-    case "CHANGE_JUNCTION_NAME": {
-      return {
-        ...state,
-        name: action.payload
-      }
-    }
-    case "CHANGE_LIGHT_DURATION": {
-      return {
-        ...state,
-        lightDuration: action.payload
-      }
-    }
-    case "CHANGE_LIGHT_PRIORITY": {
-      return {
-        ...state,
-        lightPriority: action.payload
-      }
-    }
-    case "CHANGE_LANE_VPH": {
-      return {
-        ...state
-      }
-    }
-    case "CHANGE_LANE_LEFT_TURN": {
-      return {
-        ...state
-      }
-    }
-    case "LOAD_JUNCTION": {
-      return {
-        ...action.payload
-      }
-    }
-  }
-  throw Error("Unknown action: " + action.type);
-}
+import { useSelector } from "react-redux";
+import { loadJunction, selectJunction } from "./stores/junctionSlice";
 
 export default function App() {
-  const [state, dispatch] = useReducer(reducer, DEFAULT_JUNCTION);
-  const [nodes, setNodes, onNodesChange] = useNodesState(generateJunctionNodes(state.laneCount));
-  const [edges, setEdges, onEdgesChange] = useEdgesState(generateJunctionEdges(state.laneCount));
+  const junction = useSelector(selectJunction);
+  const [nodes, setNodes, onNodesChange] = useNodesState(generateJunctionNodes(junction.laneCount));
+  const [edges, setEdges, onEdgesChange] = useEdgesState(generateJunctionEdges(junction.laneCount));
   const [searchParams] = useSearchParams();
   const isMobile = useMobileLayout();
   const createRef = useRef(null);
@@ -117,17 +55,17 @@ export default function App() {
 
   // on junction change repaint node diagram
   useEffect(() => {
-    setNodes(generateJunctionNodes(state.laneCount));
-    setEdges(generateJunctionEdges(state.laneCount));
+    setNodes(generateJunctionNodes(junction.laneCount));
+    setEdges(generateJunctionEdges(junction.laneCount));
 
     // reset canvas view to fit new junction
 
-  }, [state.laneCount]);
+  }, [junction.laneCount]);
 
   // on page load checks if URL is a shareable link and loads that junction to the interface
   useEffect(() => {
     if(searchParams.get("data")) {
-      dispatch({ type: "LOAD_JUNCTION", payload: decodeSharedURL(searchParams.get("data")) });
+      dispatch(loadJunction(decodeSharedURL(searchParams.get("data"))));
     }
 
   }, []);
@@ -136,17 +74,17 @@ export default function App() {
     <div className="w-full flex h-screen font-fira-code select-none relative py-8 pr-8 group/parent overflow-hidden">
       <SlideableContainer 
         ref={createRef} 
-        content={<CreateAndLoadJunction state={state} dispatch={dispatch}/>} 
+        content={<CreateAndLoadJunction/>} 
         id="create"
       />
       <SlideableContainer 
         ref={statsRef} 
-        content={<ScoreAndStatsMenu state={state}/>} 
+        content={<ScoreAndStatsMenu/>} 
         id="score"
       />
       <SlideableContainer 
         ref={saveRef} 
-        content={<SaveAndShareMenu state={state} dispatch={dispatch}/>} 
+        content={<SaveAndShareMenu/>} 
         id="save"
       />
       <div className="w-1/4 h-full flex flex-col justify-between px-8">

@@ -15,10 +15,14 @@ import {
     computeTotalAverageQueueTime,
     computeTotalMaxQueueTime
 } from "@/lib/utils";
+import { selectJunction } from "@/stores/junctionSlice";
 import { FaStar } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
-export default function ScoreAndStatsMenu({ state }) {
-    const renderedLaneStats = state.lanes.map(lane => (
+export default function ScoreAndStatsMenu() {
+    const junction = useSelector(selectJunction);
+
+    const renderedLaneStats = junction.lanes.map(lane => (
         <TableRow key={lane.label}>
             <TableCell className="text-xs font-medium">{lane.label}</TableCell>
             <TableCell className="text-xs ">{lane.vph}</TableCell>
@@ -35,7 +39,7 @@ export default function ScoreAndStatsMenu({ state }) {
             </div>
             <div className="w-full grow flex flex-col items-center gap-8">
                 <div>
-                    <p className="text-5xl mb-2 text-blue-400">{computeJunctionScore(state)}</p>
+                    <p className="text-5xl mb-2 text-blue-400">{computeJunctionScore(junction)}</p>
                     <div className="flex justify-center items-center gap-1">
                         <FaStar size={"12px"} className="inline"/>
                         <p>score</p>
@@ -43,15 +47,15 @@ export default function ScoreAndStatsMenu({ state }) {
                 </div>
                 <ul className="w-full flex justify-between border-[#73737340]">
                     <li className="w-1/3 text-center">
-                        <p className="text-3xl">{computeTotalAverageQueueTime(state)}s</p>
+                        <p className="text-3xl">{computeTotalAverageQueueTime(junction)}s</p>
                         <p className="text-xs">avg wait</p>
                     </li>
                     <li className="w-1/3 text-center">
-                        <p className="text-3xl">{computeTotalMaxQueueTime(state)}s</p>
+                        <p className="text-3xl">{computeTotalMaxQueueTime(junction)}s</p>
                         <p className="text-xs">max wait</p>
                     </li>
                     <li className="w-1/3 text-center">
-                        <p className="text-3xl">{computeTotalAverageQueueLength(state)}m</p>
+                        <p className="text-3xl">{computeTotalAverageQueueLength(junction)}m</p>
                         <p className="text-xs">avg queue</p>
                     </li>
                 </ul>

@@ -14,6 +14,8 @@ import store from './stores/store'
 
 let persistor = persistStore(store);
 
+persistStore(store).purge()
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>

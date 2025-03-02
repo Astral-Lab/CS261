@@ -1,10 +1,18 @@
-import { saveJunction } from "@/stores/junctionSlice";
-import { useDispatch } from "react-redux";
+import { 
+    changeJunctionName,
+    saveJunction, 
+    selectJunction 
+} from "@/stores/junctionSlice";
+import { 
+    useDispatch, 
+    useSelector 
+} from "react-redux";
 import clsx from "clsx";
 
-export default function SaveAndShareMenu({ state, dispatch }) {
-    const dispatchStore = useDispatch();
-    const disabled = !state.name.length;
+export default function SaveAndShareMenu() {
+    const junction = useSelector(selectJunction);
+    const dispatch = useDispatch();
+    const disabled = !junction.name.length;
 
     return (
         <form className="w-full h-full flex flex-col justify-between items-end">
@@ -14,8 +22,8 @@ export default function SaveAndShareMenu({ state, dispatch }) {
                     className="w-full h-20 text-2xl bg-[#73737320] flex justify-between items-center px-8 rounded-xl mb-8 outline-none"
                     placeholder="Junction name"
                     type="text"
-                    value={state.name}
-                    onChange={(e) => dispatch({ type: "CHANGE_JUNCTION_NAME", payload: e.target.value })}
+                    value={junction.name}
+                    onChange={(e) => dispatch(changeJunctionName(e.target.value))}
                 />
                 <p className="text-xs italic">Saving without changing the name will overwrite the existing junction design with that name. Saving with a new name will create a new junction entry. </p>
                 {disabled && <p className="text-red-400 mt-8">Must enter a name for the junction</p>}
@@ -28,7 +36,7 @@ export default function SaveAndShareMenu({ state, dispatch }) {
                     }
                 )}
                 type="button"
-                onClick={() => dispatchStore(saveJunction(state))}
+                onClick={() => dispatchStore(saveJunction(junction))}
                 disabled={disabled}
             >save</button>
         </form>

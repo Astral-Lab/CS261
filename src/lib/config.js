@@ -1,6 +1,6 @@
 // junction constants
 export const MIN_ARRIVAL_RATE = 0;
-export const MAX_ARRIVAL_RATE = 0;
+export const MAX_ARRIVAL_RATE = 5000;
 export const DEFAULT_VPH = 500;
 
 // vehicle constants

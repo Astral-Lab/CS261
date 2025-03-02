@@ -18,27 +18,32 @@ import {
     useSelector 
 } from "react-redux";
 import { 
+    decrementLaneCount,
     deleteJunction, 
+    incrementLaneCount, 
+    loadJunction, 
+    selectJunction, 
     selectJunctions 
 } from "@/stores/junctionSlice";
 import { copyJunctionURL } from "@/lib/utils";
 
-export default function CreateAndLoadJunction({ state, dispatch }) {
+export default function CreateAndLoadJunction() {
+    const junction = useSelector(selectJunction);
     const junctions = useSelector(selectJunctions);
-    const dispatchStore = useDispatch();
+    const dispatch = useDispatch();
 
     const renderedSavedJunctions = junctions.map(junction => (
         <TableRow key={junction.name}>
             <TableCell className="text-xs font-medium">{junction.name}</TableCell>
             <TableCell className="text-xs text-center">{junction.score}</TableCell>
             <TableCell className="text-xs text-center">
-                <button onClick={() => dispatch({ type: "LOAD_JUNCTION", payload: junction })}><MdEdit/></button>
+                <button onClick={() => dispatch(loadJunction())}><MdEdit/></button>
             </TableCell>
             <TableCell className="text-xs text-center">
                 <button onClick={() => copyJunctionURL(junction)}><FiLink/></button>
             </TableCell>
             <TableCell className="text-xs text-center">
-                <button onClick={() => dispatchStore(deleteJunction(junction.name))}><RiDeleteBin7Fill/></button>
+                <button onClick={() => dispatch(deleteJunction(junction.name))}><RiDeleteBin7Fill/></button>
             </TableCell>
         </TableRow>
     ));
@@ -50,12 +55,12 @@ export default function CreateAndLoadJunction({ state, dispatch }) {
                 <div className="w-full h-20 bg-[#73737320] flex justify-between items-center px-8 rounded-xl mb-8">
                     <button
                         className="h-full"
-                        onClick={() => dispatch({ type: "DECREMENT_LANE_COUNT" })}
+                        onClick={() => dispatch(decrementLaneCount())}
                     ><MdKeyboardArrowLeft size={"32px"}/></button>
-                    <p className="text-xl">{state.laneCount} lane</p>
+                    <p className="text-xl">{junction.laneCount} lane</p>
                     <button
                         className="h-full"
-                        onClick={() => dispatch({ type: "INCREMENT_LANE_COUNT" })}
+                        onClick={() => dispatch(incrementLaneCount())}
                     ><MdKeyboardArrowRight size={"32px"}/></button>
                 </div>
                 {junctions.length ? (
