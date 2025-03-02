@@ -20,6 +20,7 @@ import {
 import JunctionLaneNode from "./components/JunctionLaneNode";
 import JunctionIntersectionNode from "./components/JunctionIntersectionNode";
 import { 
+  createDefaultLanes,
   generateJunctionEdges, 
   generateJunctionNodes 
 } from "./lib/utils";
@@ -41,15 +42,21 @@ function reducer(state, action) {
     case "INCREMENT_LANE_COUNT": {
       return {
           ...state,
-          laneCount: (state.laneCount % 4) + 1
-          // update number of lanes...
+          laneCount: (state.laneCount % 4) + 1,
+          score: 0,
+          lightDuration: 60,
+          lightPriority: [0, 0, 0, 0],
+          lanes: createDefaultLanes((state.laneCount % 4) + 1)
       }
     }
     case "DECREMENT_LANE_COUNT": {
       return {
           ...state,
-          laneCount: (state.laneCount - 1) || 4
-          // update number of lanes... as if on 3 lane and go to 2 lane, need to fill or remove old lanes...
+          laneCount: (state.laneCount - 1) || 4,
+          score: 0,
+          lightDuration: 60,
+          lightPriority: [0, 0, 0, 0],
+          lanes: createDefaultLanes((state.laneCount - 1) || 4)
       }
     }
     case "CHANGE_JUNCTION_NAME": {

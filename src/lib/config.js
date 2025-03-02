@@ -1,58 +1,8 @@
-// default junction
-export const DEFAULT_JUNCTION = {
-    name: "junction 1",
-    score: 0,
-    laneCount: 2,
-    lightDuration: 60,
-    lightPriority: [0, 0, 0, 0],
-    lanes: [
-        {
-            vph: 500,
-            label: "Northbound 1",
-            leftTurn: false
-        },
-        {
-            vph: 500,
-            label: "Northbound 2",
-            leftTurn: false
-        },
-        {
-            vph: 500,
-            label: "Eastbound 1",
-            leftTurn: false
-        },
-        {
-            vph: 500,
-            label: "Eastbound 2",
-            leftTurn: false
-        },
-        {
-            vph: 500,
-            label: "Southbound 1",
-            leftTurn: false
-        },
-        {
-            vph: 500,
-            label: "Southbound 2",
-            leftTurn: false
-        },
-        {
-            vph: 500,
-            label: "Westbound 1",
-            leftTurn: false
-        },
-        {
-            vph: 500,
-            label: "Westbound 2",
-            leftTurn: false
-        }
-    ]
-}
-
 // junction constants
 export const LANE_WIDTH = 0;
 export const MIN_ARRIVAL_RATE = 0;
 export const MAX_ARRIVAL_RATE = 0;
+export const DEFAULT_VPH = 500;
 
 // vehicle constants
 export const CAR_LENGTH = 4;                // meters
@@ -100,3 +50,54 @@ export const FOUR_LANE_COORDS = [
     [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }],
     [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }]
 ];
+
+// default junction
+export const DEFAULT_JUNCTION = {
+    name: "junction 1",
+    score: 0,
+    laneCount: 2,
+    lightDuration: 60,
+    lightPriority: [0, 0, 0, 0],
+    lanes: [
+        {
+            vph: DEFAULT_VPH,
+            label: "Northbound 1",
+            leftTurn: false
+        },
+        {
+            vph: DEFAULT_VPH,
+            label: "Northbound 2",
+            leftTurn: false
+        },
+        {
+            vph: DEFAULT_VPH,
+            label: "Eastbound 1",
+            leftTurn: false
+        },
+        {
+            vph: DEFAULT_VPH,
+            label: "Eastbound 2",
+            leftTurn: false
+        },
+        {
+            vph: DEFAULT_VPH,
+            label: "Southbound 1",
+            leftTurn: false
+        },
+        {
+            vph: DEFAULT_VPH,
+            label: "Southbound 2",
+            leftTurn: false
+        },
+        {
+            vph: DEFAULT_VPH,
+            label: "Westbound 1",
+            leftTurn: false
+        },
+        {
+            vph: DEFAULT_VPH,
+            label: "Westbound 2",
+            leftTurn: false
+        }
+    ]
+}

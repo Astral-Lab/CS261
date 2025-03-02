@@ -1,4 +1,5 @@
 import { 
+  DEFAULT_VPH,
   FOUR_LANE_COORDS, 
   ONE_LANE_COORDS, 
   THREE_LANE_COORDS, 
@@ -115,4 +116,12 @@ export function copyJunctionURL(junction) {
   // base 64 encode...
 
   navigator.clipboard.writeText(url);
+}
+
+export function createDefaultLanes(laneCount) {
+  return Array(laneCount * 4).fill(true).map(_ => ({
+    vph: DEFAULT_VPH,
+    label: "testing",
+    leftTurn: false
+  }));
 }
