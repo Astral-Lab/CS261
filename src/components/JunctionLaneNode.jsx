@@ -5,33 +5,29 @@ import {
 import { FaCarAlt } from "react-icons/fa";
 import { 
     MAX_ARRIVAL_RATE, 
-    MIN_ARRIVAL_RATE 
+    MIN_ARRIVAL_RATE,
+    HANDLE_STYLES
 } from "@/lib/config";
-import { useDispatch, useSelector } from "react-redux";
-import { selectValue, updateValue } from "@/stores/junctionSlice";
-
-const handleStyle = {
-    width: 20,
-    height: 20,
-    right: 0,
-    border: "2px solid white",
-    background: "#60A5FA"
-}
+import { 
+    useDispatch, 
+    useSelector 
+} from "react-redux";
+import { 
+    changeLaneVph,
+    selectLaneById
+} from "@/stores/junctionSlice";
+import { Slider } from "./ui/slider";
 
 export default function JunctionLaneNode(props) {
-    const value = useSelector(selectValue);
+    const lane = useSelector(state => selectLaneById(state, props.data?.label));
     const dispatch = useDispatch();
-
-    const handleValueChange = (e) => {
-        dispatch(updateValue(e.target.value));
-    }
 
     return (
         <>
             <Handle 
                 type="source" 
                 position={Position[props.data.handleLocation]}
-                style={handleStyle}
+                style={HANDLE_STYLES}
             />
             <div className={`w-[500px] bg-white rounded-2xl shadow-xs overflow-hidden pb-4 border-[1px] border-white`}>
                 <div className="w-full flex justify-between items-center px-6 py-4 bg-[#F9F9F9] border-b-[1px] border-[#F0F0F0]">
@@ -45,18 +41,17 @@ export default function JunctionLaneNode(props) {
                     </div>
                 </div>
                 <div className="flex flex-col gap-8 px-6 p-4">
-                    <p className="">This node will forward cars to the junction.</p>
+                    <p >This node will forward cars to the junction.</p>
                     <div className="flex flex-col gap-2">
-                        <label className="font-bold">vph <span className="text-[#E0E0E0]">({value})</span></label>
-                        <p className="">the vehicles per hour arriving at the junction</p>
-                        <input 
+                        <label className="font-bold">vph <span className="text-[#E0E0E0]">({lane.vph})</span></label>
+                        <p >the vehicles per hour arriving at the junction</p>
+                        <Slider
                             className="nodrag nopan"
-                            type="range"
                             min={MIN_ARRIVAL_RATE}
                             max={MAX_ARRIVAL_RATE}
                             step={1}
-                            value={value}
-                            onChange={handleValueChange}
+                            value={[lane.vph]}
+                            onValueChange={(value) => dispatch(changeLaneVph({ value, label: props.data?.label }))}
                         />
                     </div>
                     <div className="flex flex-col gap-2">

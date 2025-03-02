@@ -2,18 +2,9 @@ import {
     Handle,
     Position
 } from "@xyflow/react";
+import { HANDLE_STYLES } from "@/lib/config";
 import { MdTraffic } from "react-icons/md";
 import clsx from "clsx";
-
-const handleStyle = {
-    width: 20,
-    height: 20,
-    border: "2px solid white",
-    background: "#60A5FA",
-    transform: "none",
-    position: "relative",
-    left: 0,
-}
 
 export default function JunctionIntersectionNode(props) {
     const laneCount = props.data.laneCount;
@@ -28,7 +19,12 @@ export default function JunctionIntersectionNode(props) {
                     id={`handle-${i+1}:${j+1}`}
                     type="target"
                     position={Position[handleLocation[i]]}
-                    style={handleStyle}
+                    style={{
+                        ...HANDLE_STYLES,
+                        transform: "none",
+                        position: "relative",
+                        left: 0
+                    }}
                 />
             );
         }

@@ -19,6 +19,14 @@ export const MENU_CLASSES = {
     "save": "group-[:has(#save:checked)]/parent:right-0"
 }
 
+export const HANDLE_STYLES = {
+    width: 20,
+    height: 20,
+    right: 0,
+    border: "2px solid white",
+    background: "#60A5FA"
+}
+
 export const DEFAULT_ICON_SIZE = 20;
 
 // layout 

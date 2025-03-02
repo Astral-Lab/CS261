@@ -4,7 +4,6 @@ import { createDefaultLanes } from "@/lib/utils";
 
 const initialState = {
     junctions: [DEFAULT_JUNCTION],
-    value: 0,
     current: DEFAULT_JUNCTION
 }
 
@@ -36,7 +35,7 @@ const junctionSlice = createSlice({
             state.current.lanes = createDefaultLanes((state.current.laneCount % 4) + 1);
         },
         decrementLaneCount: (state) => {
-            state.current.laneCount = (state.laneCount - 1) || 4;
+            state.current.laneCount = (state.current.laneCount - 1) || 4;
             state.current.score = 0;
             state.current.lightDuration = 60;
             state.current.lightPriority = [0, 0, 0, 0];
@@ -52,7 +51,8 @@ const junctionSlice = createSlice({
 
         },
         changeLaneVph: (state, action) => {
-
+            console.log(action.payload);
+            state.current.lanes[state.current.lanes.findIndex(lane => lane.label === action.payload.label)].vph = action.payload.value;
         },
         changeLaneLeftTurn: (state, action) => {
 
@@ -81,7 +81,6 @@ export default junctionSlice.reducer;
 
 export const selectJunctions = state => state.junctions.junctions;
 
-// remove
-export const selectValue = state => state.junctions.value;
-
 export const selectJunction = state => state.junctions.current;
+
+export const selectLaneById = (state, id) => state.junctions.current.lanes.find(lane => lane.label === id);
