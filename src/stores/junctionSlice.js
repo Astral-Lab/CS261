@@ -1,21 +1,8 @@
+import { DEFAULT_JUNCTION } from "@/lib/config";
 import { createSlice } from "@reduxjs/toolkit";
 
-// example junction obj
-const example = {
-    name: "warwick 1",
-    score: 2341,
-    laneCount: 4,
-    lightDuration: 60,
-    lightPriority: [1, 2, 3, 4],
-    lanes: [{
-        vph: null,
-        label: null,
-        leftTurn: false
-    }]
-}
-
 const initialState = {
-    junctions: [example]
+    junctions: [DEFAULT_JUNCTION]
 }
 
 const junctionSlice = createSlice({
@@ -24,6 +11,7 @@ const junctionSlice = createSlice({
     reducers: {
         saveJunction: (state, action) => {
             state.junctions = [...state.junctions, action.payload];
+            // if junction saved with same name overwrite that junction, otherwise create new
         },
         deleteJunction: (state, action) => {
             state.junctions = state.junctions.filter(junction => junction.name !== action.payload);

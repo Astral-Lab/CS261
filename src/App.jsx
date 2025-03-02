@@ -61,17 +61,20 @@ function reducer(state, action) {
     }
     case "CHANGE_JUNCTION_NAME": {
       return {
-        ...state
+        ...state,
+        name: action.payload
       }
     }
     case "CHANGE_LIGHT_DURATION": {
       return {
-        ...state
+        ...state,
+        lightDuration: action.payload
       }
     }
     case "CHANGE_LIGHT_PRIORITY": {
       return {
-        ...state
+        ...state,
+        lightPriority: action.payload
       }
     }
     case "CHANGE_LANE_VPH": {
@@ -82,6 +85,11 @@ function reducer(state, action) {
     case "CHANGE_LANE_LEFT_TURN": {
       return {
         ...state
+      }
+    }
+    case "LOAD_JUNCTION": {
+      return {
+        ...action.payload
       }
     }
   }

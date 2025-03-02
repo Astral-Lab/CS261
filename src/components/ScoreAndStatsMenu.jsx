@@ -58,8 +58,8 @@ export default function ScoreAndStatsMenu({ state }) {
                 <Table className="mb-8">
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="text-xs ">lane</TableHead>
-                            <TableHead className="text-xs ">vph</TableHead>
+                            <TableHead className="text-xs">lane</TableHead>
+                            <TableHead className="text-xs">vph</TableHead>
                             <TableHead className="text-xs text-right">avg wait</TableHead>
                             <TableHead className="text-xs text-right">max wait</TableHead>
                             <TableHead className="text-xs text-right">avg queue</TableHead>

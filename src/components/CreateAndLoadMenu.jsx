@@ -29,15 +29,15 @@ export default function CreateAndLoadJunction({ state, dispatch }) {
 
     const renderedSavedJunctions = junctions.map(junction => (
         <TableRow key={junction.name}>
-            <TableCell className="font-medium">{junction.name}</TableCell>
-            <TableCell className="flex items-center gap-2">{junction.score}</TableCell>
-            <TableCell className="text-center">
-                <button onClick={() => null}><MdEdit/></button>
+            <TableCell className="text-xs font-medium">{junction.name}</TableCell>
+            <TableCell className="text-xs flex items-center gap-2">{junction.score}</TableCell>
+            <TableCell className="text-xs text-center">
+                <button onClick={() => dispatch({ type: "LOAD_JUNCTION", payload: junction })}><MdEdit/></button>
             </TableCell>
-            <TableCell className="text-center">
+            <TableCell className="text-xs text-center">
                 <button onClick={() => copyJunctionURL(junction)}><FiLink/></button>
             </TableCell>
-            <TableCell className="text-center">
+            <TableCell className="text-xs text-center">
                 <button onClick={() => dispatchStore(deleteJunction(junction.name))}><RiDeleteBin7Fill/></button>
             </TableCell>
         </TableRow>
@@ -61,11 +61,11 @@ export default function CreateAndLoadJunction({ state, dispatch }) {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                        <TableHead className="w-[120px]">name</TableHead>
-                        <TableHead className="w-[100px]">score</TableHead>
-                        <TableHead className="text-right">edit</TableHead>
-                        <TableHead className="text-right">share</TableHead>
-                        <TableHead className="text-right">delete</TableHead>
+                        <TableHead className="text-xs">name</TableHead>
+                        <TableHead className="text-xs">score</TableHead>
+                        <TableHead className="text-xs text-center">edit</TableHead>
+                        <TableHead className="text-xs text-center">share</TableHead>
+                        <TableHead className="text-xs text-center">delete</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>{renderedSavedJunctions}</TableBody>

@@ -111,9 +111,8 @@ export function getJunctionCoords(laneCount) {
 }
 
 export function copyJunctionURL(junction) {
-  const url = "test";
-
-  // base 64 encode...
+  const data = btoa(JSON.stringify(junction));
+  const url = `http://localhost:5173/?data=${data}`;
 
   navigator.clipboard.writeText(url);
 }
@@ -121,7 +120,7 @@ export function copyJunctionURL(junction) {
 export function createDefaultLanes(laneCount) {
   return Array(laneCount * 4).fill(true).map(_ => ({
     vph: DEFAULT_VPH,
-    label: "testing",
+    label: "testing", // update...
     leftTurn: false
   }));
 }
