@@ -7,43 +7,43 @@ export const DEFAULT_JUNCTION = {
     lightPriority: [0, 0, 0, 0],
     lanes: [
         {
-            vph: null,
-            label: null,
+            vph: 500,
+            label: "Northbound 1",
             leftTurn: false
         },
         {
-            vph: null,
-            label: null,
+            vph: 500,
+            label: "Northbound 2",
             leftTurn: false
         },
         {
-            vph: null,
-            label: null,
+            vph: 500,
+            label: "Eastbound 1",
             leftTurn: false
         },
         {
-            vph: null,
-            label: null,
+            vph: 500,
+            label: "Eastbound 2",
             leftTurn: false
         },
         {
-            vph: null,
-            label: null,
+            vph: 500,
+            label: "Southbound 1",
             leftTurn: false
         },
         {
-            vph: null,
-            label: null,
+            vph: 500,
+            label: "Southbound 2",
             leftTurn: false
         },
         {
-            vph: null,
-            label: null,
+            vph: 500,
+            label: "Westbound 1",
             leftTurn: false
         },
         {
-            vph: null,
-            label: null,
+            vph: 500,
+            label: "Westbound 2",
             leftTurn: false
         }
     ]

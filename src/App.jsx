@@ -42,12 +42,14 @@ function reducer(state, action) {
       return {
           ...state,
           laneCount: (state.laneCount % 4) + 1
+          // update number of lanes...
       }
     }
     case "DECREMENT_LANE_COUNT": {
       return {
           ...state,
           laneCount: (state.laneCount - 1) || 4
+          // update number of lanes... as if on 3 lane and go to 2 lane, need to fill or remove old lanes...
       }
     }
     case "CHANGE_JUNCTION_NAME": {
@@ -79,8 +81,6 @@ function reducer(state, action) {
   throw Error("Unknown action: " + action.type);
 }
 
-// Must disable node inputs whilst simulation running???
-// dim left half of screen when menu open...
 export default function App() {
   const [state, dispatch] = useReducer(reducer, DEFAULT_JUNCTION);
   const [nodes, setNodes, onNodesChange] = useNodesState(generateJunctionNodes(state.laneCount));
@@ -94,6 +94,7 @@ export default function App() {
   const nodeTypes = useMemo(() => ({ 
     junctionLane: JunctionLaneNode,
     junctionIntersection: JunctionIntersectionNode
+
   }), []);
 
   // on junction change repaint node diagram
@@ -101,11 +102,16 @@ export default function App() {
     setNodes(generateJunctionNodes(state.laneCount));
     setEdges(generateJunctionEdges(state.laneCount));
 
+    // reset canvas view to fit new junction
+
   }, [state.laneCount]);
+
+  useEffect(() => {
+    // init custom shared junction via url...
+  }, []);
 
   return (
     <div className="w-full flex h-screen font-fira-code select-none relative py-8 pr-8 group/parent overflow-hidden">
-      {/* <div className="w-full h-full bg-white absolute inset-0 group-[:has(:checked)]/parent:opacity-10"></div> */}
       <SlideableContainer 
         ref={createRef} 
         content={<CreateAndLoadJunction state={state} dispatch={dispatch}/>} 
@@ -113,7 +119,7 @@ export default function App() {
       />
       <SlideableContainer 
         ref={statsRef} 
-        content={<ScoreAndStatsMenu/>} 
+        content={<ScoreAndStatsMenu state={state}/>} 
         id="score"
       />
       <SlideableContainer 

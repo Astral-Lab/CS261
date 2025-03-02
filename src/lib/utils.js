@@ -11,39 +11,36 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-/**
-* 
-*/
 export function computeAverageQueueTime() {
-  
+  return 1000;
 }
 
-/**
-* 
-*/
-export function computeMaxQueueTime(arrivalRate, departureRate, redLightDuration) {
-  return redLightDuration + (arrivalRate * redLightDuration) / (departureRate - arrivalRate);
+export function computeMaxQueueTime() {
+  return 1000;
 }
 
-/**
-* 
-*/
 export function computeAverageQueueLength() {
-
+  return 1000;
 }
 
-/**
-* 
-*/
 export function computeMaxQueueLength() {
-
+  return 1000;
 }
 
-/**
-* 
-*/
 export function computeJunctionScore() {
+  return 10000;
+}
 
+export function computeTotalAverageQueueTime() {
+  return 100;
+}
+
+export function computeTotalMaxQueueTime() {
+  return 100;
+}
+
+export function computeTotalAverageQueueLength() {
+  return 100;
 }
 
 export function generateJunctionNodes(laneCount) {
