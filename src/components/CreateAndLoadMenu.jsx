@@ -37,7 +37,7 @@ export default function CreateAndLoadJunction() {
             <TableCell className="text-xs font-medium">{junction.name}</TableCell>
             <TableCell className="text-xs text-center">{junction.score}</TableCell>
             <TableCell className="text-xs text-center">
-                <button onClick={() => dispatch(loadJunction())}><MdEdit/></button>
+                <button onClick={() => dispatch(loadJunction(junction))}><MdEdit/></button>
             </TableCell>
             <TableCell className="text-xs text-center">
                 <button onClick={() => copyJunctionURL(junction)}><FiLink/></button>
