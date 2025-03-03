@@ -6,7 +6,7 @@ export const DEFAULT_VPH = 500;
 // vehicle constants
 export const CAR_LENGTH = 4;                // meters
 export const CAR_GAP = 1;                   // meters
-export const VEHICLE_DEPATURE_RATE = 2;    // seconds
+export const VEHICLE_DEPATURE_RATE = 2;     // seconds
 
 // styles
 export const CANVAS_STYLES = {
@@ -68,43 +68,35 @@ export const DEFAULT_JUNCTION = {
     lanes: [
         {
             vph: DEFAULT_VPH,
-            label: "Northbound 1",
-            leftTurn: false
+            label: "Northbound 1"
         },
         {
             vph: DEFAULT_VPH,
-            label: "Northbound 2",
-            leftTurn: false
+            label: "Northbound 2"
         },
         {
             vph: DEFAULT_VPH,
-            label: "Eastbound 1",
-            leftTurn: false
+            label: "Eastbound 1"
         },
         {
             vph: DEFAULT_VPH,
-            label: "Eastbound 2",
-            leftTurn: false
+            label: "Eastbound 2"
         },
         {
             vph: DEFAULT_VPH,
-            label: "Southbound 1",
-            leftTurn: false
+            label: "Southbound 1"
         },
         {
             vph: DEFAULT_VPH,
-            label: "Southbound 2",
-            leftTurn: false
+            label: "Southbound 2"
         },
         {
             vph: DEFAULT_VPH,
-            label: "Westbound 1",
-            leftTurn: false
+            label: "Westbound 1"
         },
         {
             vph: DEFAULT_VPH,
-            label: "Westbound 2",
-            leftTurn: false
+            label: "Westbound 2"
         }
     ]
 }

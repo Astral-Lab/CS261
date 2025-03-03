@@ -22,7 +22,7 @@ export default function ScoreAndStatsMenu() {
     const renderedLaneStats = junction.lanes.map(lane => (
         <TableRow key={lane.label}>
             <TableCell className="text-xs font-medium">{lane.label}</TableCell>
-            <TableCell className="text-xs ">{lane.vph}</TableCell>
+            <TableCell className="text-xs">{lane.vph}</TableCell>
             <TableCell className="text-xs text-center">{computeAverageQueueTime(lane, junction)}s</TableCell>
             <TableCell className="text-xs text-center">{computeMaxQueueTime(lane, junction)}s</TableCell>
             <TableCell className="text-xs text-center">{computeMaxQueueLength(lane, junction)}m</TableCell>

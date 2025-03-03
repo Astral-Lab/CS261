@@ -109,7 +109,10 @@ export function getJunctionCoords(laneCount) {
 
 export function copyJunctionURL(junction) {
   const data = btoa(JSON.stringify(junction));
-  const url = `http://localhost:5173/?data=${data}`; // update...
+  const url = `${process.env.NODE_ENV === "development" ? 
+    "http://localhost:5173" : 
+    "https://cs261-dev.pages.dev/"}
+    /?data=${data}`;
 
   navigator.clipboard.writeText(url);
 }
@@ -121,8 +124,7 @@ export function createDefaultLanes(laneCount) {
     for(let j = 0; j < laneCount; j++) {
       defaultLanes.push({
         vph: DEFAULT_VPH,
-        label: `${["Northbound", "Eastbound", "Southbound", "Westbound"][i]} ${j + 1}`,
-        leftTurn: false
+        label: `${["Northbound", "Eastbound", "Southbound", "Westbound"][i]} ${j + 1}`
       });
     }
   }

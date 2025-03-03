@@ -57,9 +57,6 @@ const junctionSlice = createSlice({
         changeLaneVph: (state, action) => {
             state.current.lanes[state.current.lanes.findIndex(lane => lane.label === action.payload.label)].vph = action.payload.value;
         },
-        // changeLaneLeftTurn: (state, action) => {
-
-        // },
         loadJunction: (state, action) => {
             state.current = action.payload;
         }
@@ -76,7 +73,6 @@ export const {
     changeLightDuration,
     changeLightPriority,
     changeLaneVph,
-    changeLaneLeftTurn,
     loadJunction
 } = junctionSlice.actions;
 
