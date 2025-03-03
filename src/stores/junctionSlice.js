@@ -28,18 +28,22 @@ const junctionSlice = createSlice({
             state.value = action.payload
         },
         incrementLaneCount: (state) => {
-            state.current.laneCount = (state.current.laneCount % 4) + 1;
+            const newLaneCount = (state.current.laneCount % 4) + 1;
+
+            state.current.laneCount = newLaneCount;
             state.current.score = 0;
             state.current.lightDuration = 60;
-            state.current.lightPriority = [0, 0, 0, 0];
-            state.current.lanes = createDefaultLanes((state.current.laneCount % 4) + 1);
+            state.current.lightPriority = [1, 1, 1, 1];
+            state.current.lanes = createDefaultLanes(newLaneCount);
         },
         decrementLaneCount: (state) => {
-            state.current.laneCount = (state.current.laneCount - 1) || 4;
+            const newLaneCount = (state.current.laneCount - 1) || 4;
+
+            state.current.laneCount = newLaneCount;
             state.current.score = 0;
             state.current.lightDuration = 60;
-            state.current.lightPriority = [0, 0, 0, 0];
-            state.current.lanes = createDefaultLanes((state.current.laneCount - 1) || 4);
+            state.current.lightPriority = [1, 1, 1, 1];
+            state.current.lanes = createDefaultLanes(newLaneCount);
         },
         changeJunctionName: (state, action) => {
             state.current.name = action.payload;
@@ -53,9 +57,9 @@ const junctionSlice = createSlice({
         changeLaneVph: (state, action) => {
             state.current.lanes[state.current.lanes.findIndex(lane => lane.label === action.payload.label)].vph = action.payload.value;
         },
-        changeLaneLeftTurn: (state, action) => {
+        // changeLaneLeftTurn: (state, action) => {
 
-        },
+        // },
         loadJunction: (state, action) => {
             state.current = action.payload;
         }

@@ -41,8 +41,7 @@ import {
   loadJunction, 
   selectJunction 
 } from "./stores/junctionSlice";
-
-// deleting a junction loaded does not update the stats page and has a difference between number of lanes...
+import { useReactFlow } from '@xyflow/react';
 
 export default function App() {
   const junction = useSelector(selectJunction);
@@ -55,6 +54,7 @@ export default function App() {
   const statsRef = useRef(null);
   const ref = useRef(null);
   const dispatch = useDispatch();
+  const reactFlow = useReactFlow();
 
   const nodeTypes = useMemo(() => ({ 
     junctionLane: JunctionLaneNode,
@@ -68,6 +68,7 @@ export default function App() {
     setEdges(generateJunctionEdges(junction.laneCount));
 
     // reset canvas view to fit new junction
+    //window.requestAnimationFrame(() => reactFlow.fitView({ minZoom: 0.01 }));
 
   }, [junction.laneCount]);
 
@@ -125,7 +126,6 @@ export default function App() {
             <ToolbarButton
                 icon={<IoMdPlay size={DEFAULT_ICON_SIZE}/>}
                 title={"play"}
-                onClick={null}
                 id="play"
             />
             <ToolbarButton

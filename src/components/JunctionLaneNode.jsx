@@ -43,14 +43,14 @@ export default function JunctionLaneNode(props) {
                 <div className="flex flex-col gap-8 px-6 p-4">
                     <p >This node will forward cars to the junction.</p>
                     <div className="flex flex-col gap-2">
-                        <label className="font-bold">vph <span className="text-[#E0E0E0]">({lane.vph})</span></label>
+                        <label className="font-bold">vph <span className="text-[#E0E0E0]">({lane?.vph})</span></label>
                         <p >the vehicles per hour arriving at the junction</p>
                         <Slider
                             className="nodrag nopan"
                             min={MIN_ARRIVAL_RATE}
                             max={MAX_ARRIVAL_RATE}
                             step={1}
-                            value={[lane.vph]}
+                            value={[lane?.vph]}
                             onValueChange={(value) => dispatch(changeLaneVph({ value, label: props.data?.label }))}
                         />
                     </div>
