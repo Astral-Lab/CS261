@@ -64,7 +64,7 @@ export const DEFAULT_JUNCTION = {
     score: 0,
     laneCount: 2,
     lightDuration: 60,
-    lightPriority: [0, 0, 0, 0],
+    lightPriority: [1, 1, 1, 1],    // north, east, south, west
     lanes: [
         {
             vph: DEFAULT_VPH,

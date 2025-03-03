@@ -9,7 +9,15 @@ import {
     useDispatch, 
     useSelector 
 } from "react-redux";
-import { changeLightDuration, selectJunction } from "@/stores/junctionSlice";
+import { 
+    changeLightDuration, 
+    changeLightPriority, 
+    selectJunction 
+} from "@/stores/junctionSlice";
+import { 
+    MdKeyboardArrowRight, 
+    MdKeyboardArrowLeft 
+} from "react-icons/md";
 
 export default function JunctionIntersectionNode(props) {
     const junction = useSelector(selectJunction);
@@ -36,6 +44,23 @@ export default function JunctionIntersectionNode(props) {
             );
         }
     }
+
+    const renderedLightPriorityButtons = junction.lightPriority.map((p, i)=> (
+        <li key={i} className="w-full h-12 rounded-lg bg-[#E0E0E0] flex justify-between items-center px-4">
+            <button
+                className="grow h-full flex justify-start items-center"
+                onClick={() => dispatch(changeLightPriority({ light: i, value: (junction.lightPriority[i] - 1) || 5  }))}
+            ><MdKeyboardArrowLeft size={"16px"}/></button>
+            <div className="w-3/5">
+                <p className="text-xs text-center">{junction.lightPriority[i]}</p>
+                <p className="text-[10px] text-center">{["north", "east", "south", "west"][i]}</p>
+            </div>
+            <button
+                className="grow h-full flex justify-end items-center"
+                onClick={() => dispatch(changeLightPriority({ light: i, value: (junction.lightPriority[i] % 5) + 1 }))}
+            ><MdKeyboardArrowRight size={"16px"}/></button>
+        </li>
+    ));
 
     return (
         <>
@@ -85,12 +110,7 @@ export default function JunctionIntersectionNode(props) {
                 <div className="flex flex-col gap-2">
                     <label className="font-bold">priority</label>
                     <p className="">the ratio each side has of a light cycle</p>
-                    <div className="w-full grid grid-cols-2 gap-2">
-                        <div className="w-full h-12 rounded-lg bg-[#E0E0E0] mt-1"></div>
-                        <div className="w-full h-12 rounded-lg bg-[#E0E0E0] mt-1"></div>
-                        <div className="w-full h-12 rounded-lg bg-[#E0E0E0] mt-1"></div>
-                        <div className="w-full h-12 rounded-lg bg-[#E0E0E0] mt-1"></div>
-                    </div>
+                    <ul className="w-full grid grid-cols-2 gap-2 nodrag nopan">{renderedLightPriorityButtons}</ul>
                 </div>
                 </div>
                 <div className="w-full flex justify-center gap-2 absolute -top-[10px]">

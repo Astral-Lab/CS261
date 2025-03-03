@@ -48,7 +48,7 @@ const junctionSlice = createSlice({
            state.current.lightDuration = action.payload;
         },
         changeLightPriority: (state, action) => {
-
+            state.current.lightPriority[action.payload.light] = action.payload.value;
         },
         changeLaneVph: (state, action) => {
             state.current.lanes[state.current.lanes.findIndex(lane => lane.label === action.payload.label)].vph = action.payload.value;
