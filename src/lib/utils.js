@@ -117,11 +117,19 @@ export function copyJunctionURL(junction) {
 }
 
 export function createDefaultLanes(laneCount) {
-  return Array(laneCount * 4).fill(true).map(_ => ({
-    vph: DEFAULT_VPH,
-    label: "testing", // update...
-    leftTurn: false
-  }));
+  const defaultLanes = [];
+
+  for(let i = 0; i < 4; i++) {
+    for(let j = 0; j < laneCount; j++) {
+      defaultLanes.push({
+        vph: DEFAULT_VPH,
+        label: `${["Northbound", "Eastbound", "Southbound", "Westbound"][i]} ${j + 1}`,
+        leftTurn: false
+      });
+    }
+  }
+
+  return defaultLanes;
 }
 
 export function decodeSharedURL(data) {

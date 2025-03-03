@@ -33,8 +33,16 @@ import SlideableContainer from "./components/SlideableContainer";
 import ScoreAndStatsMenu from "./components/ScoreAndStatsMenu";
 import SaveAndShareMenu from "./components/SaveAndShareMenu";
 import { useSearchParams } from "react-router";
-import { useSelector } from "react-redux";
-import { loadJunction, selectJunction } from "./stores/junctionSlice";
+import { 
+  useDispatch, 
+  useSelector 
+} from "react-redux";
+import { 
+  loadJunction, 
+  selectJunction 
+} from "./stores/junctionSlice";
+
+// deleting a junction loaded does not update the stats page and has a difference between number of lanes...
 
 export default function App() {
   const junction = useSelector(selectJunction);
@@ -46,6 +54,7 @@ export default function App() {
   const saveRef = useRef(null);
   const statsRef = useRef(null);
   const ref = useRef(null);
+  const dispatch = useDispatch();
 
   const nodeTypes = useMemo(() => ({ 
     junctionLane: JunctionLaneNode,

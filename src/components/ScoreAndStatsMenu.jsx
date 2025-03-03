@@ -44,11 +44,11 @@ export default function ScoreAndStatsMenu() {
                 </div>
                 <ul className="w-full flex justify-center gap-16 border-[#73737340]">
                     <li className="text-center">
-                        <p className="text-3xl">2</p>
+                        <p className="text-3xl">{junction.laneCount}</p>
                         <p className="text-xs">lane count</p>
                     </li>
                     <li className="text-center">
-                        <p className="text-3xl">120s</p>
+                        <p className="text-3xl">{junction.lightDuration}s</p>
                         <p className="text-xs">cycle length</p>
                     </li>
                 </ul>
