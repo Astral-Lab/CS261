@@ -38,8 +38,17 @@ export function computeMaxQueueLength(lane, junction) {
     (VEHICLE_DEPATURE_RATE * green)) * (CAR_LENGTH + CAR_GAP);
 }
 
-export function computeJunctionScore() {
-  return 10000;
+export function computeJunctionScore(junction) {
+  let totalFlow = junction.lanes.reduce((accumulator, currentValue) => accumulator + convertVphToVps(currentValue.vph), 0);
+  let normalisedLaneCount = junction.laneCount / 5;
+  let totalLanePerformance = 0;
+
+  for(let i = 0; i < junction.lanes.length; i++) {
+    let [green, red] = getSideLightDurationTimes(junction.lanes[i], junction);
+    totalLanePerformance += computeLanePerformance(junction.lanes[i]) / (green / (green + red));
+  }
+  
+  return Math.round((totalFlow) / ((totalLanePerformance / junction.lanes.length) * normalisedLaneCount));
 }
 
 export function generateJunctionNodes(laneCount) {
