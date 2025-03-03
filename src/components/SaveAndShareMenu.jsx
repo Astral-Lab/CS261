@@ -30,7 +30,7 @@ export default function SaveAndShareMenu() {
             </div>
             <button
                 className={clsx(
-                    "w-full h-16 text-xl bg-blue-400 rounded-full font-[500] drop-shadow-xs",
+                    "w-full h-16 text-xl bg-blue-400 rounded-full drop-shadow-xs",
                     {
                         "opacity-75": disabled
                     }

@@ -68,7 +68,7 @@ export default function App() {
     setEdges(generateJunctionEdges(junction.laneCount));
 
     // reset canvas view to fit new junction
-    //window.requestAnimationFrame(() => reactFlow.fitView({ minZoom: 0.01 }));
+    setTimeout(() => reactFlow.fitView(), 100);
 
   }, [junction.laneCount]);
 
