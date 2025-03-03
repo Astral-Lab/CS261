@@ -127,3 +127,9 @@ export function createDefaultLanes(laneCount) {
 export function decodeSharedURL(data) {
   return JSON.parse(atob(data));
 }
+
+export function getLightPriorityPercentage(priorities, sideIndex) {
+  const weightSum = priorities.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+  return Math.ceil((priorities[sideIndex] / weightSum) * 100);
+}

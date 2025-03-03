@@ -36,7 +36,7 @@ export default function JunctionLaneNode(props) {
                         <p className="font-bold">{props.data.label}</p>
                     </div>
                     <div className="flex gap-2">
-                        <div className="w-4 h-4 bg-[#E0E0E0] rounded-full"></div>
+                        <div className="w-4 h-4 bg-red-400 rounded-full"></div>
                         <div className="w-4 h-4 bg-[#E0E0E0] rounded-full"></div>
                     </div>
                 </div>
