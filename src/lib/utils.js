@@ -47,6 +47,8 @@ export function computeJunctionScore(junction) {
     let [green, red] = getSideLightDurationTimes(junction.lanes[i], junction);
     totalLanePerformance += computeLanePerformance(junction.lanes[i]) / (green / (green + red));
   }
+
+  if(totalFlow === 0) return 0;
   
   return Math.round((totalFlow) / ((totalLanePerformance / junction.lanes.length) * normalisedLaneCount));
 }

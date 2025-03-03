@@ -36,7 +36,7 @@ export default function ScoreAndStatsMenu() {
             </div>
             <div className="w-full grow flex flex-col items-center gap-8">
                 <div>
-                    <p className="text-5xl mb-2 text-blue-400">{computeJunctionScore(junction)}</p>
+                    <p className="text-5xl text-center mb-2 text-blue-400">{computeJunctionScore(junction)}</p>
                     <div className="flex justify-center items-center gap-1">
                         <FaStar size={"12px"} className="inline"/>
                         <p>score</p>
