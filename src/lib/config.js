@@ -6,7 +6,7 @@ export const DEFAULT_VPH = 500;
 // vehicle constants
 export const CAR_LENGTH = 4;                // meters
 export const CAR_GAP = 1;                   // meters
-export const VEHICLE_DEPATURE_SPEED = 2;    // seconds
+export const VEHICLE_DEPATURE_RATE = 2;    // seconds
 
 // styles
 export const CANVAS_STYLES = {

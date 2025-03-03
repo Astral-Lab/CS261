@@ -51,7 +51,7 @@ export default function JunctionLaneNode(props) {
                             max={MAX_ARRIVAL_RATE}
                             step={1}
                             value={[lane?.vph]}
-                            onValueChange={(value) => dispatch(changeLaneVph({ value, label: props.data?.label }))}
+                            onValueChange={([value]) => dispatch(changeLaneVph({ value, label: props.data?.label }))}
                         />
                     </div>
                     <div className="flex flex-col gap-2">

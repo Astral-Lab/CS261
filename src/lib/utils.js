@@ -1,9 +1,12 @@
 import { 
+  CAR_GAP,
+  CAR_LENGTH,
   DEFAULT_VPH,
   FOUR_LANE_COORDS, 
   ONE_LANE_COORDS, 
   THREE_LANE_COORDS, 
-  TWO_LANE_COORDS 
+  TWO_LANE_COORDS, 
+  VEHICLE_DEPATURE_RATE
 } from "./config";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge"
@@ -12,36 +15,31 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-export function computeAverageQueueTime() {
-  return 1000;
+export function computeAverageQueueTime(lane, junction) {
+  if(lane.vph === 0) return 0;
+
+  const [green, red] = getSideLightDurationTimes(lane, junction);
+
+  return ((red + green * computeLanePerformance(lane)) / 2).toFixed(1);
 }
 
-export function computeMaxQueueTime() {
-  return 1000;
+export function computeMaxQueueTime(lane, junction) {
+  if(lane.vph === 0) return 0;
+
+  const [_, red] = getSideLightDurationTimes(lane, junction);
+
+  return (red + ((convertVphToVps(lane.vph) * red) / (VEHICLE_DEPATURE_RATE - convertVphToVps(lane.vph)))).toFixed(1);
 }
 
-export function computeAverageQueueLength() {
-  return 1000;
-}
+export function computeMaxQueueLength(lane, junction) {
+  const [green, red] = getSideLightDurationTimes(lane, junction);
 
-export function computeMaxQueueLength() {
-  return 1000;
+  return Math.ceil((convertVphToVps(lane.vph) * red * (VEHICLE_DEPATURE_RATE * green + convertVphToVps(lane.vph) * red)) / 
+    (VEHICLE_DEPATURE_RATE * green)) * (CAR_LENGTH + CAR_GAP);
 }
 
 export function computeJunctionScore() {
   return 10000;
-}
-
-export function computeTotalAverageQueueTime() {
-  return 100;
-}
-
-export function computeTotalMaxQueueTime() {
-  return 100;
-}
-
-export function computeTotalAverageQueueLength() {
-  return 100;
 }
 
 export function generateJunctionNodes(laneCount) {
@@ -140,4 +138,44 @@ export function getLightPriorityPercentage(priorities, sideIndex) {
   const weightSum = priorities.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
   return Math.ceil((priorities[sideIndex] / weightSum) * 100);
+}
+
+export function convertVphToVps(vph) {
+  return vph / 3600;
+}
+
+export function getSideLightDurationTimes(lane, junction) {
+  const green = junction.lightDuration * (junction.lightPriority[extractPriorityIndexFromLabel(lane)] / 
+    junction.lightPriority.reduce((accumulator, currentValue) => accumulator + currentValue, 0));
+  const red = junction.lightDuration - green;
+
+  return [green, red];
+}
+
+export function extractPriorityIndexFromLabel(lane) {
+  let index = 0;
+
+  switch(lane[0]) {
+    case "N": {
+      index = 0;
+      break;
+    }
+    case "E": {
+      index = 1;
+      break;
+    }
+    case "S": {
+      index = 2;
+      break;
+    }
+    case "W": {
+      index = 3;
+    }
+  }
+
+  return index;
+}
+
+export function computeLanePerformance(lane) {
+  return convertVphToVps(lane.vph) / VEHICLE_DEPATURE_RATE
 }

@@ -7,9 +7,9 @@ import {
     TableRow
 } from "@/components/ui/table";
 import { 
-    computeAverageQueueLength, 
     computeAverageQueueTime, 
     computeJunctionScore, 
+    computeMaxQueueLength, 
     computeMaxQueueTime, 
     getLightPriorityPercentage
 } from "@/lib/utils";
@@ -23,9 +23,9 @@ export default function ScoreAndStatsMenu() {
         <TableRow key={lane.label}>
             <TableCell className="text-xs font-medium">{lane.label}</TableCell>
             <TableCell className="text-xs ">{lane.vph}</TableCell>
-            <TableCell className="text-xs text-center">{computeAverageQueueTime(lane)}s</TableCell>
-            <TableCell className="text-xs text-center">{computeMaxQueueTime(lane)}s</TableCell>
-            <TableCell className="text-xs text-center">{computeAverageQueueLength(lane)}m</TableCell>
+            <TableCell className="text-xs text-center">{computeAverageQueueTime(lane, junction)}s</TableCell>
+            <TableCell className="text-xs text-center">{computeMaxQueueTime(lane, junction)}s</TableCell>
+            <TableCell className="text-xs text-center">{computeMaxQueueLength(lane, junction)}m</TableCell>
         </TableRow>
     ));
 
