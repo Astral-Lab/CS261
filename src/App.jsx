@@ -41,7 +41,7 @@ import {
   loadJunction, 
   selectJunction 
 } from "./stores/junctionSlice";
-import { useReactFlow } from '@xyflow/react';
+import { useReactFlow, useStoreApi } from '@xyflow/react';
 
 export default function App() {
   const junction = useSelector(selectJunction);
@@ -79,6 +79,24 @@ export default function App() {
     }
 
   }, []);
+
+  // const store = useStoreApi();
+  // const { setCenter } = useReactFlow();
+ 
+  // const focusNode = () => {
+  //   const { nodeLookup } = store.getState();
+  //   const nodes = Array.from(nodeLookup).map(([, node]) => node);
+ 
+  //   if (nodes.length > 0) {
+  //     const node = nodes[0];
+ 
+  //     const x = node.position.x + node.measured.width / 2;
+  //     const y = node.position.y + node.measured.height / 2;
+  //     const zoom = 1;
+ 
+  //     setCenter(0, 0, { zoom, duration: 1000 });
+  //   }
+  // }
 
   return (
     <div className="w-full flex h-screen font-fira-code select-none relative py-8 pr-8 group/parent overflow-hidden">
