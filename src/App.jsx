@@ -29,6 +29,7 @@ import { DEFAULT_ICON_SIZE } from "./lib/config";
 import { IoMdPlay } from "react-icons/io";
 import { IoSaveSharp } from "react-icons/io5";
 import { FaStop } from "react-icons/fa";
+import { FaExclamationCircle } from "react-icons/fa";
 import { IoStatsChart } from "react-icons/io5";
 import { RiAddLine } from "react-icons/ri";
 import SlideableContainer from "./components/SlideableContainer";
@@ -139,10 +140,16 @@ export default function App() {
         content={<SaveAndShareMenu ref={saveRef}/>} 
         id="save"
       />
-      <div className="w-full lg:w-1/4 h-16 lg:h-full lg:flex flex-col lg:justify-between lg:px-8">
+      <div className="w-full lg:w-1/4 h-16 lg:h-full lg:flex flex-col lg:justify-between lg:px-8 group/hint">
         <h1 className="text-center text-2xl lg:text-4xl text-blue-400 font-fira-code mt-8">Junction Flow</h1>
-        
-        {!isMobile && <JunctionFlowHints/>}
+        <div className="lg:hidden w-12 h-12 flex justify-center items-center z-50 absolute top-0 right-0">
+          <input 
+            className="w-full h-full opacity-0 absolute inset-0"
+            type="checkbox"
+          />
+          <FaExclamationCircle size={"24px"}/>
+        </div>
+        <JunctionFlowHints/>
         {!isMobile && <p className="text-[10px] text-center italic">This project is completed as part of the Software Engineering module <span className="font-bold">(Group 34)</span> at the University of Warwick.</p>}
       </div>
       <ReactFlow 
