@@ -34,15 +34,15 @@ export default function CreateAndLoadJunction() {
 
     const renderedSavedJunctions = junctions.map(junction => (
         <TableRow key={junction.name}>
-            <TableCell className="text-xs font-medium">{junction.name}</TableCell>
-            <TableCell className="text-xs text-center">{junction.score}</TableCell>
-            <TableCell className="text-xs text-center">
+            <TableCell className="text-xs text-nowrap font-medium">{junction.name}</TableCell>
+            <TableCell className="text-xs text-nowrap text-center">{junction.score}</TableCell>
+            <TableCell className="text-xs text-nowrap text-center">
                 <button onClick={() => dispatch(loadJunction(junction))}><MdEdit/></button>
             </TableCell>
-            <TableCell className="text-xs text-center">
+            <TableCell className="text-xs text-nowrap text-center">
                 <button onClick={() => copyJunctionURL(junction)}><FiLink/></button>
             </TableCell>
-            <TableCell className="text-xs text-center">
+            <TableCell className="text-xs text-nowrap text-center">
                 <button onClick={() => dispatch(deleteJunction(junction.name))}><RiDeleteBin7Fill/></button>
             </TableCell>
         </TableRow>
@@ -52,7 +52,7 @@ export default function CreateAndLoadJunction() {
         <div className="w-full h-full flex flex-col justify-between">
             <div className="grow flex flex-col">
                 <h2 className="text-xl text-center cap mb-10">Create & Load</h2>
-                <div className="w-full h-20 bg-[#73737320] flex justify-between items-center px-8 rounded-xl mb-8">
+                <div className="w-full h-16 lg:h-20 bg-[#73737320] flex justify-between items-center px-8 rounded lg:rounded-xl mb-8">
                     <button
                         className="h-full"
                         onClick={() => dispatch(decrementLaneCount())}

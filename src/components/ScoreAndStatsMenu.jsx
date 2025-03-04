@@ -21,11 +21,11 @@ export default function ScoreAndStatsMenu() {
     const junction = useSelector(selectJunction);
     const renderedLaneStats = junction.lanes.map(lane => (
         <TableRow key={lane.label}>
-            <TableCell className="text-xs font-medium">{lane.label}</TableCell>
-            <TableCell className="text-xs">{lane.vph}</TableCell>
-            <TableCell className="text-xs text-center">{computeAverageQueueTime(lane, junction)}s</TableCell>
-            <TableCell className="text-xs text-center">{computeMaxQueueTime(lane, junction)}s</TableCell>
-            <TableCell className="text-xs text-center">{computeMaxQueueLength(lane, junction)}m</TableCell>
+            <TableCell className="text-xs text-nowrap font-medium">{lane.label}</TableCell>
+            <TableCell className="text-xs text-nowrap">{lane.vph}</TableCell>
+            <TableCell className="text-xs text-nowrap text-center">{computeAverageQueueTime(lane, junction)}s</TableCell>
+            <TableCell className="text-xs text-nowrap text-center">{computeMaxQueueTime(lane, junction)}s</TableCell>
+            <TableCell className="text-xs text-nowrap text-center">{computeMaxQueueLength(lane, junction)}m</TableCell>
         </TableRow>
     ));
 
@@ -52,18 +52,20 @@ export default function ScoreAndStatsMenu() {
                         <p className="text-xs">cycle length</p>
                     </li>
                 </ul>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead className="text-xs">lane</TableHead>
-                            <TableHead className="text-xs w-[70px]">vph</TableHead>
-                            <TableHead className="text-xs text-right">avg wait</TableHead>
-                            <TableHead className="text-xs text-right">max wait</TableHead>
-                            <TableHead className="text-xs text-right">avg queue</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>{renderedLaneStats}</TableBody>
-                </Table>
+                <div className="w-full overflow-auto scrollbar-hide">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead className="text-xs">lane</TableHead>
+                                <TableHead className="text-xs w-[70px]">vph</TableHead>
+                                <TableHead className="text-xs text-right text-nowrap">avg wait</TableHead>
+                                <TableHead className="text-xs text-right text-nowrap">max wait</TableHead>
+                                <TableHead className="text-xs text-right text-nowrap">avg queue</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>{renderedLaneStats}</TableBody>
+                    </Table>
+                </div>
                 <div className="w-full">
                     <p className="mb-4 text-center">light priorities</p>
                     <div className="w-full h-4 flex bg-[#E0E0E0] mb-12">
