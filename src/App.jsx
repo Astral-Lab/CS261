@@ -165,7 +165,7 @@ export default function App() {
         className="rounded-2xl drop-shadow-sm"
         minZoom={0.01}
       >
-        <Panel position={isMobile ? "bottom-center" : "top-right"}>
+        <Panel position={isMobile ? "bottom-left" : "top-right"}>
           <ul className="flex gap-2">
             <ToolbarButton
                 icon={<RiAddLine size={DEFAULT_ICON_SIZE}/>}
