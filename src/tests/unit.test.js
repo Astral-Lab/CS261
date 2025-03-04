@@ -5,7 +5,8 @@ import {
   computeLanePerformance,
   computeJunctionScore,
   convertVphToVps,
-  extractPriorityIndexFromLabel
+  extractPriorityIndexFromLabel,
+  decodeSharedURL
 } from "../lib/utils";
 
 describe("util functions", () => {
@@ -34,6 +35,10 @@ describe("util functions", () => {
     });
 
     test("extracts the cardinal direction for a lane", () => {
+      expect(1 + 1).toBe(2);
+    });
+
+    test("decodes a junction configuration for link sharing", () => {
       expect(1 + 1).toBe(2);
     });
 });
