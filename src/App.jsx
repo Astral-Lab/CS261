@@ -140,9 +140,9 @@ export default function App() {
         content={<SaveAndShareMenu ref={saveRef}/>} 
         id="save"
       />
-      <div className="w-full lg:w-1/4 h-16 lg:h-full lg:flex flex-col lg:justify-between lg:px-8 group/hint">
-        <h1 className="text-center text-2xl lg:text-4xl text-blue-400 font-fira-code mt-8">Junction Flow</h1>
-        <div className="lg:hidden w-12 h-12 flex justify-center items-center z-50 absolute top-0 right-0">
+      <div className="w-full lg:w-1/4 h-16 lg:h-full flex lg:flex-col justify-between items-center lg:items-start lg:px-8 group/hint mt-4">
+        <h1 className="text-center text-2xl lg:text-4xl text-blue-400 font-fira-code lg:mt-8">Junction Flow</h1>
+        <div className="lg:hidden w-12 h-12 flex justify-center items-center z-20 lg:z-0 relative">
           <input 
             className="w-full h-full opacity-0 absolute inset-0"
             type="checkbox"

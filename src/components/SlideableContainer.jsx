@@ -13,7 +13,7 @@ export default forwardRef(function SlideableContainer(props, ref) {
 
     return (
         <div className={clsx(
-            "w-full lg:w-[500px] h-full bg-[#FAFAFA] drop-shadow-sm z-10 p-10 pt-16 flex flex-col justify-between absolute top-0 -right-[500px] transition-all duration-500 overflow-y-scroll scrollbar-hide",
+            "w-full lg:w-[500px] h-full z-50 bg-[#FAFAFA] drop-shadow-sm z-10 p-10 pt-16 flex flex-col justify-between absolute top-0 -right-[500px] transition-all duration-500 overflow-y-scroll scrollbar-hide",
             [MENU_CLASSES[props.id]]
         )}>
             <button 
