@@ -123,7 +123,7 @@ export default function App() {
   }, [runSim]);
 
   return (
-    <div className="w-full flex flex-col-reverse lg:flex-row h-screen font-fira-code select-none relative p-4 lg:py-8 lg:pr-8 group/parent overflow-hidden">
+    <div className="w-full flex flex-col lg:flex-row gap-6 lg:gap-0 h-screen font-fira-code select-none relative p-4 lg:py-8 lg:pr-8 group/parent overflow-hidden">
       <SlideableContainer 
         ref={createRef} 
         content={<CreateAndLoadJunction/>} 
@@ -139,10 +139,11 @@ export default function App() {
         content={<SaveAndShareMenu ref={saveRef}/>} 
         id="save"
       />
-      <div className="w-full lg:w-1/4 h-1/2 lg:h-full lg:flex flex-col justify-between px-8">
-        <h1 className="text-center text-4xl text-blue-400 font-fira-code mt-8">Junction Flow</h1>
-        <JunctionFlowHints/>
-        <p className="text-[10px] text-center italic">This project is completed as part of the Software Engineering module <span className="font-bold">(Group 34)</span> at the University of Warwick.</p>
+      <div className="w-full lg:w-1/4 h-16 lg:h-full lg:flex flex-col lg:justify-between lg:px-8">
+        <h1 className="text-center text-2xl lg:text-4xl text-blue-400 font-fira-code mt-8">Junction Flow</h1>
+        
+        {!isMobile && <JunctionFlowHints/>}
+        {!isMobile && <p className="text-[10px] text-center italic">This project is completed as part of the Software Engineering module <span className="font-bold">(Group 34)</span> at the University of Warwick.</p>}
       </div>
       <ReactFlow 
         ref={ref}
@@ -195,6 +196,7 @@ export default function App() {
           size={0.5}
         />
       </ReactFlow>
+      {isMobile && <p className="text-[10px] text-center italic">This project is completed as part of the Software Engineering module <span className="font-bold">(Group 34)</span> at the University of Warwick.</p>}
     </div>
   )
 }
