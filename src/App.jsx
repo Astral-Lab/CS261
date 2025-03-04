@@ -13,10 +13,15 @@ import {
   Panel
 } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
-import { CANVAS_STYLES } from "./lib/config";
+import { CANVAS_STYLES, DEFAULT_JUNCTION } from "./lib/config";
 import JunctionLaneNode from "./components/JunctionLaneNode";
 import JunctionIntersectionNode from "./components/JunctionIntersectionNode";
 import { 
+  computeAverageQueueTime,
+  computeJunctionScore,
+  computeLanePerformance,
+  computeMaxQueueLength,
+  computeMaxQueueTime,
   decodeSharedURL,
   generateJunctionEdges, 
   generateJunctionNodes 
@@ -86,6 +91,7 @@ export default function App() {
 
   }, []);
 
+  // work in progress
   const store = useStoreApi();
   const { setCenter } = useReactFlow();
 
