@@ -14,7 +14,7 @@ const junctionSlice = createSlice({
         saveJunction: (state, action) => {
             // overwrite junction with the same name
             if(state.junctions.some(junction => junction.name === action.payload.name)) {
-                state.junctions = state.junctions.map(junction => junction.name === payload.name ? action.payload : junction);
+                state.junctions = state.junctions.map(junction => junction.name === action.payload.name ? action.payload : junction);
 
             // otherwise save as a new junction
             } else {

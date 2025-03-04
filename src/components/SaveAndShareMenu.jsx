@@ -8,11 +8,19 @@ import {
     useSelector 
 } from "react-redux";
 import clsx from "clsx";
+import { forwardRef } from "react";
 
-export default function SaveAndShareMenu() {
+export default forwardRef(function SaveAndShareMenu(props, ref) {
     const junction = useSelector(selectJunction);
     const dispatch = useDispatch();
     const disabled = !junction.name.length;
+
+    const handleSave = () => {
+        // close the save menu on save
+        ref.current.checked = false;
+
+        dispatch(saveJunction(junction));
+    }
 
     return (
         <form className="w-full h-full flex flex-col justify-between items-end">
@@ -30,15 +38,15 @@ export default function SaveAndShareMenu() {
             </div>
             <button
                 className={clsx(
-                    "w-full h-16 text-xl bg-blue-400 rounded-full drop-shadow-xs",
+                    "w-40 h-14 text-xl bg-blue-400 rounded-lg drop-shadow-xs",
                     {
                         "opacity-75": disabled
                     }
                 )}
                 type="button"
-                onClick={() => dispatch(saveJunction(junction))}
+                onClick={handleSave}
                 disabled={disabled}
             >save</button>
         </form>
     )
-}
+})

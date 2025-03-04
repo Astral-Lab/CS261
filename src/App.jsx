@@ -112,7 +112,7 @@ export default function App() {
       />
       <SlideableContainer 
         ref={saveRef} 
-        content={<SaveAndShareMenu/>} 
+        content={<SaveAndShareMenu ref={saveRef}/>} 
         id="save"
       />
       <div className="w-1/4 h-full flex flex-col justify-between px-8">
