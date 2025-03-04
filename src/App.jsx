@@ -1,7 +1,8 @@
 import { 
   useMemo, 
   useRef, 
-  useEffect
+  useEffect,
+  useState
 } from "react";
 import {
   ReactFlow,
@@ -27,6 +28,7 @@ import ToolbarButton from "./components/ToolbarButton";
 import { DEFAULT_ICON_SIZE } from "./lib/config";
 import { IoMdPlay } from "react-icons/io";
 import { IoSaveSharp } from "react-icons/io5";
+import { FaStop } from "react-icons/fa";
 import { IoStatsChart } from "react-icons/io5";
 import { RiAddLine } from "react-icons/ri";
 import SlideableContainer from "./components/SlideableContainer";
@@ -41,12 +43,16 @@ import {
   loadJunction, 
   selectJunction 
 } from "./stores/junctionSlice";
-import { useReactFlow, useStoreApi } from '@xyflow/react';
+import { 
+  useReactFlow, 
+  useStoreApi 
+} from '@xyflow/react';
 
 export default function App() {
   const junction = useSelector(selectJunction);
   const [nodes, setNodes, onNodesChange] = useNodesState(generateJunctionNodes(junction.laneCount));
   const [edges, setEdges, onEdgesChange] = useEdgesState(generateJunctionEdges(junction.laneCount));
+  const [runSim, setRunSim] = useState(false);
   const [searchParams] = useSearchParams();
   const isMobile = useMobileLayout();
   const createRef = useRef(null);
@@ -98,6 +104,42 @@ export default function App() {
   //   }
   // }
 
+  const store = useStoreApi();
+  const { setCenter } = useReactFlow();
+  const { nodeLookup } = store.getState();
+
+  useEffect(() => {
+    let currentNodeIndex = 0;
+
+    const focusNode = () => {
+      const { nodeLookup } = store.getState();
+      const nodes = Array.from(nodeLookup).map(([, node]) => node).slice(1);
+  
+      if (nodes.length > 0) {
+        const node = nodes[currentNodeIndex];
+  
+        const x = node.position.x
+        const y = node.position.y
+        const zoom = 1;
+  
+        setCenter(x, y, { zoom, duration: 1000 });
+
+        currentNodeIndex = ((currentNodeIndex + 1) % nodes.length);
+      }
+    }
+
+    let interval;
+
+    if(runSim) {
+      interval = setInterval(focusNode, 2000);
+    } else {
+      reactFlow.fitView()
+    }
+
+    // cleanup function...
+    return () => clearInterval(interval);
+  }, [runSim]);
+
   return (
     <div className="w-full flex h-screen font-fira-code select-none relative py-8 pr-8 group/parent overflow-hidden">
       <SlideableContainer 
@@ -142,9 +184,13 @@ export default function App() {
                 id="create"
             />
             <ToolbarButton
-                icon={<IoMdPlay size={DEFAULT_ICON_SIZE}/>}
+                icon={runSim ? 
+                  <FaStop size={DEFAULT_ICON_SIZE}/> : 
+                  <IoMdPlay size={DEFAULT_ICON_SIZE}/>
+                }
                 title={"play"}
                 id="play"
+                onClick={() => setRunSim(!runSim)}
             />
             <ToolbarButton
                 icon={<IoStatsChart size={DEFAULT_ICON_SIZE}/>}

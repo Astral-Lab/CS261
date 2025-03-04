@@ -50,7 +50,8 @@ export function computeJunctionScore(junction) {
 
   if(totalFlow === 0) return 0;
   
-  return Math.round((totalFlow) / ((totalLanePerformance / junction.lanes.length) * normalisedLaneCount));
+  // multiplying by 100 to provide "score inflation" for more of an impact
+  return Math.round((totalFlow) / ((totalLanePerformance / junction.lanes.length) * normalisedLaneCount)) * 100;
 }
 
 export function generateJunctionNodes(laneCount) {

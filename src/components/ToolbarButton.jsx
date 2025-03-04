@@ -5,6 +5,7 @@ export default forwardRef(function ToolbarButton(props, ref) {
         <button
             className="w-12 h-12 flex justify-center items-center bg-white drop-shadow-sm rounded-lg transition-colors duration-500 hover:bg-gray-300 relative"
             title={props.title}
+            onClick={props.onClick}
         >
             <input
                 id={props.id}
