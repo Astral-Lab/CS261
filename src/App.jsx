@@ -13,15 +13,10 @@ import {
   Panel
 } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
-import { CANVAS_STYLES, DEFAULT_JUNCTION } from "./lib/config";
+import { CANVAS_STYLES } from "./lib/config";
 import JunctionLaneNode from "./components/JunctionLaneNode";
 import JunctionIntersectionNode from "./components/JunctionIntersectionNode";
 import { 
-  computeAverageQueueTime,
-  computeJunctionScore,
-  computeLanePerformance,
-  computeMaxQueueLength,
-  computeMaxQueueTime,
   decodeSharedURL,
   generateJunctionEdges, 
   generateJunctionNodes 
@@ -128,7 +123,7 @@ export default function App() {
   }, [runSim]);
 
   return (
-    <div className="w-full flex h-screen font-fira-code select-none relative py-8 pr-8 group/parent overflow-hidden">
+    <div className="w-full flex h-screen font-fira-code select-none relative p-4 lg:py-8 lg:pr-8 group/parent overflow-hidden">
       <SlideableContainer 
         ref={createRef} 
         content={<CreateAndLoadJunction/>} 
@@ -144,7 +139,7 @@ export default function App() {
         content={<SaveAndShareMenu ref={saveRef}/>} 
         id="save"
       />
-      <div className="w-1/4 h-full flex flex-col justify-between px-8">
+      <div className="hidden w-1/4 h-full lg:flex flex-col justify-between px-8">
         <h1 className="text-center text-4xl text-blue-400 font-fira-code mt-8">Junction Flow</h1>
         <JunctionFlowHints/>
         <p className="text-[10px] text-center italic">This project is completed as part of the Software Engineering module <span className="font-bold">(Group 34)</span> at the University of Warwick.</p>
@@ -162,7 +157,7 @@ export default function App() {
         className="rounded-2xl drop-shadow-sm"
         minZoom={0.01}
       >
-        <Panel position="top-right">
+        <Panel position={isMobile ? "bottom-center" : "top-right"}>
           <ul className="flex gap-2">
             <ToolbarButton
                 icon={<RiAddLine size={DEFAULT_ICON_SIZE}/>}

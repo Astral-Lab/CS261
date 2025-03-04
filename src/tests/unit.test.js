@@ -36,11 +36,11 @@ describe("util functions", () => {
     });
 
     // bounds checking unit conversion
-    test("converts the vph to vps", () => {
+    test("converts the vph to vps (max bound)", () => {
       expect(Number(convertVphToVps(5000))).toBe(1.3888888888888888);
     });
     
-    test("converts the vph to vps", () => {
+    test("converts the vph to vps (min bound)", () => {
       expect(Number(convertVphToVps(0))).toBe(0);
     });
 
