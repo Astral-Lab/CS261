@@ -86,27 +86,8 @@ export default function App() {
 
   }, []);
 
-  // const store = useStoreApi();
-  // const { setCenter } = useReactFlow();
- 
-  // const focusNode = () => {
-  //   const { nodeLookup } = store.getState();
-  //   const nodes = Array.from(nodeLookup).map(([, node]) => node);
- 
-  //   if (nodes.length > 0) {
-  //     const node = nodes[0];
- 
-  //     const x = node.position.x + node.measured.width / 2;
-  //     const y = node.position.y + node.measured.height / 2;
-  //     const zoom = 1;
- 
-  //     setCenter(0, 0, { zoom, duration: 1000 });
-  //   }
-  // }
-
   const store = useStoreApi();
   const { setCenter } = useReactFlow();
-  const { nodeLookup } = store.getState();
 
   useEffect(() => {
     let currentNodeIndex = 0;
