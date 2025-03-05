@@ -140,7 +140,7 @@ export default function App() {
         content={<SaveAndShareMenu ref={saveRef}/>} 
         id="save"
       />
-      <div className="w-full lg:w-1/4 h-16 lg:h-full flex lg:flex-col justify-between items-center lg:items-start lg:px-8 group/hint mt-4">
+      <div className="w-full lg:w-1/4 h-16 lg:h-full flex lg:flex-col justify-between items-center lg:items-start lg:px-8 group/hint mt-4 lg:mt-0">
         <h1 className="text-center text-2xl lg:text-4xl text-blue-400 font-fira-code lg:mt-8">Junction Flow</h1>
         <div className="lg:hidden w-12 h-12 flex justify-center items-center z-20 lg:z-0 relative">
           <input 
