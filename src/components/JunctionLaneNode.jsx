@@ -53,7 +53,7 @@ export default function JunctionLaneNode(props) {
                         <div className={clsx(
                             "w-4 h-4 rounded-full",
                             {
-                                "bg-blue-400": isActive,
+                                "bg-green-400": isActive,
                                 "bg-[#E0E0E0]": !isActive
                             }
                         )}></div>
