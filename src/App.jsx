@@ -17,6 +17,7 @@ import { CANVAS_STYLES } from "./lib/config";
 import JunctionLaneNode from "./components/JunctionLaneNode";
 import JunctionIntersectionNode from "./components/JunctionIntersectionNode";
 import { 
+  computeNodeSideMidpoint,
   decodeSharedURL,
   generateJunctionEdges, 
   generateJunctionNodes, 
@@ -60,7 +61,7 @@ export default function App() {
   const [edges, setEdges, onEdgesChange] = useEdgesState(generateJunctionEdges(junction.laneCount));
   const [runSim, setRunSim] = useState(false);
   const [seconds, setSeconds] = useState(0);
-  const [activeLaneIndex, setActiveLaneIndex] = useState(0); // put both (and seconds) into sim state in redux...
+  const [activeLaneIndex, setActiveLaneIndex] = useState(0); // bundle together, will be better for report...
   const [searchParams] = useSearchParams();
   const isMobile = useMobileLayout();
   const createRef = useRef(null);
@@ -69,6 +70,10 @@ export default function App() {
   const ref = useRef(null);
   const dispatch = useDispatch();
   const reactFlow = useReactFlow();
+  const store = useStoreApi();
+  const { setCenter } = useReactFlow();
+  const { nodeLookup } = store.getState();
+  const laneNodes = Array.from(nodeLookup).map(([, node]) => node).slice(1); // ignore junction node
 
   const nodeTypes = useMemo(() => ({ 
     junctionLane: JunctionLaneNode,
@@ -94,45 +99,20 @@ export default function App() {
 
   }, []);
 
-  // work in progress
-  const store = useStoreApi();
-  const { setCenter } = useReactFlow();
-
-  // useEffect(() => {
-  //   let currentNodeIndex = 0;
-
-  //   const focusNode = () => {
-  //     const { nodeLookup } = store.getState();
-  //     const nodes = Array.from(nodeLookup).map(([, node]) => node).slice(1);
-  
-  //     if (nodes.length > 0) {
-  //       const node = nodes[currentNodeIndex];
-  
-  //       const x = node.position.x
-  //       const y = node.position.y
-  //       const zoom = 1;
-  
-  //       setCenter(x, y, { zoom, duration: 1000 });
-
-  //       currentNodeIndex = ((currentNodeIndex + 1) % nodes.length);
-  //     }
-  //   }
-
-  //   let interval;
-
-  //   if(runSim) {
-  //     interval = setInterval(focusNode, 2000);
-  //   } else {
-  //     reactFlow.fitView()
-  //   }
-
-  //   // cleanup function...
-  //   return () => clearInterval(interval);
-  // }, [runSim]);
-
   useEffect(() => {
+    const ANIM_OPTIONS = { zoom: 0.5, duration: 2000 };
+    const segmentSize = laneNodes.length / 4;
+
     const handleSimulation = () => {
       setSeconds(seconds + 1);
+
+      if(seconds === 1) {
+        // initially animate to north
+        if(laneNodes.length > 0) {
+          let [x, y] = computeNodeSideMidpoint(laneNodes.slice(0, segmentSize), "x");
+          setCenter(x, y, ANIM_OPTIONS);
+        }
+      }
 
       // light cycle complete reset to 0
       if(seconds === junction.lightDuration) {
@@ -141,26 +121,45 @@ export default function App() {
 
       // northbound period
       if(seconds === 15) {
-        // animate to north
+        // animate to east
+        if(laneNodes.length > 0) {
+          let [x, y] = computeNodeSideMidpoint(laneNodes.slice(segmentSize, segmentSize * 2), "y");
+          setCenter(x, y, ANIM_OPTIONS);
+        }
 
         // activate east side
         setActiveLaneIndex(1);
 
       // eastbound period
       } else if(seconds === 30) {
-        // animate to east
+        // animate to south
+        if(laneNodes.length > 0) {
+          let [x, y] = computeNodeSideMidpoint(laneNodes.slice(segmentSize * 2, segmentSize * 3), "x");
+          setCenter(x, y, ANIM_OPTIONS);
+        }
+
         // activate south side
         setActiveLaneIndex(2);
 
       // southbound period
       } else if(seconds === 45) {
-        // animate to south
+        // animate to west
+        if(laneNodes.length > 0) {
+          let [x, y] = computeNodeSideMidpoint(laneNodes.slice(segmentSize * 3, segmentSize * 4), "y");
+          setCenter(x, y, ANIM_OPTIONS);
+        }
+
         // activate west side
         setActiveLaneIndex(3);
 
       // westbound period
       } else if(seconds === 60) {
-        // animate to west
+        // animate to north
+        if(laneNodes.length > 0) {
+          let [x, y] = computeNodeSideMidpoint(laneNodes.slice(0, segmentSize), "x");
+          setCenter(x, y, ANIM_OPTIONS);
+        }
+
         // activate north side
         setActiveLaneIndex(4);
 
@@ -188,7 +187,7 @@ export default function App() {
       clearInterval(interval);
     }
 
-  }, [runSim, simulation, junction, seconds, activeLaneIndex, activeLaneIndex]); 
+  }, [runSim, simulation, junction, seconds, activeLaneIndex, activeLaneIndex, laneNodes]); 
   
   const handleRunSimulation = () => {
     dispatch(initSimulation(junction.laneCount));

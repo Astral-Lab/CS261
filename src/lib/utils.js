@@ -239,3 +239,19 @@ export function generateSimulationLaneQueues(laneCount) {
 
   return laneQueues;
 }
+
+export function computeNodeSideMidpoint(nodes, alignAxis) {
+  console.log("NODE: ", nodes, alignAxis)
+  let x = nodes[0].position.x;
+  let y = nodes[0].position.y;
+
+  if(alignAxis === "x") {
+    x = nodes.reduce((accumulator, currentValue) => accumulator + currentValue.position.x, 0) / nodes.length;
+
+  } else if(alignAxis === "y") {
+    y = nodes.reduce((accumulator, currentValue) => accumulator + currentValue.position.y, 0) / nodes.length;
+
+  }
+
+  return [x, y];
+}

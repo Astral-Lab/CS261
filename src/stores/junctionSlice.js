@@ -98,4 +98,4 @@ export const selectLaneById = (state, id) => state.junctions.current.lanes.find(
 
 export const selectSimulation = state => state.junctions.simulation;
 
-export const selectSimulationQueueSizeById = (state, id) => state.junctions.simulation.find(queue => queue.label === id).queueSize;
+export const selectSimulationQueueSizeById = (state, id) => state.junctions.simulation.find(queue => queue.label === id)?.queueSize;
