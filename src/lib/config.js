@@ -6,7 +6,7 @@ export const DEFAULT_VPH = 500;
 // vehicle constants
 export const CAR_LENGTH = 4;                // meters
 export const CAR_GAP = 1;                   // meters
-export const VEHICLE_DEPATURE_RATE = 2;     // seconds
+export const VEHICLE_DEPATURE_RATE = 1;     // 1 per second
 
 // styles
 export const CANVAS_STYLES = {
@@ -99,4 +99,10 @@ export const DEFAULT_JUNCTION = {
             label: "Westbound 2"
         }
     ]
+}
+
+// simulation default state
+export const DEFAULT_SIMULATION = {
+    activeLane: 1,
+    queues: []
 }

@@ -193,3 +193,32 @@ export function extractPriorityIndexFromLabel(lane) {
 export function computeLanePerformance(lane) {
   return convertVphToVps(lane.vph) / VEHICLE_DEPATURE_RATE
 }
+
+export function updateSimluationLaneQueues(junction, activeSideIndex) {
+  const laneQueues = [];
+
+  for(let i = 0; i < 4; i++) {
+    for(let j = 0; j < (junction.lanes.length / 4); j++) {
+      laneQueues.push(computeSimluationLaneQueue(junction.lanes[i + j], activeSideIndex === i));
+    }
+  }
+
+  return laneQueues;
+}
+
+export function computeSimluationLaneQueue(lane, active, oldQueueSize) {
+  let newQueueSize;
+  let vps = convertVphToVps(lane.vph);
+
+  // green light and enough vehicles in queue to depart
+  if(active && (oldQueueSize + vps >= VEHICLE_DEPATURE_RATE)) {
+    newQueueSize = Math.max(0, (oldQueueSize - VEHICLE_DEPATURE_RATE + vps));
+
+  // red light
+  } else {
+    newQueueSize = oldQueueSize + vps;
+
+  }
+  
+  return  newQueueSize;
+}

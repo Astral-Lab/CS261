@@ -123,6 +123,54 @@ export default function App() {
     return () => clearInterval(interval);
   }, [runSim]);
 
+  useEffect(() => {
+    let seconds = 0;
+
+    const handleSimulation = () => {
+      seconds++;
+
+      // set lane 1 to active?
+
+      // light cycle complete reset to 0
+      if(seconds === junction.lightDuration) {
+        seconds = 0;
+      }
+
+      // northbound period
+      if(seconds === 15) {
+        // move camera
+        // car animate
+
+      // eastbound period
+      } else if(seconds === 30) {
+
+      // southbound period
+      } else if(seconds === 45) {
+
+      // westbound period
+      } else if(seconds === 60) {
+
+      }
+    }
+
+    let interval;
+
+    if(runSim) {
+      // grab the interval id for cleanup function
+      interval = setInterval(handleSimulation, 1000);
+
+    } else {
+      // reset viewport to fit the node diagram
+      reactFlow.fitView();
+    }
+
+    // sideffect clean up
+    return () => {
+      clearInterval(interval);
+    }
+
+  }, [runSim]);
+
   return (
     <div className="w-full flex flex-col lg:flex-row gap-6 lg:gap-0 h-screen font-fira-code select-none relative p-4 lg:py-8 lg:pr-8 group/parent overflow-hidden">
       <SlideableContainer 

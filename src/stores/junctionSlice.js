@@ -1,10 +1,14 @@
-import { DEFAULT_JUNCTION } from "@/lib/config";
+import { 
+    DEFAULT_JUNCTION, 
+    DEFAULT_SIMULATION 
+} from "@/lib/config";
 import { createSlice } from "@reduxjs/toolkit";
 import { createDefaultLanes } from "@/lib/utils";
 
 const initialState = {
     junctions: [DEFAULT_JUNCTION],
-    current: DEFAULT_JUNCTION
+    current: DEFAULT_JUNCTION,
+    simulation: DEFAULT_SIMULATION
 }
 
 const junctionSlice = createSlice({
