@@ -54,6 +54,9 @@ import {
   useStoreApi 
 } from '@xyflow/react';
 
+// ***********************************************************************************
+// math function has bug that when grow infinitely grows wait time becomes negative... "INF QUEUE GROWTH"
+// ***********************************************************************************
 export default function App() {
   const junction = useSelector(selectJunction);
   const simulation = useSelector(selectSimulation);
@@ -85,6 +88,7 @@ export default function App() {
   useEffect(() => {
     setNodes(generateJunctionNodes(junction.laneCount));
     setEdges(generateJunctionEdges(junction.laneCount));
+    dispatch(initSimulation(junction.laneCount));
 
     // reset canvas view to fit new junction
     setTimeout(() => reactFlow.fitView(), 100);
@@ -195,6 +199,7 @@ export default function App() {
     if(runSim) {
       // reset sim 
       setRunSim(false);
+      setSeconds(0);
 
     } else {
       // init sim

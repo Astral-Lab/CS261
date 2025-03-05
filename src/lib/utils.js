@@ -241,7 +241,6 @@ export function generateSimulationLaneQueues(laneCount) {
 }
 
 export function computeNodeSideMidpoint(nodes, alignAxis) {
-  console.log("NODE: ", nodes, alignAxis)
   let x = nodes[0].position.x;
   let y = nodes[0].position.y;
 
