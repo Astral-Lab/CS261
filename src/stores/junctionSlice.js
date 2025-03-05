@@ -65,10 +65,24 @@ const junctionSlice = createSlice({
             state.current = action.payload;
         },
         updateSimulationQueues: (state, action) => {
-            state.simulation = action.payload;
+            state.simulation.queues = action.payload;
         },
         initSimulation: (state, action) => {
-            state.simulation = generateSimulationLaneQueues(action.payload);
+            state.simulation.seconds = 0;
+            state.simulation.activeSideIndex = 1;
+            state.simulation.queues = generateSimulationLaneQueues(action.payload);
+        },
+        incrementSimulationSeconds: (state, action) => {
+            state.simulation.seconds += 1;
+        },
+        resetSimulationSeconds: (state, action) => {
+            state.simulation.seconds = 0;
+        },
+        toggleSimulation: (state, action) => {
+            state.simulation.runSim = !state.simulation.runSim;
+        },
+        setSimulationActiveLaneIndex: (state, action) => {
+            state.simulation.activeSideIndex = action.payload;
         }
     }
 });
@@ -85,7 +99,11 @@ export const {
     changeLaneVph,
     loadJunction,
     updateSimulationQueues,
-    initSimulation
+    initSimulation,
+    incrementSimulationSeconds,
+    resetSimulationSeconds,
+    toggleSimulation,
+    setSimulationActiveLaneIndex
 } = junctionSlice.actions;
 
 export default junctionSlice.reducer;
@@ -98,4 +116,4 @@ export const selectLaneById = (state, id) => state.junctions.current.lanes.find(
 
 export const selectSimulation = state => state.junctions.simulation;
 
-export const selectSimulationQueueSizeById = (state, id) => state.junctions.simulation.find(queue => queue.label === id)?.queueSize;
+export const selectSimulationQueueSizeById = (state, id) => state.junctions.simulation.queues.find(queue => queue.label === id)?.queueSize;

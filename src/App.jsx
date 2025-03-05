@@ -1,8 +1,7 @@
 import { 
   useMemo, 
   useRef, 
-  useEffect,
-  useState
+  useEffect
 } from "react";
 import {
   ReactFlow,
@@ -43,10 +42,14 @@ import {
   useSelector 
 } from "react-redux";
 import { 
+  incrementSimulationSeconds,
   initSimulation,
   loadJunction, 
+  resetSimulationSeconds, 
   selectJunction, 
   selectSimulation,
+  setSimulationActiveLaneIndex,
+  toggleSimulation,
   updateSimulationQueues
 } from "./stores/junctionSlice";
 import { 
@@ -62,9 +65,6 @@ export default function App() {
   const simulation = useSelector(selectSimulation);
   const [nodes, setNodes, onNodesChange] = useNodesState(generateJunctionNodes(junction.laneCount));
   const [edges, setEdges, onEdgesChange] = useEdgesState(generateJunctionEdges(junction.laneCount));
-  const [runSim, setRunSim] = useState(false);
-  const [seconds, setSeconds] = useState(0);
-  const [activeLaneIndex, setActiveLaneIndex] = useState(0); // bundle together, will be better for report...
   const [searchParams] = useSearchParams();
   const isMobile = useMobileLayout();
   const createRef = useRef(null);
@@ -108,9 +108,9 @@ export default function App() {
     const segmentSize = laneNodes.length / 4;
 
     const handleSimulation = () => {
-      setSeconds(seconds + 1);
+      dispatch(incrementSimulationSeconds());
 
-      if(seconds === 1) {
+      if(simulation.seconds === 1) {
         // initially animate to north
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(0, segmentSize), "x");
@@ -119,12 +119,12 @@ export default function App() {
       }
 
       // light cycle complete reset to 0
-      if(seconds === junction.lightDuration) {
-        setSeconds(0);
+      if(simulation.seconds === junction.lightDuration) {
+        dispatch(resetSimulationSeconds());
       }
 
       // northbound period
-      if(seconds === 15) {
+      if(simulation.seconds === 15) {
         // animate to east
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(segmentSize, segmentSize * 2), "y");
@@ -132,10 +132,10 @@ export default function App() {
         }
 
         // activate east side
-        setActiveLaneIndex(1);
+        dispatch(setSimulationActiveLaneIndex(2));
 
       // eastbound period
-      } else if(seconds === 30) {
+      } else if(simulation.seconds === 30) {
         // animate to south
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(segmentSize * 2, segmentSize * 3), "x");
@@ -143,10 +143,10 @@ export default function App() {
         }
 
         // activate south side
-        setActiveLaneIndex(2);
+        dispatch(setSimulationActiveLaneIndex(3));
 
       // southbound period
-      } else if(seconds === 45) {
+      } else if(simulation.seconds === 45) {
         // animate to west
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(segmentSize * 3, segmentSize * 4), "y");
@@ -154,10 +154,10 @@ export default function App() {
         }
 
         // activate west side
-        setActiveLaneIndex(3);
+        dispatch(setSimulationActiveLaneIndex(4));
 
       // westbound period
-      } else if(seconds === 60) {
+      } else if(simulation.seconds === 60) {
         // animate to north
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(0, segmentSize), "x");
@@ -165,19 +165,20 @@ export default function App() {
         }
 
         // activate north side
-        setActiveLaneIndex(4);
+        dispatch(setSimulationActiveLaneIndex(1));
 
       }
 
-      console.log("SIMULATION STEP: ", seconds, " ACTIVE SIDE: ", activeLaneIndex);
+      // prod only...
+      console.log(simulation);
 
       // update lane queues each second
-      dispatch(updateSimulationQueues(getSimluationLaneQueues(junction, activeLaneIndex, simulation)));
+      dispatch(updateSimulationQueues(getSimluationLaneQueues(junction, simulation)));
     }
 
     let interval;
 
-    if(runSim) {
+    if(simulation.runSim) {
       // grab the interval id for cleanup function
       interval = setInterval(handleSimulation, 1000);
 
@@ -191,19 +192,19 @@ export default function App() {
       clearInterval(interval);
     }
 
-  }, [runSim, simulation, junction, seconds, activeLaneIndex, activeLaneIndex, laneNodes]); 
+  }, [simulation, junction, laneNodes]); 
   
   const handleRunSimulation = () => {
     dispatch(initSimulation(junction.laneCount));
 
-    if(runSim) {
+    if(simulation.runSim) {
       // reset sim 
-      setRunSim(false);
-      setSeconds(0);
+      dispatch(toggleSimulation());
+      dispatch(resetSimulationSeconds());
 
     } else {
       // init sim
-      setRunSim(true);
+      dispatch(toggleSimulation());
 
     }
   }
@@ -259,7 +260,7 @@ export default function App() {
                 id="create"
             />
             <ToolbarButton
-                icon={runSim ? 
+                icon={simulation.runSim ? 
                   <FaStop size={DEFAULT_ICON_SIZE}/> : 
                   <IoMdPlay size={DEFAULT_ICON_SIZE}/>
                 }

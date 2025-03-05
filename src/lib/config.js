@@ -102,37 +102,42 @@ export const DEFAULT_JUNCTION = {
 }
 
 // simulation default state
-export const DEFAULT_SIMULATION = [
-    {
-        queueSize: 0,
-        label: "Northbound 1"
-    },
-    {
-        queueSize: 0,
-        label: "Northbound 2"
-    },
-    {
-        queueSize: 0,
-        label: "Eastbound 1"
-    },
-    {
-        queueSize: 0,
-        label: "Eastbound 2"
-    },
-    {
-        queueSize: 0,
-        label: "Southbound 1"
-    },
-    {
-        queueSize: 0,
-        label: "Southbound 2"
-    },
-    {
-        queueSize: 0,
-        label: "Westbound 1"
-    },
-    {
-        queueSize: 0,
-        label: "Westbound 2"
-    }
-]
+export const DEFAULT_SIMULATION = {
+    activeSideIndex: 1,
+    seconds: 0,
+    runSim: false,
+    queues: [
+        {
+            queueSize: 0,
+            label: "Northbound 1"
+        },
+        {
+            queueSize: 0,
+            label: "Northbound 2"
+        },
+        {
+            queueSize: 0,
+            label: "Eastbound 1"
+        },
+        {
+            queueSize: 0,
+            label: "Eastbound 2"
+        },
+        {
+            queueSize: 0,
+            label: "Southbound 1"
+        },
+        {
+            queueSize: 0,
+            label: "Southbound 2"
+        },
+        {
+            queueSize: 0,
+            label: "Westbound 1"
+        },
+        {
+            queueSize: 0,
+            label: "Westbound 2"
+        }
+    ]
+}

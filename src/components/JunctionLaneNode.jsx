@@ -15,14 +15,19 @@ import {
 import { 
     changeLaneVph,
     selectLaneById,
+    selectSimulation,
     selectSimulationQueueSizeById
 } from "@/stores/junctionSlice";
 import { Slider } from "./ui/slider";
+import { extractPriorityIndexFromLabel } from "@/lib/utils";
+import clsx from "clsx";
 
 export default function JunctionLaneNode(props) {
     const lane = useSelector(state => selectLaneById(state, props.data?.label));
+    const simulation = useSelector(selectSimulation);
     const queueSize = useSelector(state => selectSimulationQueueSizeById(state, props.data?.label));
     const dispatch = useDispatch();
+    const isActive = extractPriorityIndexFromLabel(props.data?.label) + 1 === simulation.activeSideIndex;
 
     return (
         <>
@@ -38,8 +43,20 @@ export default function JunctionLaneNode(props) {
                         <p className="font-bold">{props.data.label}</p>
                     </div>
                     <div className="flex gap-2">
-                        <div className="w-4 h-4 bg-red-400 rounded-full"></div>
-                        <div className="w-4 h-4 bg-[#E0E0E0] rounded-full"></div>
+                        <div className={clsx(
+                            "w-4 h-4 rounded-full",
+                            {
+                                "bg-red-400": !isActive,
+                                "bg-[#E0E0E0]": isActive
+                            }
+                        )}></div>
+                        <div className={clsx(
+                            "w-4 h-4 rounded-full",
+                            {
+                                "bg-blue-400": isActive,
+                                "bg-[#E0E0E0]": !isActive
+                            }
+                        )}></div>
                     </div>
                 </div>
                 <div className="flex flex-col gap-8 px-6 p-4">

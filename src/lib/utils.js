@@ -194,16 +194,16 @@ export function computeLanePerformance(lane) {
   return convertVphToVps(lane.vph) / VEHICLE_DEPATURE_RATE
 }
 
-export function getSimluationLaneQueues(junction, activeSideIndex, simulation) {
+export function getSimluationLaneQueues(junction, simulation) {
   const laneQueues = [];
 
   for(let i = 0; i < 4; i++) {
     for(let j = 0; j < (junction.lanes.length / 4); j++) {
-      laneQueues.push(computeSimluationLaneQueue(junction.lanes[i + j], activeSideIndex === i, simulation[i + j].queueSize));
+      laneQueues.push(computeSimluationLaneQueue(junction.lanes[i + j], simulation.activeSideIndex === i, simulation.queues[i + j].queueSize));
     }
   }
 
-  return simulation.map((s, i) => ({
+  return simulation.queues.map((s, i) => ({
     queueSize: laneQueues[i],
     label: s.label
   }));
