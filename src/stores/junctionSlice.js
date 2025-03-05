@@ -3,7 +3,7 @@ import {
     DEFAULT_SIMULATION 
 } from "@/lib/config";
 import { createSlice } from "@reduxjs/toolkit";
-import { createDefaultLanes } from "@/lib/utils";
+import { createDefaultLanes, generateSimulationLaneQueues } from "@/lib/utils";
 
 const initialState = {
     junctions: [DEFAULT_JUNCTION],
@@ -63,6 +63,12 @@ const junctionSlice = createSlice({
         },
         loadJunction: (state, action) => {
             state.current = action.payload;
+        },
+        updateSimulationQueues: (state, action) => {
+            state.simulation = action.payload;
+        },
+        initSimulation: (state, action) => {
+            state.simulation = generateSimulationLaneQueues(action.payload);
         }
     }
 });
@@ -77,7 +83,9 @@ export const {
     changeLightDuration,
     changeLightPriority,
     changeLaneVph,
-    loadJunction
+    loadJunction,
+    updateSimulationQueues,
+    initSimulation
 } = junctionSlice.actions;
 
 export default junctionSlice.reducer;
@@ -87,3 +95,7 @@ export const selectJunctions = state => state.junctions.junctions;
 export const selectJunction = state => state.junctions.current;
 
 export const selectLaneById = (state, id) => state.junctions.current.lanes.find(lane => lane.label === id);
+
+export const selectSimulation = state => state.junctions.simulation;
+
+export const selectSimulationQueueSizeById = (state, id) => state.junctions.simulation.find(queue => queue.label === id).queueSize;

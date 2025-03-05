@@ -19,7 +19,8 @@ import JunctionIntersectionNode from "./components/JunctionIntersectionNode";
 import { 
   decodeSharedURL,
   generateJunctionEdges, 
-  generateJunctionNodes 
+  generateJunctionNodes, 
+  getSimluationLaneQueues
 } from "./lib/utils";
 import useMobileLayout from "./lib/hooks";
 import CreateAndLoadJunction from "./components/CreateAndLoadMenu";
@@ -41,8 +42,11 @@ import {
   useSelector 
 } from "react-redux";
 import { 
+  initSimulation,
   loadJunction, 
-  selectJunction 
+  selectJunction, 
+  selectSimulation,
+  updateSimulationQueues
 } from "./stores/junctionSlice";
 import { 
   useReactFlow, 
@@ -51,9 +55,12 @@ import {
 
 export default function App() {
   const junction = useSelector(selectJunction);
+  const simulation = useSelector(selectSimulation);
   const [nodes, setNodes, onNodesChange] = useNodesState(generateJunctionNodes(junction.laneCount));
   const [edges, setEdges, onEdgesChange] = useEdgesState(generateJunctionEdges(junction.laneCount));
   const [runSim, setRunSim] = useState(false);
+  const [seconds, setSeconds] = useState(0);
+  const [activeLaneIndex, setActiveLaneIndex] = useState(0); // put both (and seconds) into sim state in redux...
   const [searchParams] = useSearchParams();
   const isMobile = useMobileLayout();
   const createRef = useRef(null);
@@ -91,66 +98,78 @@ export default function App() {
   const store = useStoreApi();
   const { setCenter } = useReactFlow();
 
+  // useEffect(() => {
+  //   let currentNodeIndex = 0;
+
+  //   const focusNode = () => {
+  //     const { nodeLookup } = store.getState();
+  //     const nodes = Array.from(nodeLookup).map(([, node]) => node).slice(1);
+  
+  //     if (nodes.length > 0) {
+  //       const node = nodes[currentNodeIndex];
+  
+  //       const x = node.position.x
+  //       const y = node.position.y
+  //       const zoom = 1;
+  
+  //       setCenter(x, y, { zoom, duration: 1000 });
+
+  //       currentNodeIndex = ((currentNodeIndex + 1) % nodes.length);
+  //     }
+  //   }
+
+  //   let interval;
+
+  //   if(runSim) {
+  //     interval = setInterval(focusNode, 2000);
+  //   } else {
+  //     reactFlow.fitView()
+  //   }
+
+  //   // cleanup function...
+  //   return () => clearInterval(interval);
+  // }, [runSim]);
+
   useEffect(() => {
-    let currentNodeIndex = 0;
-
-    const focusNode = () => {
-      const { nodeLookup } = store.getState();
-      const nodes = Array.from(nodeLookup).map(([, node]) => node).slice(1);
-  
-      if (nodes.length > 0) {
-        const node = nodes[currentNodeIndex];
-  
-        const x = node.position.x
-        const y = node.position.y
-        const zoom = 1;
-  
-        setCenter(x, y, { zoom, duration: 1000 });
-
-        currentNodeIndex = ((currentNodeIndex + 1) % nodes.length);
-      }
-    }
-
-    let interval;
-
-    if(runSim) {
-      interval = setInterval(focusNode, 2000);
-    } else {
-      reactFlow.fitView()
-    }
-
-    // cleanup function...
-    return () => clearInterval(interval);
-  }, [runSim]);
-
-  useEffect(() => {
-    let seconds = 0;
-
     const handleSimulation = () => {
-      seconds++;
-
-      // set lane 1 to active?
+      setSeconds(seconds + 1);
 
       // light cycle complete reset to 0
       if(seconds === junction.lightDuration) {
-        seconds = 0;
+        setSeconds(0);
       }
 
       // northbound period
       if(seconds === 15) {
-        // move camera
-        // car animate
+        // animate to north
+
+        // activate east side
+        setActiveLaneIndex(1);
 
       // eastbound period
       } else if(seconds === 30) {
+        // animate to east
+        // activate south side
+        setActiveLaneIndex(2);
 
       // southbound period
       } else if(seconds === 45) {
+        // animate to south
+        // activate west side
+        setActiveLaneIndex(3);
 
       // westbound period
       } else if(seconds === 60) {
+        // animate to west
+        // activate north side
+        setActiveLaneIndex(4);
 
       }
+
+      console.log("SIMULATION STEP: ", seconds, " ACTIVE SIDE: ", activeLaneIndex);
+
+      // update lane queues each second
+      dispatch(updateSimulationQueues(getSimluationLaneQueues(junction, activeLaneIndex, simulation)));
     }
 
     let interval;
@@ -169,7 +188,21 @@ export default function App() {
       clearInterval(interval);
     }
 
-  }, [runSim]);
+  }, [runSim, simulation, junction, seconds, activeLaneIndex, activeLaneIndex]); 
+  
+  const handleRunSimulation = () => {
+    dispatch(initSimulation(junction.laneCount));
+
+    if(runSim) {
+      // reset sim 
+      setRunSim(false);
+
+    } else {
+      // init sim
+      setRunSim(true);
+
+    }
+  }
 
   return (
     <div className="w-full flex flex-col lg:flex-row gap-6 lg:gap-0 h-screen font-fira-code select-none relative p-4 lg:py-8 lg:pr-8 group/parent overflow-hidden">
@@ -228,7 +261,7 @@ export default function App() {
                 }
                 title={"play"}
                 id="play"
-                onClick={() => setRunSim(!runSim)}
+                onClick={handleRunSimulation}
             />
             <ToolbarButton
                 icon={<IoStatsChart size={DEFAULT_ICON_SIZE}/>}

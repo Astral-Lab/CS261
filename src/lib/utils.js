@@ -194,16 +194,19 @@ export function computeLanePerformance(lane) {
   return convertVphToVps(lane.vph) / VEHICLE_DEPATURE_RATE
 }
 
-export function updateSimluationLaneQueues(junction, activeSideIndex) {
+export function getSimluationLaneQueues(junction, activeSideIndex, simulation) {
   const laneQueues = [];
 
   for(let i = 0; i < 4; i++) {
     for(let j = 0; j < (junction.lanes.length / 4); j++) {
-      laneQueues.push(computeSimluationLaneQueue(junction.lanes[i + j], activeSideIndex === i));
+      laneQueues.push(computeSimluationLaneQueue(junction.lanes[i + j], activeSideIndex === i, simulation[i + j].queueSize));
     }
   }
 
-  return laneQueues;
+  return simulation.map((s, i) => ({
+    queueSize: laneQueues[i],
+    label: s.label
+  }));
 }
 
 export function computeSimluationLaneQueue(lane, active, oldQueueSize) {
@@ -217,8 +220,22 @@ export function computeSimluationLaneQueue(lane, active, oldQueueSize) {
   // red light
   } else {
     newQueueSize = oldQueueSize + vps;
-
   }
-  
+
   return  newQueueSize;
+}
+
+export function generateSimulationLaneQueues(laneCount) {
+  const laneQueues = [];
+
+  for(let i = 0; i < 4; i++) {
+    for(let j = 0; j < laneCount; j++) {
+      laneQueues.push({
+        queueSize: 0,
+        label: `${["Northbound", "Eastbound", "Southbound", "Westbound"][i]} ${j + 1}`
+      });
+    }
+  }
+
+  return laneQueues;
 }
