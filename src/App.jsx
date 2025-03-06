@@ -17,6 +17,7 @@ import JunctionLaneNode from "./components/JunctionLaneNode";
 import JunctionIntersectionNode from "./components/JunctionIntersectionNode";
 import { 
   computeNodeSideMidpoint,
+  computeSimulationSideBreakpoints,
   decodeSharedURL,
   generateJunctionEdges, 
   generateJunctionNodes, 
@@ -57,9 +58,6 @@ import {
   useStoreApi 
 } from '@xyflow/react';
 
-// ***********************************************************************************
-// math function has bug that when grow infinitely grows wait time becomes negative... "INF QUEUE GROWTH"
-// ***********************************************************************************
 export default function App() {
   const junction = useSelector(selectJunction);
   const simulation = useSelector(selectSimulation);
@@ -106,6 +104,12 @@ export default function App() {
   useEffect(() => {
     const ANIM_OPTIONS = { zoom: 0.5, duration: 2000 };
     const segmentSize = laneNodes.length / 4;
+    const [
+      northBreakpoint,
+      eastBreakpoint,
+      southBreakpoint,
+      westBreakpoint
+    ] = computeSimulationSideBreakpoints(junction);
 
     const handleSimulation = () => {
       dispatch(incrementSimulationSeconds());
@@ -124,7 +128,7 @@ export default function App() {
       }
 
       // northbound period
-      if(simulation.seconds === 15) {
+      if(simulation.seconds === northBreakpoint) {
         // animate to east
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(segmentSize, segmentSize * 2), "y");
@@ -135,7 +139,7 @@ export default function App() {
         dispatch(setSimulationActiveLaneIndex(2));
 
       // eastbound period
-      } else if(simulation.seconds === 30) {
+      } else if(simulation.seconds === eastBreakpoint) {
         // animate to south
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(segmentSize * 2, segmentSize * 3), "x");
@@ -146,7 +150,7 @@ export default function App() {
         dispatch(setSimulationActiveLaneIndex(3));
 
       // southbound period
-      } else if(simulation.seconds === 45) {
+      } else if(simulation.seconds === southBreakpoint) {
         // animate to west
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(segmentSize * 3, segmentSize * 4), "y");
@@ -157,7 +161,7 @@ export default function App() {
         dispatch(setSimulationActiveLaneIndex(4));
 
       // westbound period
-      } else if(simulation.seconds === 60) {
+      } else if(simulation.seconds === westBreakpoint) {
         // animate to north
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(0, segmentSize), "x");
@@ -168,9 +172,6 @@ export default function App() {
         dispatch(setSimulationActiveLaneIndex(1));
 
       }
-
-      // prod only...
-      console.log(simulation);
 
       // update lane queues each second
       dispatch(updateSimulationQueues(getSimluationLaneQueues(junction, simulation)));

@@ -254,3 +254,13 @@ export function computeNodeSideMidpoint(nodes, alignAxis) {
 
   return [x, y];
 }
+
+export function computeSimulationSideBreakpoints(junction) {
+  const durations = Array(4)
+    .fill(junction.lightDuration)
+    .map((value, i) => Math.floor(value * (junction.lightPriority[i]/junction.lightPriority.reduce((accumulator, currentValue) => accumulator + currentValue, 0))))
+    
+  const breakpoints = durations.map((_, i) => durations.slice(0, i + 1).reduce((accumulator, currentValue) => accumulator + currentValue, 0));
+
+  return breakpoints;
+}
