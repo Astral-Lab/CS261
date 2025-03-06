@@ -14,7 +14,7 @@ export default forwardRef(function SlideableContainer(props, ref) {
     return (
         <div className={clsx(
             "w-full lg:w-[500px] h-full z-50 bg-[#FAFAFA] drop-shadow-sm p-10 pt-16 flex flex-col justify-between absolute top-0 -right-[500px] transition-all duration-500 overflow-y-scroll scrollbar-hide",
-            [MENU_CLASSES[props.id]]
+            [MENU_CLASSES[props.id]] // precomplied tailwind utility class, allows dynamic runtime classes
         )}>
             <button 
                 className="absolute top-0 right-0 p-6" 
