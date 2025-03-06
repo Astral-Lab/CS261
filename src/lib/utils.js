@@ -91,7 +91,7 @@ export function generateJunctionNodes(laneCount) {
   return nodes;
 }
 
-export function generateJunctionEdges(laneCount) {
+export function generateJunctionEdges(laneCount, activeSideIndex) {
   const edges = [];
 
   // each side of the junction
@@ -102,7 +102,7 @@ export function generateJunctionEdges(laneCount) {
               source: `node-${i + 1}:${j + 1}`,
               target: "i-1",
               targetHandle: `handle-${i + 1}:${j + 1}`,
-              type: "animatedEdge"
+              ...(activeSideIndex === i && { type: "animatedEdge" })
           });
       }
   }
