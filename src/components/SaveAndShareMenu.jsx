@@ -25,7 +25,7 @@ export default forwardRef(function SaveAndShareMenu(props, ref) {
     return (
         <form className="w-full h-full flex flex-col justify-between items-end">
             <div className="w-full">
-                <legend className="text-xl text-center cap mb-10">Save & Share</legend>
+                <legend className="text-xl text-center cap mb-10">Save</legend>
                 <input
                     className="w-full h-16 lg:h-20 text-lg lg:text-2xl bg-[#73737320] flex justify-between items-center px-4 lg:px-8 rounded lg:rounded-xl mb-8 outline-none"
                     placeholder="Junction name"
@@ -38,7 +38,7 @@ export default forwardRef(function SaveAndShareMenu(props, ref) {
             </div>
             <button
                 className={clsx(
-                    "w-full lg:w-40 h-14 text-xl bg-blue-400 rounded-full lg:rounded-lg drop-shadow-xs",
+                    "w-full lg:w-full h-14 lg:h-16 text-xl bg-blue-400 rounded-full drop-shadow-xs",
                     {
                         "opacity-75": disabled
                     }
