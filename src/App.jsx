@@ -101,8 +101,12 @@ export default function App() {
 
   }, []);
 
+  // handles execution of the simulation
   useEffect(() => {
-    const ANIM_OPTIONS = { zoom: 0.5, duration: 2000 };
+    const ANIM_OPTIONS = { 
+      zoom: 0.5, 
+      duration: 2000
+    }
     const segmentSize = laneNodes.length / 4;
     const [
       northBreakpoint,
@@ -119,6 +123,8 @@ export default function App() {
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(0, segmentSize), "x");
           setCenter(x, y, ANIM_OPTIONS);
+
+          // active animated edges
         }
       }
 
@@ -195,19 +201,15 @@ export default function App() {
 
   }, [simulation, junction, laneNodes]); 
   
+  // handles start/stop of simulation
   const handleRunSimulation = () => {
     dispatch(initSimulation(junction.laneCount));
+    dispatch(toggleSimulation());
 
     if(simulation.runSim) {
       // reset sim 
-      dispatch(toggleSimulation());
       dispatch(resetSimulationSeconds());
-
-    } else {
-      // init sim
-      dispatch(toggleSimulation());
-
-    }
+    } 
   }
 
   return (
