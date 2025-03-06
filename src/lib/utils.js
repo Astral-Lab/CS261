@@ -80,10 +80,10 @@ export function computeJunctionScore(junction) {
 
   for(const lane of junction.lanes) {
     let [green, red] = getSideLightDurationTimes(lane, junction);
-    score += lane.vph ? Math.round((green * VEHICLE_DEPATURE_RATE) / (convertVphToVps(lane.vph) * (green + red) * 10)) : 0; // lanes with 0 vph score 0
+    score += lane.vph !== 0 ? ((green * VEHICLE_DEPATURE_RATE) / (convertVphToVps(lane.vph) * (green + red) * 10)) : 0; // lanes with 0 vph score 0
   }
 
-  return score * 10;
+  return (score * 10).toFixed(0);
 }
 
 /**
