@@ -21,9 +21,10 @@ const reducers = combineReducers({
 const persistConfig = {
     key: "root",
     version: 1,
-    storage,
+    storage
 }
 
+// controls saving store updates on dispatched actions
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 export default configureStore({

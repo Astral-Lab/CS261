@@ -13,6 +13,9 @@ export const CANVAS_STYLES = {
     background: "#F0F0F0"
 }
 
+// workaround to runtime dynamic tailwind classes
+// tailwind compiles so has to know beforehand which 
+// utility classes to create, this overcomes that
 export const MENU_CLASSES = {
     "create": "group-[:has(#create:checked)]/parent:right-0",
     "score": "group-[:has(#score:checked)]/parent:right-0",
@@ -29,7 +32,7 @@ export const HANDLE_STYLES = {
 
 export const DEFAULT_ICON_SIZE = 20;
 
-// layout 
+// node layout 
 export const ONE_LANE_COORDS = [
     [{ x: 0, y: -650 }],
     [{ x: 750, y: 0 }],
