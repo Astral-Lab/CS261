@@ -21,7 +21,7 @@ To get started with the React course locally, follow these steps:
 1. **Clone the repository**:
    
    ```bash
-   git clone https://github.com/Astral-Lab/CS261.get
+   git clone https://github.com/Astral-Lab/CS261.git
 
 2. **Install dependencies**:
    
