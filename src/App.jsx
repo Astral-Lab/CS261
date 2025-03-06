@@ -60,12 +60,6 @@ import {
 } from '@xyflow/react';
 import AnimatedEdge from "./components/AnimatedEdge";
 
-// memoise or put in somewhere else?
-const edgeTypes = {
-  baseEdge: BaseEdge,
-  animatedEdge: AnimatedEdge,
-}
-
 export default function App() {
   const junction = useSelector(selectJunction);
   const simulation = useSelector(selectSimulation);
@@ -90,6 +84,11 @@ export default function App() {
 
   }), []);
 
+  const edgeTypes = useMemo(() => ({
+    animatedEdge: AnimatedEdge,
+    baseEdge: BaseEdge
+  }));
+
   // on junction change repaint node diagram
   useEffect(() => {
     setNodes(generateJunctionNodes(junction.laneCount));
@@ -111,6 +110,7 @@ export default function App() {
 
   // handles execution of the simulation
   useEffect(() => {
+    console.log("FIRING ANIM...");
     const ANIM_OPTIONS = { 
       zoom: 0.5, 
       duration: 2000
@@ -209,11 +209,7 @@ export default function App() {
     if(simulation.runSim) {
       // grab the interval id for cleanup function
       interval = setInterval(handleSimulation, 1000);
-
-    } else {
-      // reset viewport to fit the node diagram
-      reactFlow.fitView();
-    }
+    } 
 
     // sideffect clean up
     return () => {
@@ -231,6 +227,9 @@ export default function App() {
       // reset sim 
       dispatch(resetSimulationSeconds());
       setEdges(generateJunctionEdges(junction.laneCount));
+
+      // reset viewport to fit the node diagram
+      reactFlow.fitView();
     } 
   }
 

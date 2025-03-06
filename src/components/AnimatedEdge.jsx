@@ -12,7 +12,6 @@ export default function AnimatedEdge({
     sourcePosition,
     targetPosition
 }) {
-    // check if queue has at least 1 to animate and if is active otherwise show static???+
     const [edgePath] = getBezierPath({
         sourceX,
         sourceY,
