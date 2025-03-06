@@ -55,8 +55,16 @@ import {
 } from "./stores/junctionSlice";
 import { 
   useReactFlow, 
-  useStoreApi 
+  useStoreApi,
+  BaseEdge
 } from '@xyflow/react';
+import AnimatedEdge from "./components/AnimatedEdge";
+
+// memoise or put in somewhere else?
+const edgeTypes = {
+  baseEdge: BaseEdge,
+  animatedEdge: AnimatedEdge,
+}
 
 export default function App() {
   const junction = useSelector(selectJunction);
@@ -249,6 +257,7 @@ export default function App() {
         onEdgesChange={onEdgesChange}
         style={CANVAS_STYLES}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         nodeOrigin={[0.5, 0.5]}
         fitView
         className="rounded-2xl drop-shadow-sm"
@@ -264,7 +273,7 @@ export default function App() {
             />
             <ToolbarButton
                 icon={simulation.runSim ? 
-                  <FaStop size={DEFAULT_ICON_SIZE}/> : 
+                  <FaStop size={DEFAULT_ICON_SIZE} className="animate-pulse"/> : 
                   <IoMdPlay size={DEFAULT_ICON_SIZE}/>
                 }
                 title={"play"}

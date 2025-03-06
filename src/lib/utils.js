@@ -101,7 +101,8 @@ export function generateJunctionEdges(laneCount) {
               id: `edge-${i + 1}:${j + 1}`,
               source: `node-${i + 1}:${j + 1}`,
               target: "i-1",
-              targetHandle: `handle-${i + 1}:${j + 1}`
+              targetHandle: `handle-${i + 1}:${j + 1}`,
+              type: "animatedEdge"
           });
       }
   }
