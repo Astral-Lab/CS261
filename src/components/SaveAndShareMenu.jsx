@@ -9,6 +9,7 @@ import {
 } from "react-redux";
 import clsx from "clsx";
 import { forwardRef } from "react";
+import { computeJunctionScore } from "@/lib/utils";
 
 export default forwardRef(function SaveAndShareMenu(props, ref) {
     const junction = useSelector(selectJunction);
@@ -19,7 +20,7 @@ export default forwardRef(function SaveAndShareMenu(props, ref) {
         // close the save menu on save
         ref.current.checked = false;
 
-        dispatch(saveJunction(junction));
+        dispatch(saveJunction({ ...junction, score: computeJunctionScore(junction) }));
     }
 
     return (

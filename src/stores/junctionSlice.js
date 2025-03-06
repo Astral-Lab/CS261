@@ -6,7 +6,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createDefaultLanes, generateSimulationLaneQueues } from "@/lib/utils";
 
 const initialState = {
-    junctions: [DEFAULT_JUNCTION],
+    junctions: [],
     current: DEFAULT_JUNCTION,
     simulation: DEFAULT_SIMULATION
 }

@@ -52,7 +52,7 @@ export default function JunctionIntersectionNode(props) {
                 onClick={() => dispatch(changeLightPriority({ light: i, value: (junction.lightPriority[i] - 1) || 5  }))}
             ><MdKeyboardArrowLeft size={"16px"}/></button>
             <div className="w-3/5">
-                <p className="text-xs text-center">{junction.lightPriority[i]}</p>
+                <p className="text-xs text-center">{junction.lightPriority[i] - 1}</p>
                 <p className="text-[10px] text-center">{["north", "east", "south", "west"][i]}</p>
             </div>
             <button
