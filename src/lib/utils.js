@@ -184,7 +184,7 @@ export function copyJunctionURL(junction) {
   const data = btoa(JSON.stringify(junction));
   const url = `${process.env.NODE_ENV === "development" ? 
     "http://localhost:5173" : 
-    "https://cs261-dev.pages.dev"}
+    "https://cs261-prod.pages.dev"}
     /?data=${data}`;
 
   navigator.clipboard.writeText(url);
