@@ -74,7 +74,7 @@ export default function JunctionLaneNode(props) {
                         />
                     </div>
                     <div className="flex flex-col gap-2">
-                        <label className="font-bold">simulation queue <span className="text-[#E0E0E0]">({Math.floor(queueSize)})</span></label>
+                        <label className="font-bold">simulation queue <span className="text-[#E0E0E0]">({(queueSize)})</span></label>
                         <p className="">the number of vehicles in the lane queue</p>
                         <div className="w-full h-2 rounded-full bg-[#E0E0E0] mt-1 overflow-hidden">
                             <div className="h-full bg-blue-400" style={{ width: `${(Math.floor(queueSize)/100) * 100}%` }}></div>

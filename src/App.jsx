@@ -125,8 +125,6 @@ export default function App() {
     const handleSimulation = () => {
       dispatch(incrementSimulationSeconds());
 
-      console.log(simulation.queues)
-
       // active animated edges
       setEdges(generateJunctionEdges(junction.laneCount, simulation.activeSideIndex - 1, simulation.queues));
 
