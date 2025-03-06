@@ -26,6 +26,7 @@ export default function JunctionIntersectionNode(props) {
     const handleLocation = ["Top", "Right", "Bottom", "Left"];
     const renderedHandles = [];
     
+    // creates the handles that the edges attach to
     for(let i = 0; i < 4; i++) {
         for(let j = 0; j < props.data.laneCount; j++) {
             renderedHandles.push(

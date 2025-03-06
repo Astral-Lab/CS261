@@ -11,6 +11,10 @@ const initialState = {
     simulation: DEFAULT_SIMULATION
 }
 
+// handles state updates to the central store
+// each function in the reducer controls the update
+// logic for a specific action triggered by the user
+// allows decoupling of state logic and view logic
 const junctionSlice = createSlice({
     name: "junctions",
     initialState,
@@ -87,6 +91,7 @@ const junctionSlice = createSlice({
     }
 });
 
+// the action creators to be called in dispatch
 export const { 
     saveJunction, 
     deleteJunction, 

@@ -15,7 +15,8 @@ import { ReactFlowProvider } from '@xyflow/react'
 let persistor = persistStore(store);
 
 // disable in prod
-persistStore(store).purge()
+// used to reset persisted state 
+//persistStore(store).purge()
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>

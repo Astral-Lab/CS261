@@ -20,6 +20,7 @@ export default forwardRef(function SaveAndShareMenu(props, ref) {
         // close the save menu on save
         ref.current.checked = false;
 
+        // computing junction score here otherwise the junction saves with a score of '0'
         dispatch(saveJunction({ ...junction, score: computeJunctionScore(junction) }));
     }
 

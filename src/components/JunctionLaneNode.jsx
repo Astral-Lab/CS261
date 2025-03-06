@@ -25,10 +25,10 @@ import clsx from "clsx";
 export default function JunctionLaneNode(props) {
     const lane = useSelector(state => selectLaneById(state, props.data?.label));
     const simulation = useSelector(selectSimulation);
-    const queueSize = useSelector(state => selectSimulationQueueSizeById(state, props.data?.label)); // ISSUE?????
-    const dispatch = useDispatch();
+    const queueSize = useSelector(state => selectSimulationQueueSizeById(state, props.data?.label));
     const isActive = extractPriorityIndexFromLabel(props.data?.label) + 1 === simulation.activeSideIndex;
-
+    const dispatch = useDispatch();
+    
     return (
         <>
             <Handle 
