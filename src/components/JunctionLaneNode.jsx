@@ -29,8 +29,6 @@ export default function JunctionLaneNode(props) {
     const isActive = extractPriorityIndexFromLabel(props.data?.label) + 1 === simulation.activeSideIndex;
     const dispatch = useDispatch();
 
-    console.log("QUEUE: ", queue);
-
     return (
         <>
             <Handle 

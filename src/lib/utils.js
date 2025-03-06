@@ -143,7 +143,7 @@ export function generateJunctionEdges(laneCount, activeSideIndex, queues) {
               target: "i-1",
               targetHandle: `handle-${i + 1}:${j + 1}`,
               // conditionally apply the animated edge type if the side the edge is on is active (green light)
-              ...((activeSideIndex === i && queues[i + j].departed) && { type: "animatedEdge" })
+              ...((activeSideIndex === i && queues[i * laneCount + j].departed) && { type: "animatedEdge" })
           });
       }
   }
@@ -317,28 +317,18 @@ export function computeLanePerformance(lane) {
  */
 export function getSimluationLaneQueues(junction, simulation) {
   const laneQueues = [];
+  const segmentLength = junction.lanes.length / 4;
 
   for(let i = 0; i < 4; i++) {
-    for(let j = 0; j < (junction.lanes.length / 4); j++) {
+    for(let j = 0; j < segmentLength; j++) {
       laneQueues.push(computeSimluationLaneQueue(
-        junction.lanes[i + j], 
+        junction.lanes[i * segmentLength + j], 
         simulation.activeSideIndex - 1 === i, 
-        simulation.queues[i + j]
+        simulation.queues[i * segmentLength + j] 
       ));
     }
   }
 
-  console.log(laneQueues)
-
-  // console.log("NORTHBOUND 1: ", laneQueues[0]);
-  // console.log("EASTBOUND 1: ", laneQueues[1]);
-  // console.log("SOUTHBOUND 1: ", laneQueues[2]);
-  // console.log("WESTBOUND 1: ", laneQueues[3]);
-
-  // return simulation.queues.map((s, i) => ({
-  //   queueSize: laneQueues[i],
-  //   label: s.label
-  // }));
   return laneQueues;
 }
 
