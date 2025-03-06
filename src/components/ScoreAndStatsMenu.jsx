@@ -19,15 +19,21 @@ import { useSelector } from "react-redux";
 
 export default function ScoreAndStatsMenu() {
     const junction = useSelector(selectJunction);
-    const renderedLaneStats = junction.lanes.map(lane => (
-        <TableRow key={lane.label}>
-            <TableCell className="text-xs text-nowrap font-medium">{lane.label}</TableCell>
-            <TableCell className="text-xs text-nowrap">{lane.vph}</TableCell>
-            <TableCell className="text-xs text-nowrap text-center">{computeAverageQueueTime(lane, junction)}s</TableCell>
-            <TableCell className="text-xs text-nowrap text-center">{computeMaxQueueTime(lane, junction)}s</TableCell>
-            <TableCell className="text-xs text-nowrap text-center">{computeMaxQueueLength(lane, junction)}m</TableCell>
-        </TableRow>
-    ));
+    const renderedLaneStats = junction.lanes.map(lane => {
+        let avgWait = computeAverageQueueTime(lane, junction);
+        let maxWait = computeMaxQueueTime(lane, junction);
+        let maxLen = computeMaxQueueLength(lane, junction);
+
+        return (
+            <TableRow key={lane.label}>
+                <TableCell className="text-xs text-nowrap font-medium">{lane.label}</TableCell>
+                <TableCell className="text-xs text-nowrap">{lane.vph}</TableCell>
+                <TableCell className="text-xs text-nowrap text-center">{avgWait !== undefined ? avgWait + "s" : <span className="text-red-400">INVALID</span>}</TableCell>
+                <TableCell className="text-xs text-nowrap text-center">{maxWait !== undefined ? maxWait + "s" : <span className="text-red-400">INVALID</span>}</TableCell>
+                <TableCell className="text-xs text-nowrap text-center">{maxLen !== undefined ? maxLen + "m" : <span className="text-red-400">INVALID</span>}</TableCell>
+            </TableRow>
+        )   
+    });
 
     return (
         <div className="w-full h-full flex flex-col justify-between items-end">
@@ -85,6 +91,7 @@ export default function ScoreAndStatsMenu() {
                 </div>
             </div>
             <p className="text-xs italic border-t-[1px] border-[#73737340] pt-8">Junction metrics generated are based on simulated data. Real-world conditions may vary due to factors such as weather, traffic volume, and driver behavior.</p>
+            <p className="w-full text-xs italic pt-8"><span className="text-red-400">INVALID</span> indicates infinite queue wait and length metrics.</p>
         </div>
     )
 }

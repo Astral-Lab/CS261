@@ -18,6 +18,8 @@ export function cn(...inputs) {
 export function computeAverageQueueTime(lane, junction) {
   if(lane.vph === 0) return 0;
 
+  if(computeLanePerformance(lane) >= 1) return undefined;
+
   const [green, red] = getSideLightDurationTimes(lane, junction);
 
   return ((red + green * computeLanePerformance(lane)) / 2).toFixed(1);
@@ -26,12 +28,16 @@ export function computeAverageQueueTime(lane, junction) {
 export function computeMaxQueueTime(lane, junction) {
   if(lane.vph === 0) return 0;
 
+  if(computeLanePerformance(lane) >= 1) return undefined;
+
   const [_, red] = getSideLightDurationTimes(lane, junction);
 
   return (red + ((convertVphToVps(lane.vph) * red) / (VEHICLE_DEPATURE_RATE - convertVphToVps(lane.vph)))).toFixed(1);
 }
 
 export function computeMaxQueueLength(lane, junction) {
+  if(computeLanePerformance(lane) >= 1) return undefined;
+
   const [green, red] = getSideLightDurationTimes(lane, junction);
 
   return Math.ceil((convertVphToVps(lane.vph) * red * (VEHICLE_DEPATURE_RATE * green + convertVphToVps(lane.vph) * red)) / 
