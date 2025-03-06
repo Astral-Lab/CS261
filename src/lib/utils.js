@@ -80,7 +80,7 @@ export function computeJunctionScore(junction) {
 
   for(const lane of junction.lanes) {
     let [green, red] = getSideLightDurationTimes(lane, junction);
-    score += lane.vph ? Math.round((green * VEHICLE_DEPATURE_RATE) / (convertVphToVps(lane.vph) * (green + red) * 10)) : 0;
+    score += lane.vph ? Math.round((green * VEHICLE_DEPATURE_RATE) / (convertVphToVps(lane.vph) * (green + red) * 10)) : 0; // lanes with 0 vph score 0
   }
 
   return score * 10;
@@ -143,7 +143,7 @@ export function generateJunctionEdges(laneCount, activeSideIndex, queues) {
               target: "i-1",
               targetHandle: `handle-${i + 1}:${j + 1}`,
               // conditionally apply the animated edge type if the side the edge is on is active (green light)
-              ...((activeSideIndex === i && queues[i + j].queueSize >= 1) && { type: "animatedEdge" })
+              ...((activeSideIndex === i && queues[i + j].departed) && { type: "animatedEdge" })
           });
       }
   }
@@ -323,20 +323,23 @@ export function getSimluationLaneQueues(junction, simulation) {
       laneQueues.push(computeSimluationLaneQueue(
         junction.lanes[i + j], 
         simulation.activeSideIndex - 1 === i, 
-        simulation.queues[i + j].queueSize
+        simulation.queues[i + j]
       ));
     }
   }
 
-  console.log("NORTHBOUND 1: ", laneQueues[0]);
-  console.log("EASTBOUND 1: ", laneQueues[1]);
-  console.log("SOUTHBOUND 1: ", laneQueues[2]);
-  console.log("WESTBOUND 1: ", laneQueues[3]);
+  console.log(laneQueues)
 
-  return simulation.queues.map((s, i) => ({
-    queueSize: laneQueues[i],
-    label: s.label
-  }));
+  // console.log("NORTHBOUND 1: ", laneQueues[0]);
+  // console.log("EASTBOUND 1: ", laneQueues[1]);
+  // console.log("SOUTHBOUND 1: ", laneQueues[2]);
+  // console.log("WESTBOUND 1: ", laneQueues[3]);
+
+  // return simulation.queues.map((s, i) => ({
+  //   queueSize: laneQueues[i],
+  //   label: s.label
+  // }));
+  return laneQueues;
 }
 
 /**
@@ -348,30 +351,26 @@ export function getSimluationLaneQueues(junction, simulation) {
  * @param {*} oldQueueSize the previous queue size of a lane
  * @returns the updated queue size
  */
-export function computeSimluationLaneQueue(lane, active, oldQueueSize) {
-  let newQueueSize;
+export function computeSimluationLaneQueue(lane, active, queue) {
+  // make copy of object as don't want to modify state directly,
+  // otherwise changes won't be applied when reducer runs
+  let newQueue = { ...queue }
   let vps = convertVphToVps(lane.vph);
 
-  newQueueSize = oldQueueSize + vps;
+  newQueue.size += vps;
 
-  // only subtract if queue size is a non-fractional value
-  // as cannot depart a fraction of a car
-  if(active && (newQueueSize - VEHICLE_DEPATURE_RATE >= 0)) {
-    newQueueSize = newQueueSize - VEHICLE_DEPATURE_RATE;
+  // only depart if lane is green and has a vehicle to depart
+  if(active && (newQueue.size - VEHICLE_DEPATURE_RATE >= 0)) {
+    newQueue.size -= VEHICLE_DEPATURE_RATE;
+    // workaround to UI bug where edges don't animate when
+    // queue empties instantly, so edges never animate on green period
+    newQueue.departed = true;
+
+  } else {
+    newQueue.departed = false;
   }
 
-  // green light and enough vehicles in queue to depart
-  // if(active && (newQueueSize - VEHICLE_DEPATURE_RATE > 0)) {
-  //   //newQueueSize = Math.max(0, (oldQueueSize - VEHICLE_DEPATURE_RATE + vps));
-  //   //newQueueSize = Math.max(0, oldQueueSize - VEHICLE_DEPATURE_RATE);
-  //   newQueueSize -= VEHICLE_DEPATURE_RATE;
-
-  // // red light
-  // } else {
-  //   //newQueueSize = oldQueueSize + vps;
-  // }
-
-  return  newQueueSize;
+  return newQueue;
 }
 
 /**
@@ -386,7 +385,8 @@ export function generateSimulationLaneQueues(laneCount) {
   for(let i = 0; i < 4; i++) {
     for(let j = 0; j < laneCount; j++) {
       laneQueues.push({
-        queueSize: 0,
+        size: 0,
+        departed: false,
         label: `${["Northbound", "Eastbound", "Southbound", "Westbound"][i]} ${j + 1}`
       });
     }

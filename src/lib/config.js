@@ -111,35 +111,43 @@ export const DEFAULT_SIMULATION = {
     runSim: false,
     queues: [
         {
-            queueSize: 0,
+            size: 0,
+            departed: false,
             label: "Northbound 1"
         },
         {
-            queueSize: 0,
+            size: 0,
+            departed: false,
             label: "Northbound 2"
         },
         {
-            queueSize: 0,
+            size: 0,
+            departed: false,
             label: "Eastbound 1"
         },
         {
-            queueSize: 0,
+            size: 0,
+            departed: false,
             label: "Eastbound 2"
         },
         {
-            queueSize: 0,
+            size: 0,
+            departed: false,
             label: "Southbound 1"
         },
         {
-            queueSize: 0,
+            size: 0,
+            departed: false,
             label: "Southbound 2"
         },
         {
-            queueSize: 0,
+            size: 0,
+            departed: false,
             label: "Westbound 1"
         },
         {
-            queueSize: 0,
+            size: 0,
+            departed: false,
             label: "Westbound 2"
         }
     ]

@@ -25,10 +25,12 @@ import clsx from "clsx";
 export default function JunctionLaneNode(props) {
     const lane = useSelector(state => selectLaneById(state, props.data?.label));
     const simulation = useSelector(selectSimulation);
-    const queueSize = useSelector(state => selectSimulationQueueSizeById(state, props.data?.label));
+    const queue = useSelector(state => selectSimulationQueueSizeById(state, props.data?.label));
     const isActive = extractPriorityIndexFromLabel(props.data?.label) + 1 === simulation.activeSideIndex;
     const dispatch = useDispatch();
-    
+
+    console.log("QUEUE: ", queue);
+
     return (
         <>
             <Handle 
@@ -74,10 +76,10 @@ export default function JunctionLaneNode(props) {
                         />
                     </div>
                     <div className="flex flex-col gap-2">
-                        <label className="font-bold">simulation queue <span className="text-[#E0E0E0]">({(queueSize)})</span></label>
+                        <label className="font-bold">simulation queue <span className="text-[#E0E0E0]">({Math.floor(queue?.size)})</span></label>
                         <p className="">the number of vehicles in the lane queue</p>
                         <div className="w-full h-2 rounded-full bg-[#E0E0E0] mt-1 overflow-hidden">
-                            <div className="h-full bg-blue-400" style={{ width: `${(Math.floor(queueSize)/100) * 100}%` }}></div>
+                            <div className="h-full bg-blue-400" style={{ width: `${(Math.floor(queue?.size)/100) * 100}%` }}></div>
                         </div>
                     </div>
                 </div>
