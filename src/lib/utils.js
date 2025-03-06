@@ -11,6 +11,7 @@ import {
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+// addded automatically by the shadcn/ui library
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
@@ -75,28 +76,14 @@ export function computeMaxQueueLength(lane, junction) {
  * @returns the score of the junction
  */
 export function computeJunctionScore(junction) {
-  // let totalFlow = junction.lanes.reduce((accumulator, currentValue) => accumulator + convertVphToVps(currentValue.vph), 0);
-  // let normalisedLaneCount = junction.laneCount / 5;
-  // let totalLanePerformance = 0;
-
-  // for(let i = 0; i < junction.lanes.length; i++) {
-  //   let [green, red] = getSideLightDurationTimes(junction.lanes[i], junction);
-  //   totalLanePerformance += computeLanePerformance(junction.lanes[i]) / (green / (green + red));
-  // }
-
-  //if(totalFlow === 0) return 0;
-  
-  // multiplying by 100 to provide "score inflation" for more of an impact
-  //return Math.round((totalFlow) / ((totalLanePerformance / junction.lanes.length) * normalisedLaneCount)) * 100;
-
   let score = 0;
 
   for(const lane of junction.lanes) {
     let [green, red] = getSideLightDurationTimes(lane, junction);
-    score += lane.vph ? Math.round((green * VEHICLE_DEPATURE_RATE) / (convertVphToVps(lane.vph) * (green + red)) * 10) : 0;
+    score += lane.vph ? Math.round((green * VEHICLE_DEPATURE_RATE) / (convertVphToVps(lane.vph) * (green + red) * 10)) : 0;
   }
 
-  return score * 100;
+  return score * 10;
 }
 
 /**

@@ -16,7 +16,7 @@ let persistor = persistStore(store);
 
 // disable in prod
 // used to reset persisted state 
-//persistStore(store).purge()
+persistStore(store).purge()
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
