@@ -91,7 +91,7 @@ export function generateJunctionNodes(laneCount) {
   return nodes;
 }
 
-export function generateJunctionEdges(laneCount, activeSideIndex) {
+export function generateJunctionEdges(laneCount, activeSideIndex, queues) {
   const edges = [];
 
   // each side of the junction
@@ -102,7 +102,7 @@ export function generateJunctionEdges(laneCount, activeSideIndex) {
               source: `node-${i + 1}:${j + 1}`,
               target: "i-1",
               targetHandle: `handle-${i + 1}:${j + 1}`,
-              ...(activeSideIndex === i && { type: "animatedEdge" })
+              ...((activeSideIndex === i && queues[i + j].queueSize >= 1) && { type: "animatedEdge" })
           });
       }
   }
@@ -206,9 +206,14 @@ export function getSimluationLaneQueues(junction, simulation) {
 
   for(let i = 0; i < 4; i++) {
     for(let j = 0; j < (junction.lanes.length / 4); j++) {
-      laneQueues.push(computeSimluationLaneQueue(junction.lanes[i + j], simulation.activeSideIndex === i, simulation.queues[i + j].queueSize));
+      laneQueues.push(computeSimluationLaneQueue(junction.lanes[i + j], simulation.activeSideIndex - 1 === i, simulation.queues[i + j].queueSize));
     }
   }
+
+  console.log("NORTHBOUND 1: ", laneQueues[0]);
+  console.log("EASTBOUND 1: ", laneQueues[1]);
+  console.log("SOUTHBOUND 1: ", laneQueues[2]);
+  console.log("WESTBOUND 1: ", laneQueues[3]);
 
   return simulation.queues.map((s, i) => ({
     queueSize: laneQueues[i],

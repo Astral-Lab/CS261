@@ -110,7 +110,6 @@ export default function App() {
 
   // handles execution of the simulation
   useEffect(() => {
-    console.log("FIRING ANIM...");
     const ANIM_OPTIONS = { 
       zoom: 0.5, 
       duration: 2000
@@ -126,14 +125,16 @@ export default function App() {
     const handleSimulation = () => {
       dispatch(incrementSimulationSeconds());
 
+      console.log(simulation.queues)
+
+      // active animated edges
+      setEdges(generateJunctionEdges(junction.laneCount, simulation.activeSideIndex - 1, simulation.queues));
+
       if(simulation.seconds === 1) {
         // initially animate to north
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(0, segmentSize), "x");
           setCenter(x, y, ANIM_OPTIONS);
-
-          // active animated edges
-          setEdges(generateJunctionEdges(junction.laneCount, 0));
         }
       }
 
@@ -148,9 +149,6 @@ export default function App() {
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(segmentSize, segmentSize * 2), "y");
           setCenter(x, y, ANIM_OPTIONS);
-
-          // active animated edges
-          setEdges(generateJunctionEdges(junction.laneCount, 1));
         }
 
         // activate east side
@@ -162,9 +160,6 @@ export default function App() {
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(segmentSize * 2, segmentSize * 3), "x");
           setCenter(x, y, ANIM_OPTIONS);
-
-          // active animated edges
-          setEdges(generateJunctionEdges(junction.laneCount, 2));
         }
 
         // activate south side
@@ -176,9 +171,6 @@ export default function App() {
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(segmentSize * 3, segmentSize * 4), "y");
           setCenter(x, y, ANIM_OPTIONS);
-
-          // active animated edges
-          setEdges(generateJunctionEdges(junction.laneCount, 3));
         }
 
         // activate west side
@@ -190,9 +182,6 @@ export default function App() {
         if(laneNodes.length > 0) {
           let [x, y] = computeNodeSideMidpoint(laneNodes.slice(0, segmentSize), "x");
           setCenter(x, y, ANIM_OPTIONS);
-
-          // active animated edges
-          setEdges(generateJunctionEdges(junction.laneCount, 0));
         }
 
         // activate north side
