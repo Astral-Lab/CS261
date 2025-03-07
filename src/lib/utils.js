@@ -409,6 +409,7 @@ export function computeNodeSideMidpoint(nodes, alignAxis) {
 
   }
 
+  console.log([x, y])
   return [x, y];
 }
 
