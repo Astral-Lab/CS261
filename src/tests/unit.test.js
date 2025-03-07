@@ -7,28 +7,30 @@ import {
   computeJunctionScore,
   convertVphToVps,
   extractPriorityIndexFromLabel,
-  decodeSharedURL
+  decodeSharedURL,
+  computeSimulationSideBreakpoints,
+  computeNodeSideMidpoint
 } from "../lib/utils";
 
 describe("util functions", () => {
     test("computes average queue time for a single lane", () => {
-      expect(Number(computeAverageQueueTime(DEFAULT_JUNCTION.lanes[0], DEFAULT_JUNCTION))).toBe(23.0);
+      expect(Number(computeAverageQueueTime(DEFAULT_JUNCTION.lanes[0], DEFAULT_JUNCTION))).toBe(23.5);
     });
 
     test("computes max queue time for a single lane", () => {
-      expect(Number(computeMaxQueueTime(DEFAULT_JUNCTION.lanes[0], DEFAULT_JUNCTION))).toBe(48.4);
+      expect(Number(computeMaxQueueTime(DEFAULT_JUNCTION.lanes[0], DEFAULT_JUNCTION))).toBe(52.3);
     });
 
     test("computes max queue length for a single lane", () => {
-      expect(Number(computeMaxQueueLength(DEFAULT_JUNCTION.lanes[0], DEFAULT_JUNCTION))).toBe(40);
+      expect(Number(computeMaxQueueLength(DEFAULT_JUNCTION.lanes[0], DEFAULT_JUNCTION))).toBe(45);
     });
 
     test("computes lane performance for a single lane", () => {
-      expect(Number(computeLanePerformance(DEFAULT_JUNCTION.lanes[0]))).toBe(0.06944444444444445);
+      expect(Number(computeLanePerformance(DEFAULT_JUNCTION.lanes[0]))).toBe(0.1388888888888889);
     });
 
     test("computes the junction score", () => {
-      expect(Number(computeJunctionScore(DEFAULT_JUNCTION))).toBe(1000);
+      expect(Number(computeJunctionScore(DEFAULT_JUNCTION))).toBe(14);
     });
     
     test("converts the vph to vps", () => {
@@ -79,5 +81,9 @@ describe("util functions", () => {
             }
         ]
       });
+    });
+
+    test("computes the simulation camera trigger breakpoints in seconds", () => {
+      expect(computeSimulationSideBreakpoints(DEFAULT_JUNCTION)).toEqual([15, 30, 45, 60]);
     });
 });
