@@ -66,7 +66,7 @@ export default function ScoreAndStatsMenu() {
                                 <TableHead className="text-xs w-[70px]">vph</TableHead>
                                 <TableHead className="text-xs text-right text-nowrap">avg wait</TableHead>
                                 <TableHead className="text-xs text-right text-nowrap">max wait</TableHead>
-                                <TableHead className="text-xs text-right text-nowrap">avg queue</TableHead>
+                                <TableHead className="text-xs text-right text-nowrap">max queue</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>{renderedLaneStats}</TableBody>
